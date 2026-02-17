@@ -235,7 +235,7 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
 
             {showComments && (
                 <div className="absolute inset-x-0 bottom-0 h-[70vh] bg-white dark:bg-[#0f0f0f] rounded-t-2xl z-40 flex flex-col animate-in slide-in-from-bottom duration-300">
-                    <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+                    <div className="flex items-center justify-between p-4 border-b border-foreground/10">
                         <h3 className="font-bold text-black dark:text-white">Comments ({short.comments})</h3>
                         <button onClick={() => setShowComments(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full">
                             <X className="w-5 h-5 text-black dark:text-white" />
@@ -262,7 +262,7 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
                         ))}
                     </div>
 
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-800 flex gap-3 items-center">
+                    <div className="p-4 border-t border-foreground/10 flex gap-3 items-center">
                         <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs font-bold">U</div>
                         <input type="text" placeholder="Add a comment..." className="flex-1 bg-gray-100 dark:bg-[#272727] rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 text-black dark:text-white" />
                     </div>

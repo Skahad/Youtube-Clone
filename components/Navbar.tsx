@@ -42,13 +42,13 @@ export default function Navbar() {
     if (!isClient) return null;
 
     return (
-        <nav className="fixed top-0 left-0 right-0 h-14 bg-white dark:bg-[#0f0f0f] flex items-center justify-between px-2 sm:px-4 z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <nav className="fixed top-0 left-0 right-0 h-14 bg-background flex items-center justify-between px-2 sm:px-4 z-50 border-b border-foreground/10 transition-colors duration-300">
             {/* Mobile Search Overlay */}
             {showMobileSearch ? (
-                <div className="flex items-center w-full gap-1 animate-in slide-in-from-top duration-200 bg-white dark:bg-[#0f0f0f] h-full absolute inset-0 z-[60] px-2">
+                <div className="flex items-center w-full gap-1 animate-in slide-in-from-top duration-200 bg-background h-full absolute inset-0 z-[60] px-2">
                     <button
                         onClick={() => setShowMobileSearch(false)}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors flex-shrink-0"
+                        className="p-2 hover:bg-surface-hover rounded-full transition-colors flex-shrink-0"
                     >
                         <ArrowLeft className="w-6 h-6 text-gray-800 dark:text-white" />
                     </button>
@@ -60,11 +60,11 @@ export default function Navbar() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             onFocus={() => setShowSuggestions(true)}
-                            className="w-full bg-gray-100 dark:bg-[#121212] px-4 py-2 rounded-full border border-transparent focus:border-accent focus:outline-none dark:text-white text-sm sm:text-base"
+                            className="w-full bg-surface px-4 py-2 rounded-full border border-transparent focus:border-accent focus:outline-none text-foreground text-sm sm:text-base"
                         />
                         {/* Mobile Suggestions */}
                         {showSuggestions && searchQuery.trim() && (
-                            <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl py-2 z-50 overflow-hidden">
+                            <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 overflow-hidden">
                                 {filteredSuggestions.map((video) => (
                                     <button
                                         key={video.id}
@@ -74,16 +74,16 @@ export default function Navbar() {
                                             setShowMobileSearch(false);
                                             setShowSuggestions(false);
                                         }}
-                                        className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-left transition-colors"
+                                        className="flex items-center gap-3 w-full px-4 py-2 hover:bg-surface-hover text-left transition-colors"
                                     >
                                         <Search className="w-4 h-4 text-gray-400" />
-                                        <span className="text-sm dark:text-white truncate">{video.title}</span>
+                                        <span className="text-sm text-foreground truncate">{video.title}</span>
                                     </button>
                                 ))}
                             </div>
                         )}
                     </form>
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors flex-shrink-0">
+                    <button className="p-2 hover:bg-surface-hover rounded-full transition-colors flex-shrink-0">
                         <Mic className="w-5 h-5 dark:text-white" />
                     </button>
                 </div>
@@ -93,7 +93,7 @@ export default function Navbar() {
                     <div className="flex items-center gap-2 sm:gap-4">
                         <button
                             onClick={toggleSidebar}
-                            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full transition-colors hidden md:block"
+                            className="p-2 hover:bg-surface-hover rounded-full transition-colors hidden md:block"
                         >
                             <Menu className="w-6 h-6 text-gray-800 dark:text-white" />
                         </button>
@@ -114,30 +114,30 @@ export default function Navbar() {
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onFocus={() => setShowSuggestions(true)}
-                                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-l-full focus:border-accent focus:outline-none dark:bg-[#121212] dark:text-white shadow-inner"
+                                    className="w-full px-4 py-2 border border-foreground/10 rounded-l-full focus:border-accent focus:outline-none bg-surface text-foreground shadow-inner"
                                 />
-                                <button type="submit" className="px-6 bg-gray-100 dark:bg-[#222] border border-l-0 border-gray-300 dark:border-gray-700 rounded-r-full hover:bg-gray-200 dark:hover:bg-[#333] transition-colors flex items-center justify-center">
+                                <button type="submit" className="px-6 bg-surface border border-l-0 border-foreground/10 rounded-r-full hover:bg-surface-hover transition-colors flex items-center justify-center">
                                     <Search className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                                 </button>
                             </div>
 
                             {showSuggestions && searchQuery.trim() && (
-                                <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl py-2 z-50">
+                                <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50">
                                     {filteredSuggestions.map((video) => (
                                         <Link
                                             key={video.id}
                                             href={`/search?q=${encodeURIComponent(video.title)}`}
                                             onClick={() => setShowSuggestions(false)}
-                                            className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] transition-colors"
+                                            className="flex items-center gap-3 px-4 py-2 hover:bg-surface-hover transition-colors"
                                         >
                                             <Search className="w-4 h-4 text-gray-400" />
-                                            <span className="text-sm dark:text-white truncate">{video.title}</span>
+                                            <span className="text-sm text-foreground truncate">{video.title}</span>
                                         </Link>
                                     ))}
                                 </div>
                             )}
                         </form>
-                        <button className="ml-4 p-2 bg-gray-100 dark:bg-[#1f1f1f] rounded-full hover:bg-gray-200 dark:hover:bg-[#333] transition-colors flex-shrink-0 text-black dark:text-white">
+                        <button className="ml-4 p-2 bg-surface rounded-full hover:bg-surface-hover transition-colors flex-shrink-0 text-foreground">
                             <Mic className="w-5 h-5" />
                         </button>
                     </div>
@@ -146,16 +146,27 @@ export default function Navbar() {
                     <div className="flex items-center gap-1 sm:gap-2">
                         <button
                             onClick={() => setShowMobileSearch(true)}
-                            className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors md:hidden"
+                            className="p-2 hover:bg-surface-hover rounded-full transition-colors md:hidden"
                         >
                             <Search className="w-6 h-6 text-gray-800 dark:text-white" />
                         </button>
-                        <button className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors md:hidden">
+                        <button className="p-2 hover:bg-surface-hover rounded-full transition-colors md:hidden">
                             <Mic className="w-6 h-6 text-gray-800 dark:text-white" />
                         </button>
-                        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors relative hidden sm:block">
-                            <Bell className="w-6 h-6 text-gray-800" />
-                            <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] w-5 h-4 flex items-center justify-center rounded-full border-2 border-white">
+                        <button
+                            onClick={toggleTheme}
+                            className="p-2 hover:bg-surface-hover rounded-full transition-colors flex items-center justify-center"
+                            aria-label="Toggle theme"
+                        >
+                            {theme === "light" ? (
+                                <Moon className="w-6 h-6 text-gray-800" />
+                            ) : (
+                                <Sun className="w-6 h-6 text-white" />
+                            )}
+                        </button>
+                        <button className="p-2 hover:bg-surface-hover rounded-full transition-colors relative hidden sm:block">
+                            <Bell className="w-6 h-6 text-foreground dark:text-white" />
+                            <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] w-5 h-4 flex items-center justify-center rounded-full border-1 border-white dark:border-[#0f0f0f]">
                                 9+
                             </span>
                         </button>

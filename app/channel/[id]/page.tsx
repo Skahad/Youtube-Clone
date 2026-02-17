@@ -56,11 +56,11 @@ export default function ChannelPage() {
                     </div>
 
                     <div className="flex flex-col gap-2 flex-1">
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center justify-center md:justify-start gap-2">
+                        <h1 className="text-3xl font-bold text-foreground dark:text-white flex items-center justify-center md:justify-start gap-2">
                             {channel.name}
-                            <CheckCircle2 className="w-5 h-5 fill-gray-500 text-white" />
+                            <CheckCircle2 className="w-5 h-5 fill-gray-500 text-foreground" />
                         </h1>
-                        <div className="text-gray-600 dark:text-gray-400 text-sm flex flex-col md:flex-row gap-1 md:gap-2">
+                        <div className="text-foreground/70 dark:text-gray-400 text-sm flex flex-col md:flex-row gap-1 md:gap-2">
                             <span className="font-semibold">@{channel.name.replace(/\s+/g, '').toLowerCase()}</span>
                             <span className="hidden md:inline">•</span>
                             <span>{channel.subscribers} subscribers</span>
@@ -68,28 +68,28 @@ export default function ChannelPage() {
                             <span>{channelVideos.length} videos</span>
                         </div>
 
-                        <p className="text-gray-600 dark:text-gray-400 text-sm max-w-2xl line-clamp-2 cursor-pointer mt-1">
+                        <p className="text-foreground/70 dark:text-gray-400 text-sm max-w-2xl line-clamp-2 cursor-pointer mt-1">
                             {channel.description}
                         </p>
 
                         <div className="flex justify-center md:justify-start mt-2">
                             <button
-                            onClick={() => setIsSubscribed(!isSubscribed)}
-                            className={clsx(
-                                "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
-                                isSubscribed
-                                    ? "bg-gray-100 dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-[#3f3f3f]"
-                                    : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
-                            )}
-                        >
-                            {isSubscribed ? "Subscribed" : "Subscribe"}
-                        </button>
+                                onClick={() => setIsSubscribed(!isSubscribed)}
+                                className={clsx(
+                                    "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
+                                    isSubscribed
+                                        ? "bg-accent dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-accent-hover dark:hover:bg-[#3f3f3f]"
+                                        : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
+                                )}
+                            >
+                                {isSubscribed ? "Subscribed" : "Subscribe"}
+                            </button>
                         </div>
                     </div>
                 </div>
 
                 {/* Tabs */}
-                <div className="mt-8 border-b border-gray-200 dark:border-gray-700 flex items-center gap-6 overflow-x-auto no-scrollbar">
+                <div className="mt-8 border-b border-foreground/10 flex items-center gap-6 overflow-x-auto no-scrollbar">
                     {["Home", "Videos", "Shorts", "Live", "Playlists", "Community", "Channels", "About"].map((tab) => (
                         <button
                             key={tab}
@@ -97,7 +97,7 @@ export default function ChannelPage() {
                             className={clsx(
                                 "px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                                 activeTab === tab
-                                    ? "border-black dark:border-white text-black dark:text-white"
+                                    ? "border-black dark:border-white text-black dark:text-foreground"
                                     : "border-transparent text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
                             )}
                         >
@@ -117,7 +117,7 @@ export default function ChannelPage() {
                             {/* Latest Videos Section */}
                             {channelVideos.length > 0 && (
                                 <div>
-                                    <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Latest Videos</h2>
+                                    <h2 className="text-lg font-bold mb-4 text-foreground dark:text-white">Latest Videos</h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-8 gap-x-4">
                                         {channelVideos.slice(0, 4).map((video) => (
                                             <VideoCard key={video.id} video={video} />
@@ -153,7 +153,7 @@ export default function ChannelPage() {
                                     <VideoCard key={video.id} video={video} />
                                 ))
                             ) : (
-                                <div className="col-span-full text-center py-20 text-gray-500">
+                                <div className="col-span-full text-center py-20 text-gray-500 dark:text-gray-400">
                                     No videos available.
                                 </div>
                             )}
@@ -161,7 +161,7 @@ export default function ChannelPage() {
                     )}
 
                     {activeTab === "Live" && (
-                        <div className="flex items-center justify-center h-64 text-gray-500">
+                        <div className="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">No live streams</h3>
                                 <p className="text-sm">This channel hasn't gone live yet.</p>
@@ -170,7 +170,7 @@ export default function ChannelPage() {
                     )}
 
                     {activeTab === "Playlists" && (
-                        <div className="flex items-center justify-center h-64 text-gray-500">
+                        <div className="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">No playlists</h3>
                                 <p className="text-sm">This channel hasn't created any playlists yet.</p>
@@ -179,7 +179,7 @@ export default function ChannelPage() {
                     )}
 
                     {activeTab === "Community" && (
-                        <div className="flex items-center justify-center h-64 text-gray-500">
+                        <div className="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">Community posts</h3>
                                 <p className="text-sm">This channel hasn't posted anything yet.</p>
@@ -188,7 +188,7 @@ export default function ChannelPage() {
                     )}
 
                     {activeTab === "Channels" && (
-                        <div className="flex items-center justify-center h-64 text-gray-500">
+                        <div className="flex items-center justify-center h-64 text-gray-500 dark:text-gray-400">
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold mb-2">Featured channels</h3>
                                 <p className="text-sm">This channel hasn't featured any other channels.</p>
@@ -203,7 +203,7 @@ export default function ChannelPage() {
                                     <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h3>
                                     <p className="text-gray-600 dark:text-gray-400 text-sm">{channel.description}</p>
                                 </div>
-                                <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                                <div className="border-t border-foreground/10 pt-4">
                                     <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Stats</h3>
                                     <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
                                         <p>{channel.subscribers} subscribers</p>

@@ -106,11 +106,11 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
         <div className="flex items-center gap-2 w-full relative">
             {/* Scrollable Content */}
             <div className="flex flex-nowrap items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 flex-1">
-                <div className="flex items-center bg-gray-100 dark:bg-[#272727] rounded-full overflow-hidden flex-shrink-0">
+                <div className="flex items-center bg-surface rounded-full overflow-hidden flex-shrink-0">
                     <button
                         onClick={handleLike}
                         className={clsx(
-                            "flex items-center gap-2 px-3 sm:px-4 py-2 hover:bg-gray-200 dark:hover:bg-[#3f3f3f] transition-colors border-r border-gray-200 dark:border-gray-700",
+                            "flex items-center gap-2 px-3 sm:px-4 py-2 hover:bg-foreground/10 rounded-full transition-colors border-foreground/10",
                             isLiked && "text-accent"
                         )}
                         aria-label="Like video"
@@ -122,7 +122,7 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
                     <button
                         onClick={handleDislike}
                         className={clsx(
-                            "px-3 sm:px-4 py-2 hover:bg-gray-200 dark:hover:bg-[#3f3f3f] transition-colors relative",
+                            "px-3 sm:px-4 py-2 hover:bg-foreground/10 rounded-full transition-colors relative",
                             isDisliked && "text-accent"
                         )}
                         aria-label="Dislike video"
@@ -134,17 +134,17 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
 
                 <button
                     onClick={handleShare}
-                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gray-100 dark:bg-[#272727] hover:bg-gray-200 dark:hover:bg-[#3f3f3f] rounded-full transition-colors relative flex-shrink-0"
+                    className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-surface hover:bg-foreground/10 rounded-full transition-colors relative flex-shrink-0"
                     aria-label="Share"
                 >
-                    <Share2 className="w-5 h-5 text-gray-900 dark:text-white" />
-                    <span className="text-sm font-medium text-gray-900 dark:text-white hidden sm:inline">Share</span>
+                    <Share2 className="w-5 h-5 text-foreground" />
+                    <span className="text-sm font-medium text-foreground hidden sm:inline">Share</span>
                 </button>
 
                 <button
                     onClick={handleDownload}
                     disabled={isDownloading || downloaded}
-                    className="md:flex items-center gap-2 px-2 sm:px-4 py-2 bg-gray-100 dark:bg-[#272727] hover:bg-gray-200 dark:hover:bg-[#3f3f3f] rounded-full transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex-shrink-0"
+                    className="md:flex items-center gap-2 px-2 sm:px-4 py-2 bg-surface hover:bg-foreground/10 rounded-full transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex-shrink-0"
                     aria-label="Download"
                 >
                     {isDownloading ? (
@@ -152,9 +152,9 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
                     ) : downloaded ? (
                         <Check className="w-5 h-5 text-green-500" />
                     ) : (
-                        <Download className="w-5 h-5 text-gray-900 dark:text-white" />
+                        <Download className="w-5 h-5 text-foreground" />
                     )}
-                    <span className="text-sm font-medium text-gray-900 dark:text-white hidden lg:inline">
+                    <span className="text-sm font-medium text-foreground hidden lg:inline">
                         {isDownloading ? "Downloading..." : downloaded ? "Downloaded" : "Download"}
                     </span>
                     {/* <span className="text-sm font-medium text-gray-900 dark:text-white lg:hidden rounded-full">
@@ -170,7 +170,7 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
                         e.stopPropagation();
                         setShowMoreMenu(!showMoreMenu);
                     }}
-                    className="flex items-center justify-center p-2 bg-gray-100 dark:bg-[#272727] hover:bg-gray-200 dark:hover:bg-[#3f3f3f] rounded-full transition-colors text-black dark:text-white"
+                    className="flex items-center justify-center p-2 bg-surface hover:bg-foreground/10 rounded-full transition-colors text-foreground"
                     aria-label="More actions"
                     aria-expanded={showMoreMenu}
                 >
@@ -178,29 +178,29 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
                 </button>
 
                 {showMoreMenu && (
-                    <div className="absolute bottom-full right-0 mb-2 w-56 bg-white dark:bg-[#272727] rounded-xl shadow-xl py-2 z-50 border border-gray-200 dark:border-gray-800 animate-in fade-in zoom-in-95 origin-bottom-right">
+                    <div className="absolute bottom-full right-0 mb-2 w-56 bg-background rounded-xl shadow-xl py-2 z-50 border border-foreground/10 animate-in fade-in zoom-in-95 origin-bottom-right">
                         <button
                             onClick={handleWatchLater}
                             className={clsx(
-                                "flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-left",
+                                "flex items-center gap-3 w-full px-4 py-2 hover:bg-foreground/10 text-left",
                                 inWatchLater && "bg-accent/10"
                             )}
                         >
-                            <Clock className={clsx("w-5 h-5", inWatchLater ? "text-accent" : "text-gray-900 dark:text-white")} />
+                            <Clock className={clsx("w-5 h-5", inWatchLater ? "text-accent" : "text-foreground")} />
                             <div className="flex flex-col">
-                                <span className={clsx("text-sm", inWatchLater ? "text-accent font-medium" : "text-gray-900 dark:text-white")}>
+                                <span className={clsx("text-sm", inWatchLater ? "text-accent font-medium" : "text-foreground")}>
                                     {inWatchLater ? "Remove from Watch later" : "Save to Watch later"}
                                 </span>
                             </div>
                         </button>
-                        <div className="border-t border-gray-200 dark:border-gray-700 my-2" />
-                        <button className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-left group">
-                            <Scissors className="w-5 h-5 text-gray-900 dark:text-white group-hover:text-accent transition-colors" />
-                            <span className="text-sm text-gray-900 dark:text-white group-hover:text-accent transition-colors">Clip</span>
+                        <div className="border-t border-foreground/10 my-2" />
+                        <button className="flex items-center gap-3 w-full px-4 py-2 hover:bg-foreground/10 text-left group">
+                            <Scissors className="w-5 h-5 text-foreground group-hover:text-accent transition-colors" />
+                            <span className="text-sm text-foreground group-hover:text-accent transition-colors">Clip</span>
                         </button>
-                        <button className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-left group">
-                            <Flag className="w-5 h-5 text-gray-900 dark:text-white group-hover:text-accent transition-colors" />
-                            <span className="text-sm text-gray-900 dark:text-white group-hover:text-accent transition-colors">Report</span>
+                        <button className="flex items-center gap-3 w-full px-4 py-2 hover:bg-foreground/10 text-left group">
+                            <Flag className="w-5 h-5 text-foreground group-hover:text-accent transition-colors" />
+                            <span className="text-sm text-foreground group-hover:text-accent transition-colors">Report</span>
                         </button>
                     </div>
                 )}

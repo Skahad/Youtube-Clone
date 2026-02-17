@@ -37,8 +37,8 @@ export default function UploadPage() {
 
     return (
         <div className="flex flex-col items-center justify-center w-full min-h-[calc(100vh-6rem)] p-4">
-            <div className="w-full max-w-4xl bg-white dark:bg-[#1a1a1a] rounded-xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-800">
-                <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="w-full max-w-4xl bg-white dark:bg-[#1a1a1a] rounded-xl shadow-xl overflow-hidden border border-foreground/10">
+                <div className="flex items-center justify-between p-4 border-b border-foreground/10">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                         {step === 1 ? "Upload videos" : "Video details"}
                     </h2>
@@ -57,7 +57,7 @@ export default function UploadPage() {
                         <div
                             className={clsx(
                                 "w-full h-80 border-2 border-dashed rounded-xl flex flex-col items-center justify-center transition-colors cursor-pointer",
-                                dragging ? "border-blue-500 bg-blue-50 dark:bg-blue-900/10" : "border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-[#202020]"
+                                dragging ? "border-blue-500 bg-blue-50 dark:bg-blue-900/10" : "border-foreground/10 hover:bg-gray-50 dark:hover:bg-[#202020]"
                             )}
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
@@ -89,7 +89,7 @@ export default function UploadPage() {
                                     <input
                                         type="text"
                                         defaultValue={file?.name.replace(/\.[^/.]+$/, "")}
-                                        className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-transparent focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
+                                        className="w-full p-3 border border-foreground/10 rounded-lg bg-transparent focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
                                         placeholder="Add a title that describes your video"
                                     />
                                 </div>
@@ -101,7 +101,7 @@ export default function UploadPage() {
                                     </label>
                                     <textarea
                                         rows={5}
-                                        className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-transparent focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-gray-900 dark:text-white resize-none"
+                                        className="w-full p-3 border border-foreground/10 rounded-lg bg-transparent focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-gray-900 dark:text-white resize-none"
                                         placeholder="Tell viewers about your video"
                                     />
                                 </div>
@@ -112,7 +112,7 @@ export default function UploadPage() {
                                         Thumbnail
                                     </label>
                                     <div className="flex gap-4 mt-2">
-                                        <div className="w-32 h-20 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 dark:hover:bg-[#202020]">
+                                        <div className="w-32 h-20 border-2 border-dashed border-foreground/10 rounded flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 dark:hover:bg-[#202020]">
                                             <ImageIcon className="w-6 h-6 text-gray-400 mb-1" />
                                             <span className="text-xs text-gray-500">Upload file</span>
                                         </div>
@@ -150,7 +150,7 @@ export default function UploadPage() {
                                     {/* Fake progress bar */}
                                     <div className="absolute bottom-0 left-0 h-1 bg-blue-600 w-[60%]" />
                                 </div>
-                                <div className="bg-gray-50 dark:bg-[#121212] p-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                                <div className="bg-gray-50 dark:bg-[#121212] p-4 rounded-lg border border-foreground/10">
                                     <div className="flex justify-between text-xs text-gray-500 mb-2">
                                         <span>Video Link</span>
                                         <span className="text-blue-600 cursor-pointer">Copy</span>
@@ -170,7 +170,7 @@ export default function UploadPage() {
                 </div>
 
                 {step === 2 && (
-                    <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-2 bg-gray-50 dark:bg-[#1a1a1a]">
+                    <div className="p-4 border-t border-foreground/10 flex justify-end gap-2 bg-gray-50 dark:bg-[#1a1a1a]">
                         <button
                             onClick={() => { setStep(1); setFile(null); }}
                             className="px-4 py-2 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-200 dark:hover:bg-[#272727] rounded transition-colors"

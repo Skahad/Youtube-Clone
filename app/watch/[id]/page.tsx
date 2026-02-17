@@ -43,7 +43,7 @@ export default function WatchPage() {
             <div className="flex-1 w-full max-w-[1280px]">
                 <VideoPlayer url={video.videoUrl} poster={video.thumbnail} />
 
-                <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mt-4 line-clamp-2">
+                <h1 className="text-xl md:text-2xl font-bold text-foreground dark:text-white mt-4 line-clamp-2">
                     {video.title}
                 </h1>
 
@@ -57,11 +57,11 @@ export default function WatchPage() {
                             />
                         </Link>
                         <div className="flex flex-col min-w-0">
-                            <Link href={`/channel/${video.channelId}`} className="flex items-center gap-1 font-semibold text-gray-900 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 truncate">
+                            <Link href={`/channel/${video.channelId}`} className="flex items-center gap-1 font-semibold text-foreground/70 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 truncate">
                                 {video.channelName}
                                 <CheckCircle2 className="w-3.5 h-3.5 fill-gray-500 text-white flex-shrink-0" />
                             </Link>
-                            <span className="text-xs text-gray-500 dark:text-gray-400 truncate">1.2M subscribers</span>
+                            <span className="text-xs text-foreground/60 dark:text-gray-400 truncate">1.2M subscribers</span>
                         </div>
 
                         <button
@@ -84,19 +84,19 @@ export default function WatchPage() {
 
                 <div
                     onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                    className="mt-4 bg-gray-100 dark:bg-[#272727] p-3 rounded-xl cursor-pointer hover:bg-gray-200 dark:hover:bg-[#3f3f3f] transition-colors group"
+                    className="mt-4 bg-background dark:bg-[#272727] p-3 rounded-xl cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover transition-colors group"
                 >
-                    <div className="flex gap-2 text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                    <div className="flex gap-2 text-sm font-semibold text-foreground dark:text-white mb-1">
                         <span>{video.views} views</span>
                         <span>{video.uploadedAt}</span>
                     </div>
                     <p className={clsx(
-                        "text-sm text-gray-800 dark:text-gray-200 whitespace-pre-line leading-relaxed",
+                        "text-sm text-foreground dark:text-gray-200 whitespace-pre-line leading-relaxed",
                         !isDescriptionExpanded && "line-clamp-2"
                     )}>
                         {video.description}
                     </p>
-                    <span className="block mt-2 font-medium text-gray-900 dark:text-white text-sm">
+                    <span className="block mt-2 font-medium text-foreground dark:text-white text-sm">
                         {isDescriptionExpanded ? "Show less" : "Show more"}
                     </span>
                 </div>
@@ -108,7 +108,7 @@ export default function WatchPage() {
             <div className="w-full lg:w-[350px] xl:w-[400px] flex flex-col gap-4">
                 {recommendations.map((vid) => (
                     <div key={vid.id} className="flex gap-2 group cursor-pointer">
-                        <Link href={`/watch/${vid.id}`} className="relative aspect-video w-[168px] rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-800">
+                        <Link href={`/watch/${vid.id}`} className="relative aspect-video w-[168px] rounded-lg overflow-hidden flex-shrink-0 bg-surface dark:bg-surface-hover">
                             <img
                                 src={vid.thumbnail}
                                 alt={vid.title}
@@ -120,14 +120,14 @@ export default function WatchPage() {
                         </Link>
                         <div className="flex flex-col gap-1 w-full">
                             <Link href={`/watch/${vid.id}`}>
-                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-accent transition-colors">
+                                <h4 className="text-sm font-semibold text-foreground dark:text-white line-clamp-2 leading-tight group-hover:text-accent transition-colors">
                                     {vid.title}
                                 </h4>
                             </Link>
-                            <Link href={`/channel/${vid.channelId}`} className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mt-1">
+                            <Link href={`/channel/${vid.channelId}`} className="text-xs text-foreground/70 dark:text-gray-400 hover:text-foreground/50 dark:hover:text-white transition-colors mt-1">
                                 {vid.channelName}
                             </Link>
-                            <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center flex-wrap">
+                            <div className="text-xs text-foreground/60 dark:text-gray-400 flex items-center flex-wrap">
                                 <span>{vid.views} views</span>
                                 <span className="mx-1.5 min-w-[2px] h-[2px] rounded-full bg-gray-500 dark:bg-gray-400" aria-hidden="true" />
                                 <span>{vid.uploadedAt}</span>

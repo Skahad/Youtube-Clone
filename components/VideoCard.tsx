@@ -60,7 +60,7 @@ export default function VideoCard({ video }: VideoCardProps) {
     return (
         <div className="flex flex-col gap-2 group cursor-pointer relative">
             {/* Thumbnail Container */}
-            <Link href={`/watch/${video.id}`} className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 dark:bg-[#272727]">
+            <Link href={`/watch/${video.id}`} className="relative aspect-video rounded-xl overflow-hidden bg-surface">
                 <img
                     src={video.thumbnail}
                     alt={video.title}
@@ -97,19 +97,19 @@ export default function VideoCard({ video }: VideoCardProps) {
                 {/* Text Info */}
                 <div className="flex flex-col pr-8 w-full">
                     <Link href={`/watch/${video.id}`}>
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-accent transition-colors">
+                        <h3 className="text-base font-semibold text-foreground line-clamp-2 leading-tight group-hover:text-accent transition-colors">
                             {video.title}
                         </h3>
                     </Link>
 
-                    <Link href={`/channel/${video.channelId}`} className="text-sm text-gray-600 dark:text-gray-400 mt-1 hover:text-gray-900 dark:hover:text-white flex items-center gap-1 transition-colors">
+                    <Link href={`/channel/${video.channelId}`} className="text-sm text-foreground/70 mt-1 hover:text-foreground flex items-center gap-1 transition-colors">
                         {video.channelName}
-                        <CheckCircle2 className="w-3.5 h-3.5 fill-gray-500 text-white" />
+                        <CheckCircle2 className="w-3.5 h-3.5 fill-foreground/50 text-background" />
                     </Link>
 
-                    <div className="text-sm text-gray-600 dark:text-gray-400 flex items-center flex-wrap">
+                    <div className="text-sm text-foreground/60 flex items-center flex-wrap">
                         <span>{video.views} views</span>
-                        <span className="mx-1.5 min-w-[2px] h-[2px] rounded-full bg-gray-500 dark:bg-gray-400" aria-hidden="true" />
+                        <span className="mx-1.5 min-w-[2px] h-[2px] rounded-full bg-foreground/40" aria-hidden="true" />
                         <span>{video.uploadedAt}</span>
                     </div>
                 </div>
@@ -118,23 +118,23 @@ export default function VideoCard({ video }: VideoCardProps) {
                 <div className="absolute top-0 right-0" ref={menuRef}>
                     <button
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors md:opacity-0 md:group-hover:opacity-100"
+                        className="p-1 hover:bg-surface-hover rounded-full transition-colors md:opacity-0 md:group-hover:opacity-100"
                     >
                         <MoreVertical className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                     </button>
 
                     {showMenu && (
-                        <div className="absolute top-10 right-0 w-56 bg-white dark:bg-[#212121] border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right">
+                        <div className="absolute top-10 right-0 w-56 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right">
                             <button
                                 onClick={handleToggleWatchLater}
-                                className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-left text-sm text-gray-900 dark:text-white"
+                                className="flex items-center gap-3 w-full px-4 py-2 hover:bg-surface-hover text-left text-sm text-foreground"
                             >
                                 <Clock className="w-5 h-5" />
                                 {isAddedToWatchLater ? "Remove from Watch later" : "Save to Watch later"}
                             </button>
                             <button
                                 onClick={handleShare}
-                                className="flex items-center gap-3 w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-left text-sm text-gray-900 dark:text-white"
+                                className="flex items-center gap-3 w-full px-4 py-2 hover:bg-surface-hover text-left text-sm text-foreground"
                             >
                                 <Share2 className="w-5 h-5" />
                                 Share

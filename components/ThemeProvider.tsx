@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import clsx from "clsx";
 
-type Theme = "light";
+type Theme = "light" | "dark";
 
 interface ThemeContextType {
     theme: Theme;
@@ -13,21 +13,41 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
+    const [theme, setTheme] = useState<Theme>("light");
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        // Load theme from localStorage on mount
+        const savedTheme = localStorage.getItem("theme") as Theme | null;
+        if (savedTheme) {
+            setTheme(savedTheme);
+            if (savedTheme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            setTheme("dark");
+            document.documentElement.classList.add("dark");
+        }
         setMounted(true);
-        // Force light mode Always
-        document.documentElement.classList.remove("dark");
     }, []);
 
     const toggleTheme = () => {
-        // No-op
+        const newTheme = theme === "light" ? "dark" : "light";
+        setTheme(newTheme);
+        localStorage.setItem("theme", newTheme);
+
+        if (newTheme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
     };
 
     return (
-        <ThemeContext.Provider value={{ theme: "light", toggleTheme }}>
-            <div className={clsx("min-h-screen flex flex-col", !mounted && "invisible")}>
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <div className={clsx("min-h-screen flex flex-col bg-background text-foreground transition-colors duration-300", !mounted && "invisible")}>
                 {children}
             </div>
         </ThemeContext.Provider>

@@ -58,7 +58,7 @@ export default function SubscriptionsPage() {
             </div>
 
             {/* Show older videos section simulation */}
-            <div className="border-t border-gray-200 dark:border-gray-800 pt-6 mt-2">
+            <div className="border-t border-foreground/10 pt-6 mt-2">
                 <h3 className="text-md font-bold text-gray-900 dark:text-white mb-4">Yesterday</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-8">
                     {/* Just repeating some videos to simulate "Yesterday" content */}

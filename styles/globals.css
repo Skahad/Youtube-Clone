@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
 @theme {
+  --variant-dark: :where(.dark, .dark *);
+
   /* Brand Colors */
   --color-accent: #0493D1;
   --color-accent-hover: #037bb1;
@@ -8,11 +10,22 @@
   /* Core Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
 }
 
 :root {
   --background: #ffffff;
   --foreground: #0f0f0f;
+  --surface: #f2f2f2;
+  --surface-hover: #e5e5e5;
+}
+
+.dark {
+  --background: #0f0f0f;
+  --foreground: #ffffff;
+  --surface: #272727;
+  --surface-hover: #3f3f3f;
 }
 
 @layer utilities {

@@ -51,7 +51,7 @@ function SearchContent() {
                         "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors border whitespace-nowrap",
                         showFilters
                             ? "bg-black text-white dark:bg-white dark:text-black border-transparent"
-                            : "bg-gray-100 hover:bg-gray-200 dark:bg-[#272727] dark:hover:bg-[#3f3f3f] text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-700"
+                            : "bg-gray-100 hover:bg-gray-200 dark:bg-[#272727] dark:hover:bg-[#3f3f3f] text-gray-800 dark:text-gray-200 border-foreground/10"
                     )}
                 >
                     <Filter className="w-4 h-4" /> Filters
@@ -60,7 +60,7 @@ function SearchContent() {
 
             {/* Collapsible Filter Section */}
             {showFilters && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 py-6 border-b border-gray-200 dark:border-gray-800 animate-in slide-in-from-top-4 duration-300">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 py-6 border-b border-foreground/10 animate-in slide-in-from-top-4 duration-300">
                     {filterCategories.map((category) => (
                         <div key={category.title} className="flex flex-col gap-4">
                             <h4 className="text-xs font-bold text-gray-900 dark:text-white tracking-wider">
