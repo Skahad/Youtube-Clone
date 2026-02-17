@@ -25,6 +25,7 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
     const videoRef = useRef<HTMLVideoElement>(null);
+    const moreMenuRef = useRef<HTMLDivElement>(null);
 
     const togglePlay = () => {
         if (videoRef.current) {
@@ -105,6 +106,25 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
         };
     }, []);
 
+    // Handle click outside more menu
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+                setShowMore(false);
+            }
+        };
+
+        if (showMore) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [showMore]);
+
     return (
         <div className="relative h-[calc(100vh-6rem)] md:h-[calc(100vh-4rem)] w-full max-w-[450px] aspect-[9/16] bg-black md:rounded-xl overflow-hidden shadow-2xl snap-start flex-shrink-0 group mx-auto">
             <video
@@ -138,14 +158,14 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
             <div className={clsx("absolute right-2 bottom-4 flex flex-col items-center gap-6 z-20 pointer-events-auto pb-8 md:pb-4 transition-opacity duration-200", showComments ? "opacity-0" : "opacity-100")}>
                 <button onClick={handleLike} className="flex flex-col items-center gap-1 group">
                     <div className={clsx("p-3 rounded-full transition-colors", isLiked ? "bg-white/20" : "bg-gray-800/60 hover:bg-gray-700/60")}>
-                        <ThumbsUp className={clsx("w-7 h-7", isLiked ? "fill-white text-white" : "text-white")} />
+                        <ThumbsUp className={clsx("w-7 h-7", isLiked ? "fill-accent text-accent" : "text-white")} />
                     </div>
                     <span className="text-xs font-semibold text-white">{likes.toLocaleString()}</span>
                 </button>
 
                 <button onClick={handleDislike} className="flex flex-col items-center gap-1 group">
                     <div className={clsx("p-3 rounded-full transition-colors", isDisliked ? "bg-white/20" : "bg-gray-800/60 hover:bg-gray-700/60")}>
-                        <ThumbsDown className={clsx("w-7 h-7", isDisliked ? "fill-white text-white" : "text-white")} />
+                        <ThumbsDown className={clsx("w-7 h-7", isDisliked ? "fill-accent text-accent" : "text-white")} />
                     </div>
                     <span className="text-xs font-semibold text-white">Dislike</span>
                 </button>
@@ -164,16 +184,24 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
                     <span className="text-xs font-semibold text-white">Share</span>
                 </button>
 
-                <button onClick={() => setShowMore(!showMore)} className="p-3 rounded-full bg-gray-800/60 hover:bg-gray-700/60 transition-colors relative">
-                    <MoreHorizontal className="w-7 h-7 text-white" />
+                <div className="relative" ref={moreMenuRef}>
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setShowMore(!showMore);
+                        }}
+                        className="p-3 rounded-full bg-gray-800/60 hover:bg-gray-700/60 transition-colors"
+                    >
+                        <MoreHorizontal className="w-7 h-7 text-white" />
+                    </button>
                     {showMore && (
-                        <div className="absolute bottom-full right-0 mb-2 bg-white dark:bg-[#272727] rounded-xl shadow-xl overflow-hidden py-1 w-32 animate-in fade-in zoom-in-95 origin-bottom-right">
-                            <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-black dark:text-white">Report</button>
-                            <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-black dark:text-white">Don't recommend</button>
-                            <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-black dark:text-white">Description</button>
+                        <div className="absolute bottom-full right-0 mb-2 bg-white dark:bg-[#272727] rounded-xl shadow-xl overflow-hidden py-1 w-32 animate-in fade-in zoom-in-95 origin-bottom-right z-50">
+                            <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-black dark:text-white transition-colors">Report</button>
+                            <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-black dark:text-white transition-colors">Don't recommend</button>
+                            <button className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#3f3f3f] text-black dark:text-white transition-colors">Description</button>
                         </div>
                     )}
-                </button>
+                </div>
 
                 <Link href={`/channel/${short.channelId}`} className="w-10 h-10 rounded-lg overflow-hidden border-2 border-white/20 mt-2 bg-gray-800 animate-spin-slow">
                     <img src={short.thumbnail} className="w-full h-full object-cover opacity-80" alt="Sound" />
@@ -188,7 +216,7 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
                     <Link href={`/channel/${short.channelId}`} className="text-sm font-bold text-white drop-shadow-md cursor-pointer hover:underline decoration-white truncate max-w-[150px]">
                         @{short.channelName.replace(/\s+/g, '').toLowerCase()}
                     </Link>
-                    <button onClick={handleSubscribe} className={clsx("text-xs font-bold px-3 py-1.5 rounded-full transition-all ml-2", isSubscribed ? "bg-white/20 text-white hover:bg-white/30" : "bg-white text-black hover:bg-gray-200")}>
+                    <button onClick={handleSubscribe} className={clsx("text-xs font-bold px-3 py-1.5 rounded-full transition-all ml-2", isSubscribed ? "bg-accent/95 text-white hover:bg-accent/80" : "bg-white text-black hover:bg-gray-200")}>
                         {isSubscribed ? "Subscribed" : "Subscribe"}
                     </button>
                 </div>

@@ -94,7 +94,7 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
                                     "px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-2",
                                     copied
                                         ? "bg-green-600 text-white"
-                                        : "bg-blue-600 hover:bg-blue-700 text-white"
+                                        : "bg-accent hover:bg-accent-hover text-white"
                                 )}
                             >
                                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}

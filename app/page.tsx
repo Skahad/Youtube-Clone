@@ -65,9 +65,9 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full pb-8">
+    <div className="flex flex-col gap-6 w-full pb-8 overflow-x-hidden">
       {/* Categories Filter */}
-      <div className="sticky top-0 md:top-14 z-20 bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-sm py-3 mb-2 w-full overflow-x-auto no-scrollbar border-b border-gray-200 dark:border-gray-800 md:border-none">
+      <div className="sticky top-14 z-20 bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-sm py-3 mb-8 w-full overflow-x-auto no-scrollbar border-b border-gray-200 dark:border-gray-800">
         <div className="flex gap-3 px-4 min-w-max">
           {categories.map((cat) => (
             <button
@@ -76,7 +76,7 @@ export default function Home() {
               className={clsx(
                 "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap",
                 activeCategory === cat
-                  ? "bg-black text-white dark:bg-white dark:text-black"
+                  ? "bg-accent/95 text-white dark:bg-white dark:text-black"
                   : "bg-gray-100 hover:bg-gray-200 dark:bg-[#272727] dark:hover:bg-[#3f3f3f] text-gray-800 dark:text-gray-200"
               )}
             >

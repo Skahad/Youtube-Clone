@@ -69,7 +69,7 @@ export default function WatchPage() {
                             className={clsx(
                                 "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
                                 isSubscribed
-                                    ? "bg-gray-100 dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-[#3f3f3f]"
+                                    ? "bg-accent/95 dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-accent/80 dark:hover:bg-[#3f3f3f]"
                                     : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
                             )}
                         >
@@ -120,7 +120,7 @@ export default function WatchPage() {
                         </Link>
                         <div className="flex flex-col gap-1 w-full">
                             <Link href={`/watch/${vid.id}`}>
-                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                <h4 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-accent transition-colors">
                                     {vid.title}
                                 </h4>
                             </Link>

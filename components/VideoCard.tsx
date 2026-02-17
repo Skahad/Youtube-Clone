@@ -75,7 +75,7 @@ export default function VideoCard({ video }: VideoCardProps) {
                     onClick={handleToggleWatchLater}
                     className={clsx(
                         "absolute top-2 right-2 p-1.5 bg-black/70 hover:bg-black/90 text-white rounded-lg transition-all opacity-0 group-hover:opacity-100 z-10",
-                        isAddedToWatchLater && "opacity-100 bg-blue-600"
+                        isAddedToWatchLater && "opacity-100 bg-accent"
                     )}
                     title={isAddedToWatchLater ? "Remove from Watch later" : "Save to Watch later"}
                 >
@@ -97,7 +97,7 @@ export default function VideoCard({ video }: VideoCardProps) {
                 {/* Text Info */}
                 <div className="flex flex-col pr-8 w-full">
                     <Link href={`/watch/${video.id}`}>
-                        <h3 className="text-base font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white line-clamp-2 leading-tight group-hover:text-accent transition-colors">
                             {video.title}
                         </h3>
                     </Link>
@@ -118,7 +118,7 @@ export default function VideoCard({ video }: VideoCardProps) {
                 <div className="absolute top-0 right-0" ref={menuRef}>
                     <button
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
-                        className="p-1 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors opacity-0 group-hover:opacity-100"
+                        className="p-1 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors md:opacity-0 md:group-hover:opacity-100"
                     >
                         <MoreVertical className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                     </button>

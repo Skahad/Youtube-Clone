@@ -51,10 +51,10 @@ export default function Sidebar() {
                                 key={item.label}
                                 href={item.href}
                                 className={clsx(
-                                    "flex items-center px-4 py-3 rounded-lg mx-2 transition-colors duration-200 border",
+                                    "flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-200 border",
                                     isActive
-                                        ? "bg-transparent border-black dark:border-white font-medium text-black dark:text-white"
-                                        : "border-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#272727] hover:text-black dark:hover:text-white",
+                                        ? "bg-accent/10 border-accent font-semibold text-accent"
+                                        : "border-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#272727] hover:text-accent-hover",
                                     isOpen ? "flex-row gap-5" : "flex-col gap-1 justify-center px-2 py-4 mx-0 rounded-xl text-[10px]"
                                 )}
                             >
