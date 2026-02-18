@@ -24,10 +24,37 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
     const [showMore, setShowMore] = useState(false);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
     const [commentInput, setCommentInput] = useState("");
+    const [replyingTo, setReplyingTo] = useState<{ commentId: number; userName: string } | null>(null);
+    const [expandedComments, setExpandedComments] = useState<Set<number>>(new Set());
     const [localComments, setLocalComments] = useState([
-        { id: 1, user: "@alex_j", text: "The transition at 0:05 is absolute fire! 🔥", time: "2h ago", likes: 124, avatar: "A" },
-        { id: 2, user: "@tech_guru", text: "What camera did you use for this? The quality is insane.", time: "1h ago", likes: 45, avatar: "T" },
-        { id: 3, user: "@vibe_check", text: "This deserves way more views. Shared!", time: "45m ago", likes: 89, avatar: "V" },
+        {
+            id: 1,
+            user: "@alex_j",
+            text: "The transition at 0:05 is absolute fire! 🔥",
+            time: "2h ago",
+            likes: 124,
+            likedByMe: false,
+            dislikedByMe: false,
+            avatar: "A",
+            replies: [
+                { id: 101, user: "@creative_mind", text: "Totally agree! Must have taken hours to edit.", time: "1h ago", likes: 12, likedByMe: false, dislikedByMe: false, avatar: "C" },
+                { id: 102, user: "@alex_j", text: "@creative_mind It actually did! Glad you noticed.", time: "30m ago", likes: 5, likedByMe: false, dislikedByMe: false, avatar: "A" }
+            ]
+        },
+        {
+            id: 2,
+            user: "@tech_guru",
+            text: "What camera did you use for this? The quality is insane.",
+            time: "1h ago",
+            likes: 45,
+            likedByMe: false,
+            dislikedByMe: false,
+            avatar: "T",
+            replies: [
+                { id: 201, user: "@short_maker", text: "Shot on Sony A7S III!", time: "45m ago", likes: 20, likedByMe: false, dislikedByMe: false, avatar: "S" }
+            ]
+        },
+        { id: 3, user: "@vibe_check", text: "This deserves way more views. Shared!", time: "45m ago", likes: 89, likedByMe: false, dislikedByMe: false, avatar: "V", replies: [] },
     ]);
 
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -154,17 +181,112 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
     const handleAddComment = () => {
         if (!commentInput.trim()) return;
 
-        const newComment = {
+        const newCommentObj = {
             id: Date.now(),
             user: "@you",
             text: commentInput,
             time: "Just now",
             likes: 0,
+            likedByMe: false,
+            dislikedByMe: false,
             avatar: "U"
         };
 
-        setLocalComments([newComment, ...localComments]);
+        if (replyingTo) {
+            setLocalComments(prev => prev.map(c => {
+                if (c.id === replyingTo.commentId) {
+                    return {
+                        ...c,
+                        replies: [...c.replies, { ...newCommentObj, replies: undefined }]
+                    };
+                }
+                return c;
+            }));
+            if (!expandedComments.has(replyingTo.commentId)) {
+                toggleReplies(replyingTo.commentId);
+            }
+        } else {
+            setLocalComments([{ ...newCommentObj, replies: [] }, ...localComments]);
+        }
+
         setCommentInput("");
+        setReplyingTo(null);
+    };
+
+    const handleLikeComment = (commentId: number, isReply: boolean = false, parentId?: number) => {
+        setLocalComments(prev => prev.map(c => {
+            if (!isReply && c.id === commentId) {
+                const liked = !c.likedByMe;
+                return {
+                    ...c,
+                    likedByMe: liked,
+                    dislikedByMe: liked ? false : c.dislikedByMe,
+                    likes: liked ? c.likes + 1 : c.likes - 1
+                };
+            }
+            if (isReply && c.id === parentId) {
+                return {
+                    ...c,
+                    replies: c.replies.map(r => {
+                        if (r.id === commentId) {
+                            const liked = !r.likedByMe;
+                            return {
+                                ...r,
+                                likedByMe: liked,
+                                dislikedByMe: liked ? false : r.dislikedByMe,
+                                likes: liked ? r.likes + 1 : r.likes - 1
+                            };
+                        }
+                        return r;
+                    })
+                };
+            }
+            return c;
+        }));
+    };
+
+    const handleDislikeComment = (commentId: number, isReply: boolean = false, parentId?: number) => {
+        setLocalComments(prev => prev.map(c => {
+            if (!isReply && c.id === commentId) {
+                const disliked = !c.dislikedByMe;
+                return {
+                    ...c,
+                    dislikedByMe: disliked,
+                    likedByMe: disliked ? false : c.likedByMe,
+                    likes: (disliked && c.likedByMe) ? c.likes - 1 : c.likes
+                };
+            }
+            if (isReply && c.id === parentId) {
+                return {
+                    ...c,
+                    replies: c.replies.map(r => {
+                        if (r.id === commentId) {
+                            const disliked = !r.dislikedByMe;
+                            return {
+                                ...r,
+                                dislikedByMe: disliked,
+                                likedByMe: disliked ? false : r.likedByMe,
+                                likes: (disliked && r.likedByMe) ? r.likes - 1 : r.likes
+                            };
+                        }
+                        return r;
+                    })
+                };
+            }
+            return c;
+        }));
+    };
+
+    const toggleReplies = (commentId: number) => {
+        setExpandedComments(prev => {
+            const next = new Set(prev);
+            if (next.has(commentId)) {
+                next.delete(commentId);
+            } else {
+                next.add(commentId);
+            }
+            return next;
+        });
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -298,61 +420,135 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
 
                     <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6 no-scrollbar">
                         {localComments.map((comment) => (
-                            <div key={comment.id} className="flex gap-3 animate-in fade-in slide-in-from-left-2 duration-300">
-                                <div className="w-9 h-9 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xs font-bold flex-shrink-0">
-                                    {comment.avatar}
-                                </div>
-                                <div className="flex flex-col gap-1.5 flex-1">
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-xs font-bold text-foreground">{comment.user}</span>
-                                        <span className="text-[10px] text-foreground/50">{comment.time}</span>
+                            <div key={comment.id} className="flex flex-col gap-3 animate-in fade-in slide-in-from-left-2 duration-300">
+                                <div className="flex gap-3">
+                                    <div className="w-9 h-9 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-xs font-bold flex-shrink-0">
+                                        {comment.avatar}
                                     </div>
-                                    <p className="text-sm text-foreground/90 leading-relaxed">{comment.text}</p>
-                                    <div className="flex items-center gap-4 mt-1">
-                                        <div className="flex items-center gap-1.5">
-                                            <button className="p-1 hover:bg-surface-hover rounded-full transition-colors group">
-                                                <ThumbsUp className="w-3.5 h-3.5 text-foreground/60 group-hover:text-accent" />
-                                            </button>
-                                            <span className="text-[10px] font-medium text-foreground/60">{comment.likes}</span>
+                                    <div className="flex flex-col gap-1.5 flex-1">
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-xs font-bold text-foreground">{comment.user}</span>
+                                            <span className="text-[10px] text-foreground/50">{comment.time}</span>
                                         </div>
-                                        <button className="p-1 hover:bg-surface-hover rounded-full transition-colors">
-                                            <ThumbsDown className="w-3.5 h-3.5 text-foreground/60" />
-                                        </button>
-                                        <button
-                                            onClick={() => setCommentInput(`@${comment.user.replace('@', '')} `)}
-                                            className="text-xs font-bold text-foreground/60 hover:text-foreground transition-colors ml-1 px-2 py-0.5 rounded-md hover:bg-surface-hover"
-                                        >
-                                            Reply
-                                        </button>
+                                        <p className="text-sm text-foreground/90 leading-relaxed">{comment.text}</p>
+                                        <div className="flex items-center gap-4 mt-1">
+                                            <div className="flex items-center gap-1.5">
+                                                <button
+                                                    onClick={() => handleLikeComment(comment.id)}
+                                                    className="p-1 hover:bg-surface-hover rounded-full transition-colors group"
+                                                >
+                                                    <ThumbsUp className={clsx("w-3.5 h-3.5 transition-colors", comment.likedByMe ? "text-accent fill-accent" : "text-foreground/60 group-hover:text-accent")} />
+                                                </button>
+                                                <span className={clsx("text-[10px] font-medium transition-colors", comment.likedByMe ? "text-accent" : "text-foreground/60")}>{comment.likes}</span>
+                                            </div>
+                                            <button
+                                                onClick={() => handleDislikeComment(comment.id)}
+                                                className="p-1 hover:bg-surface-hover rounded-full transition-colors group"
+                                            >
+                                                <ThumbsDown className={clsx("w-3.5 h-3.5 transition-colors", comment.dislikedByMe ? "text-accent fill-accent" : "text-foreground/60 group-hover:text-accent")} />
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    setCommentInput(`@${comment.user.replace('@', '')} `);
+                                                    setReplyingTo({ commentId: comment.id, userName: comment.user });
+                                                    if (!expandedComments.has(comment.id)) toggleReplies(comment.id);
+                                                }}
+                                                className="text-xs font-bold text-foreground/60 hover:text-foreground transition-colors ml-1 px-2 py-0.5 rounded-md hover:bg-surface-hover"
+                                            >
+                                                Reply
+                                            </button>
+                                        </div>
+
+                                        {comment.replies.length > 0 && (
+                                            <button
+                                                onClick={() => toggleReplies(comment.id)}
+                                                className="text-xs font-bold text-accent hover:underline mt-2 text-left w-fit"
+                                            >
+                                                {expandedComments.has(comment.id) ? "Hide replies" : `View ${comment.replies.length} replies`}
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
+
+                                {expandedComments.has(comment.id) && comment.replies.length > 0 && (
+                                    <div className="ml-12 flex flex-col gap-5 border-l-2 border-foreground/5 pl-4 py-2 mt-1 animate-in slide-in-from-top-2 duration-300">
+                                        {comment.replies.map((reply) => (
+                                            <div key={reply.id} className="flex gap-3">
+                                                <div className="w-7 h-7 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-[10px] font-bold flex-shrink-0">
+                                                    {reply.avatar}
+                                                </div>
+                                                <div className="flex flex-col gap-1 flex-1">
+                                                    <div className="flex items-baseline gap-2">
+                                                        <span className="text-xs font-bold text-foreground">{reply.user}</span>
+                                                        <span className="text-[10px] text-foreground/50">{reply.time}</span>
+                                                    </div>
+                                                    <p className="text-sm text-foreground/90 leading-relaxed">{reply.text}</p>
+                                                    <div className="flex items-center gap-4 mt-1">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <button
+                                                                onClick={() => handleLikeComment(reply.id, true, comment.id)}
+                                                                className="p-1 hover:bg-surface-hover rounded-full transition-colors group"
+                                                            >
+                                                                <ThumbsUp className={clsx("w-3 h-3 transition-colors", reply.likedByMe ? "text-accent fill-accent" : "text-foreground/60 group-hover:text-accent")} />
+                                                            </button>
+                                                            <span className={clsx("text-[10px] font-medium", reply.likedByMe ? "text-accent" : "text-foreground/60")}>{reply.likes}</span>
+                                                        </div>
+                                                        <button
+                                                            onClick={() => handleDislikeComment(reply.id, true, comment.id)}
+                                                            className="p-1 hover:bg-surface-hover rounded-full transition-colors group"
+                                                        >
+                                                            <ThumbsDown className={clsx("w-3 h-3 transition-colors", reply.dislikedByMe ? "text-accent fill-accent" : "text-foreground/60 group-hover:text-accent")} />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => {
+                                                                setCommentInput(`@${reply.user.replace('@', '')} `);
+                                                                setReplyingTo({ commentId: comment.id, userName: reply.user });
+                                                            }}
+                                                            className="text-[10px] font-bold text-foreground/60 hover:text-foreground transition-colors ml-1 px-2 py-0.5 rounded-md hover:bg-surface-hover"
+                                                        >
+                                                            Reply
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
 
-                    <div className="p-4 border-t border-foreground/10 bg-background/80 backdrop-blur-md sticky bottom-0 flex gap-3 items-center">
-                        <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-lg">U</div>
-                        <div className="flex-1 relative">
-                            <input
-                                type="text"
-                                value={commentInput}
-                                onChange={(e) => setCommentInput(e.target.value)}
-                                onKeyDown={handleKeyPress}
-                                placeholder="Add a comment or reply..."
-                                className="w-full bg-surface border border-foreground/5 rounded-full pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent text-foreground placeholder:text-foreground/40 transition-all"
-                            />
-                            <button
-                                onClick={handleAddComment}
-                                disabled={!commentInput.trim()}
-                                className={clsx(
-                                    "absolute right-1 top-1 bottom-1 px-3 rounded-full font-bold text-sm transition-all",
-                                    commentInput.trim()
-                                        ? "text-accent hover:bg-accent/10"
-                                        : "text-foreground/20 cursor-not-allowed"
-                                )}
-                            >
-                                Send
-                            </button>
+                    <div className="p-4 border-t border-foreground/10 bg-background/80 backdrop-blur-md sticky bottom-0 flex flex-col gap-2">
+                        {replyingTo && (
+                            <div className="flex items-center justify-between text-[10px] text-foreground/60 px-2 animate-in slide-in-from-bottom-1">
+                                <span>Replying to {replyingTo.userName}</span>
+                                <button onClick={() => { setReplyingTo(null); setCommentInput(""); }} className="hover:text-foreground">Cancel</button>
+                            </div>
+                        )}
+                        <div className="flex gap-3 items-center">
+                            <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-lg">U</div>
+                            <div className="flex-1 relative">
+                                <input
+                                    type="text"
+                                    value={commentInput}
+                                    onChange={(e) => setCommentInput(e.target.value)}
+                                    onKeyDown={handleKeyPress}
+                                    placeholder={replyingTo ? "Add a reply..." : "Add a comment..."}
+                                    className="w-full bg-surface border border-foreground/5 rounded-full pl-4 pr-12 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent text-foreground placeholder:text-foreground/40 transition-all"
+                                />
+                                <button
+                                    onClick={handleAddComment}
+                                    disabled={!commentInput.trim()}
+                                    className={clsx(
+                                        "absolute right-1 top-1 bottom-1 px-3 rounded-full font-bold text-sm transition-all",
+                                        commentInput.trim()
+                                            ? "text-accent hover:bg-accent/10"
+                                            : "text-foreground/20 cursor-not-allowed"
+                                    )}
+                                >
+                                    {replyingTo ? "Reply" : "Send"}
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

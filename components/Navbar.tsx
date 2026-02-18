@@ -1,20 +1,25 @@
 "use client";
 
-import { Menu, Search, Mic, Video, Bell, User, Sun, Moon, ArrowLeft } from "lucide-react";
+import { Menu, Search, Mic, Video, Bell, User, Sun, Moon, ArrowLeft, Plus, Upload, PlaySquare, Film, Settings, LogIn, UserPlus, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useSidebar } from "./SidebarProvider";
 import { useTheme } from "./ThemeProvider";
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { videos } from "@/data/videos";
+import { useAuth } from "./AuthContext";
 
 export default function Navbar() {
     const { toggleSidebar } = useSidebar();
     const { theme, toggleTheme } = useTheme();
+    const { user, isAuthenticated, logout } = useAuth();
     const [isClient, setIsClient] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [showMobileSearch, setShowMobileSearch] = useState(false);
+    const [showCreateMenu, setShowCreateMenu] = useState(false);
+    const [showAuthMenu, setShowAuthMenu] = useState(false);
+    const [showUserMenu, setShowUserMenu] = useState(false);
     const router = useRouter();
 
     const filteredSuggestions = useMemo(() => {
@@ -164,22 +169,171 @@ export default function Navbar() {
                                 <Sun className="w-6 h-6 text-foreground" />
                             )}
                         </button>
+                        <div className="relative">
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (isAuthenticated) {
+                                        setShowCreateMenu(!showCreateMenu);
+                                    } else {
+                                        router.push("/login");
+                                    }
+                                }}
+                                className="p-2 hover:bg-surface-hover rounded-full transition-colors flex items-center justify-center gap-1 sm:gap-2"
+                                aria-label="Create"
+                            >
+                                <div className="relative">
+                                    <Video className="w-6 h-6 text-foreground" />
+                                    <Plus className="w-3 h-3 text-background bg-foreground rounded-full absolute -top-1 -right-1 border border-background" />
+                                </div>
+                                <span className="hidden lg:block text-sm font-medium text-foreground">Create</span>
+                            </button>
+
+                            {showCreateMenu && isAuthenticated && (
+                                <div className="absolute top-full right-0 mt-2 w-56 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right overflow-hidden">
+                                    <button
+                                        className="flex items-center gap-4 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left group"
+                                        onClick={() => {
+                                            setShowCreateMenu(false);
+                                            router.push("/upload");
+                                        }}
+                                    >
+                                        <div className="p-2 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
+                                            <Upload className="w-5 h-5 text-accent" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-semibold text-foreground">Upload video</span>
+                                            <span className="text-[10px] text-foreground/50">Post a new video</span>
+                                        </div>
+                                    </button>
+                                    <button
+                                        className="flex items-center gap-4 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left group"
+                                        onClick={() => {
+                                            setShowCreateMenu(false);
+                                            router.push("/shorts");
+                                        }}
+                                    >
+                                        <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                                            <Film className="w-5 h-5 text-blue-500" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-semibold text-foreground">Create Short</span>
+                                            <span className="text-[10px] text-foreground/50">Shoot and share</span>
+                                        </div>
+                                    </button>
+                                    <div className="my-1 border-t border-foreground/5" />
+                                    <button
+                                        className="flex items-center gap-4 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left group"
+                                        onClick={() => {
+                                            setShowCreateMenu(false);
+                                            router.push("/import");
+                                        }}
+                                    >
+                                        <div className="p-2 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors">
+                                            <PlaySquare className="w-5 h-5 text-purple-500" />
+                                        </div>
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-semibold text-foreground">Import</span>
+                                            <span className="text-[10px] text-foreground/50">Link from YouTube</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                         <button className="p-2 hover:bg-surface-hover rounded-full transition-colors relative hidden sm:block">
                             <Bell className="w-6 h-6 text-foreground" />
                             <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] w-5 h-4 flex items-center justify-center rounded-full border-1 border-white dark:border-[#0f0f0f]">
                                 9+
                             </span>
                         </button>
-                        <button className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold uppercase ml-1 sm:ml-2">
-                            U
-                        </button>
+
+                        {isAuthenticated ? (
+                            <div className="relative">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setShowUserMenu(!showUserMenu);
+                                    }}
+                                    className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold uppercase ml-1 sm:ml-2 ring-offset-2 ring-offset-background hover:ring-2 hover:ring-foreground/10 transition-all"
+                                >
+                                    {user?.username?.[0] || "U"}
+                                </button>
+                                {showUserMenu && (
+                                    <div className="absolute top-full right-0 mt-2 w-48 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right overflow-hidden">
+                                        <div className="px-4 py-3 border-b border-foreground/5 mb-2">
+                                            <p className="text-sm font-bold text-foreground truncate">{user?.username}</p>
+                                            <p className="text-[10px] text-foreground/50 truncate">Account management</p>
+                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                setShowUserMenu(false);
+                                                logout();
+                                            }}
+                                            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-surface-hover transition-colors text-left text-sm text-red-500 font-medium"
+                                        >
+                                            <User className="w-4 h-4" />
+                                            Sign out
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <div className="relative">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setShowAuthMenu(!showAuthMenu);
+                                    }}
+                                    className="flex items-center gap-2 px-3 py-1.5 hover:bg-surface-hover rounded-full text-accent transition-all font-medium text-sm ml-1 sm:ml-2"
+                                >
+                                    <span className="hidden lg:inline text-[#065fd4] font-semibold mr-1">My Account</span>
+                                    <div className="w-8 h-8 rounded-full bg-[#065fd4] text-white flex items-center justify-center">
+                                        <User className="w-5 h-5" />
+                                    </div>
+                                    <MoreHorizontal className="w-4 h-4 text-foreground/60 hidden sm:block" />
+                                </button>
+
+                                {showAuthMenu && (
+                                    <div className="absolute top-full right-0 mt-2 w-48 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-[70] animate-in fade-in zoom-in-95 origin-top-right overflow-hidden">
+                                        <button
+                                            onClick={() => {
+                                                setShowAuthMenu(false);
+                                                router.push("/login?auth=true");
+                                            }}
+                                            className="flex items-center gap-3 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left"
+                                        >
+                                            <LogIn className="w-5 h-5 text-foreground" />
+                                            <span className="text-sm font-medium text-foreground">Login</span>
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                setShowAuthMenu(false);
+                                                router.push("/register?auth=true");
+                                            }}
+                                            className="flex items-center gap-3 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left"
+                                        >
+                                            <UserPlus className="w-5 h-5 text-foreground" />
+                                            <span className="text-sm font-medium text-foreground">Register</span>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </>
             )}
 
-            {/* Click outside for suggestions */}
-            {showSuggestions && (
-                <div className="fixed inset-0 z-40 cursor-default" onClick={() => setShowSuggestions(false)} />
+            {/* Click outside overlays */}
+            {(showSuggestions || showCreateMenu || showAuthMenu || showUserMenu) && (
+                <div
+                    className="fixed inset-0 z-40 cursor-default"
+                    onClick={() => {
+                        setShowSuggestions(false);
+                        setShowCreateMenu(false);
+                        setShowAuthMenu(false);
+                        setShowUserMenu(false);
+                    }}
+                />
             )}
         </nav>
     );
