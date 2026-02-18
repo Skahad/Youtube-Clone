@@ -94,9 +94,9 @@ export default function LikedVideosPage() {
             {/* Content */}
             {likedVideos.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Trash2 className="w-24 h-24 text-foreground dark:text-gray-700 mb-4" />
+                    <Trash2 className="w-24 h-24 text-foreground/30 dark:text-gray-700 mb-4" />
                     <h2 className="text-xl font-semibold  dark:text-white mb-2">No liked videos yet</h2>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-md">
+                    <p className="text-foreground/70 dark:text-gray-400 max-w-md">
                         Videos you like will appear here. Start exploring and like videos you enjoy!
                     </p>
                 </div>
@@ -116,10 +116,10 @@ export default function LikedVideosPage() {
                             {/* Unlike button */}
                             <button
                                 onClick={() => toggleLike(video)}
-                                className="absolute top-2 right-2 p-2 bg-black/70 hover:bg-black/90 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                                className="absolute top-2 right-2 p-2 bg-black hover:bg-black text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
                                 aria-label="Unlike video"
                             >
-                                <Trash2 className="w-4 h-4 fill-current" />
+                                <Trash2 className="w-4 h-4 " />
                             </button>
                         </div>
                     ))}

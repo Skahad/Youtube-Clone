@@ -98,9 +98,9 @@ export default function WatchLaterPage() {
             {/* Content */}
             {watchLaterVideos.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Clock className="w-24 h-24 text-gray-300 dark:text-gray-700 mb-4" />
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No videos saved</h2>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-md">
+                    <Clock className="w-24 h-24 text-foreground/30 dark:text-gray-700 mb-4" />
+                    <h2 className="text-xl font-semibold text-foreground dark:text-white mb-2">No videos saved</h2>
+                    <p className="text-foreground/70 dark:text-gray-400 max-w-md">
                         Save videos to watch later by clicking the "Watch later" option in the video menu.
                     </p>
                 </div>
@@ -120,7 +120,7 @@ export default function WatchLaterPage() {
                             {/* Remove button */}
                             <button
                                 onClick={() => toggleWatchLater(video)}
-                                className="absolute top-2 right-2 p-2 bg-black hover:bg-black/90 text-white rounded-full opacity-0 group-hover:opacity-100 transition-all z-10"
+                                className="absolute top-2 right-2 p-2 bg-black hover:bg-black text-white rounded-full opacity-0 group-hover:opacity-100 transition-all z-10"
                                 aria-label="Remove from watch later"
                             >
                                 <Trash2 className="w-4 h-4" />

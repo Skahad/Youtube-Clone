@@ -137,7 +137,7 @@ export default function HistoryPage() {
                                         {/* Remove button */}
                                         <button
                                             onClick={() => removeFromHistory(item.video.id)}
-                                            className="absolute top-2 right-2 p-2 bg-black/70 hover:bg-black/90 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                                            className="absolute top-2 right-2 p-2 bg-black hover:bg-black text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
                                             aria-label="Remove from history"
                                         >
                                             <Trash2 className="w-4 h-4" />
