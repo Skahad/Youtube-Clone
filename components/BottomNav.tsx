@@ -32,7 +32,7 @@ export default function BottomNav() {
                                 : "text-foreground/60 hover:text-accent-hover"
                         )}
                     >
-                        <Icon className={clsx("w-6 h-6 transition-transform duration-200", isActive && "fill-current scale-110")} />
+                        <Icon className={clsx("w-6 h-6 transition-transform duration-200", isActive && " scale-110")} />
                         <span className={clsx("text-[10px] font-medium transition-opacity", isActive ? "opacity-100" : "opacity-80")}>{item.label}</span>
                     </Link>
                 );

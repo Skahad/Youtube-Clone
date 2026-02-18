@@ -47,7 +47,7 @@ export default function LibraryPage() {
                             <Link href={section.href} className="flex items-center gap-3 group">
                                 <section.icon className="w-6 h-6 text-foreground" />
                                 <h2 className="text-xl font-bold text-foreground">{section.title}</h2>
-                                <span className="text-sm text-foreground/70 font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                <span className="text-sm text- font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                                     See all <ChevronRight className="w-4 h-4" />
                                 </span>
                             </Link>
@@ -65,7 +65,7 @@ export default function LibraryPage() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="px-4 py-8 bg-gray-50 dark:bg-[#1a1a1a] rounded-xl mx-4 border border-dashed border-foreground/10 flex flex-col items-center justify-center text-center">
+                            <div className="px-4 py-8 bg-background rounded-xl mx-4 border border-dashed border-foreground/10 flex flex-col items-center justify-center text-center">
                                 <section.icon className="w-10 h-10 text-foreground/30 mb-2" />
                                 <p className="text-foreground/60 text-sm">{section.emptyMsg}</p>
                             </div>
