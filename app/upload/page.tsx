@@ -44,10 +44,10 @@ export default function UploadPage() {
                     </h2>
                     <div className="flex gap-2">
                         <button title="Provide feedback" className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full">
-                            <Settings className="w-5 h-5 text-gray-500" />
+                            <Settings className="w-5 h-5 text-foreground/70" />
                         </button>
                         <button title="Close" className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full">
-                            <X className="w-5 h-5 text-gray-500" />
+                            <X className="w-5 h-5 text-foreground/70" />
                         </button>
                     </div>
                 </div>
@@ -64,7 +64,7 @@ export default function UploadPage() {
                             onDrop={handleDrop}
                         >
                             <div className="w-32 h-32 bg-gray-100 dark:bg-[#121212] rounded-full flex items-center justify-center mb-6">
-                                <UploadCloud className="w-16 h-16 text-gray-400" />
+                                <UploadCloud className="w-16 h-16 text-foreground/60" />
                             </div>
                             <p className="text-gray-900 dark:text-white font-medium text-lg mb-2">
                                 Drag and drop video files to upload
@@ -113,7 +113,7 @@ export default function UploadPage() {
                                     </label>
                                     <div className="flex gap-4 mt-2">
                                         <div className="w-32 h-20 border-2 border-dashed border-foreground/10 rounded flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 dark:hover:bg-[#202020]">
-                                            <ImageIcon className="w-6 h-6 text-gray-400 mb-1" />
+                                            <ImageIcon className="w-6 h-6 text-foreground/60 mb-1" />
                                             <span className="text-xs text-gray-500">Upload file</span>
                                         </div>
                                         <div className="w-32 h-20 bg-gray-100 dark:bg-[#121212] rounded flex items-center justify-center">

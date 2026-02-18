@@ -50,14 +50,14 @@ export default function HistoryPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <Clock className="w-8 h-8 text-gray-900 dark:text-white" />
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Watch History</h1>
+                    <Clock className="w-8 h-8 text-foreground" />
+                    <h1 className="text-2xl font-bold text-foreground">Watch History</h1>
                 </div>
 
                 <div className="flex items-center gap-3">
                     {/* Search */}
                     <div className="relative flex-1 md:w-64">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/60" />
                         <input
                             type="text"
                             placeholder="Search watch history"
@@ -109,17 +109,17 @@ export default function HistoryPage() {
             {/* Content */}
             {history.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Clock className="w-24 h-24 text-gray-300 dark:text-gray-700 mb-4" />
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No watch history yet</h2>
-                    <p className="text-gray-600 dark:text-gray-400 max-w-md">
+                    <Clock className="w-24 h-24 text-foreground/30 mb-4" />
+                    <h2 className="text-xl font-semibold text-foreground mb-2">No watch history yet</h2>
+                    <p className="text-foreground/70 max-w-md">
                         Videos you watch will appear here. Start exploring to build your watch history!
                     </p>
                 </div>
             ) : filteredHistory.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center">
-                    <Search className="w-24 h-24 text-gray-300 dark:text-gray-700 mb-4" />
-                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No results found</h2>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <Search className="w-24 h-24 text-foreground/30 mb-4" />
+                    <h2 className="text-xl font-semibold text-foreground mb-2">No results found</h2>
+                    <p className="text-foreground/70">
                         Try searching with different keywords
                     </p>
                 </div>
@@ -127,7 +127,7 @@ export default function HistoryPage() {
                 <div className="flex flex-col gap-8">
                     {Object.entries(groupedHistory).map(([date, items]) => (
                         <div key={date}>
-                            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4 sticky top-14 bg-white dark:bg-[#0f0f0f] py-2 z-10">
+                            <h2 className="text-lg font-bold text-foreground mb-4 sticky top-14 bg-background py-2 z-10">
                                 {date}
                             </h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 gap-y-8">

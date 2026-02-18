@@ -58,7 +58,7 @@ export default function ChannelPage() {
                     <div className="flex flex-col gap-2 flex-1">
                         <h1 className="text-3xl font-bold text-foreground dark:text-white flex items-center justify-center md:justify-start gap-2">
                             {channel.name}
-                            <CheckCircle2 className="w-5 h-5 fill-gray-500 text-foreground" />
+                            <CheckCircle2 className="w-5 h-5 fill-foreground/50 text-background" />
                         </h1>
                         <div className="text-foreground/70 dark:text-gray-400 text-sm flex flex-col md:flex-row gap-1 md:gap-2">
                             <span className="font-semibold">@{channel.name.replace(/\s+/g, '').toLowerCase()}</span>
@@ -97,8 +97,8 @@ export default function ChannelPage() {
                             className={clsx(
                                 "px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                                 activeTab === tab
-                                    ? "border-black dark:border-white text-black dark:text-foreground"
-                                    : "border-transparent text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white"
+                                    ? "border-black dark:border-white text-accent dark:text-foreground"
+                                    : "border-transparent text-foreground/80 dark:text-gray-400 hover:foreground/70 dark:hover:text-white"
                             )}
                         >
                             {tab}
@@ -106,7 +106,7 @@ export default function ChannelPage() {
                     ))}
                     <div className="flex-1" />
                     <button className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full">
-                        <Search className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                        <Search className="w-5 h-5 text-foreground" />
                     </button>
                 </div>
 
@@ -198,14 +198,14 @@ export default function ChannelPage() {
 
                     {activeTab === "About" && (
                         <div className="max-w-3xl">
-                            <div className="bg-gray-50 dark:bg-[#272727] rounded-xl p-6 space-y-4">
+                            <div className="bg-background dark:bg-[#272727] rounded-xl p-6 space-y-4">
                                 <div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h3>
-                                    <p className="text-gray-600 dark:text-gray-400 text-sm">{channel.description}</p>
+                                    <h3 className="font-semibold text-foreground dark:text-white mb-2">Description</h3>
+                                    <p className="text-foreground/80 dark:text-gray-400 text-sm">{channel.description}</p>
                                 </div>
                                 <div className="border-t border-foreground/10 pt-4">
-                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Stats</h3>
-                                    <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                                    <h3 className="font-semibold text-foreground dark:text-white mb-2">Stats</h3>
+                                    <div className="space-y-1 text-sm text-foreground/80 dark:text-gray-400">
                                         <p>{channel.subscribers} subscribers</p>
                                         <p>{channelVideos.length} videos</p>
                                     </div>

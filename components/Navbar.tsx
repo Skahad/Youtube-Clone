@@ -50,7 +50,7 @@ export default function Navbar() {
                         onClick={() => setShowMobileSearch(false)}
                         className="p-2 hover:bg-surface-hover rounded-full transition-colors flex-shrink-0"
                     >
-                        <ArrowLeft className="w-6 h-6 text-gray-800 dark:text-white" />
+                        <ArrowLeft className="w-6 h-6 text-foreground" />
                     </button>
                     <form onSubmit={handleSearch} className="flex-1 relative">
                         <input
@@ -76,7 +76,7 @@ export default function Navbar() {
                                         }}
                                         className="flex items-center gap-3 w-full px-4 py-2 hover:bg-surface-hover text-left transition-colors"
                                     >
-                                        <Search className="w-4 h-4 text-gray-400" />
+                                        <Search className="w-4 h-4 text-foreground/70" />
                                         <span className="text-sm text-foreground truncate">{video.title}</span>
                                     </button>
                                 ))}
@@ -84,7 +84,7 @@ export default function Navbar() {
                         )}
                     </form>
                     <button className="p-2 hover:bg-surface-hover rounded-full transition-colors flex-shrink-0">
-                        <Mic className="w-5 h-5 dark:text-white" />
+                        <Mic className="w-5 h-5 text-foreground" />
                     </button>
                 </div>
             ) : (
@@ -95,7 +95,7 @@ export default function Navbar() {
                             onClick={toggleSidebar}
                             className="p-2 hover:bg-surface-hover rounded-full transition-colors hidden md:block"
                         >
-                            <Menu className="w-6 h-6 text-gray-800 dark:text-white" />
+                            <Menu className="w-6 h-6 text-foreground" />
                         </button>
                         <Link href="/" className="flex items-center gap-1 flex-shrink-0">
                             <div className="text-red-600 relative flex items-center justify-center">
@@ -117,7 +117,7 @@ export default function Navbar() {
                                     className="w-full px-4 py-2 border border-foreground/10 rounded-l-full focus:border-accent focus:outline-none bg-surface text-foreground shadow-inner"
                                 />
                                 <button type="submit" className="px-6 bg-surface border border-l-0 border-foreground/10 rounded-r-full hover:bg-surface-hover transition-colors flex items-center justify-center">
-                                    <Search className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                                    <Search className="w-5 h-5 text-foreground/70" />
                                 </button>
                             </div>
 
@@ -130,7 +130,7 @@ export default function Navbar() {
                                             onClick={() => setShowSuggestions(false)}
                                             className="flex items-center gap-3 px-4 py-2 hover:bg-surface-hover transition-colors"
                                         >
-                                            <Search className="w-4 h-4 text-gray-400" />
+                                            <Search className="w-4 h-4 text-foreground/70" />
                                             <span className="text-sm text-foreground truncate">{video.title}</span>
                                         </Link>
                                     ))}
@@ -148,10 +148,10 @@ export default function Navbar() {
                             onClick={() => setShowMobileSearch(true)}
                             className="p-2 hover:bg-surface-hover rounded-full transition-colors md:hidden"
                         >
-                            <Search className="w-6 h-6 text-gray-800 dark:text-white" />
+                            <Search className="w-6 h-6 text-foreground" />
                         </button>
                         <button className="p-2 hover:bg-surface-hover rounded-full transition-colors md:hidden">
-                            <Mic className="w-6 h-6 text-gray-800 dark:text-white" />
+                            <Mic className="w-6 h-6 text-foreground" />
                         </button>
                         <button
                             onClick={toggleTheme}
@@ -159,13 +159,13 @@ export default function Navbar() {
                             aria-label="Toggle theme"
                         >
                             {theme === "light" ? (
-                                <Moon className="w-6 h-6 text-gray-800" />
+                                <Moon className="w-6 h-6 text-foreground" />
                             ) : (
-                                <Sun className="w-6 h-6 text-white" />
+                                <Sun className="w-6 h-6 text-foreground" />
                             )}
                         </button>
                         <button className="p-2 hover:bg-surface-hover rounded-full transition-colors relative hidden sm:block">
-                            <Bell className="w-6 h-6 text-foreground dark:text-white" />
+                            <Bell className="w-6 h-6 text-foreground" />
                             <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] w-5 h-4 flex items-center justify-center rounded-full border-1 border-white dark:border-[#0f0f0f]">
                                 9+
                             </span>

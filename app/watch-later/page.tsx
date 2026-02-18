@@ -26,20 +26,20 @@ export default function WatchLaterPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <Clock className="w-8 h-8 text-gray-900 dark:text-white" />
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Watch Later</h1>
+                    <Clock className="w-8 h-8 text-foreground dark:text-white" />
+                    <h1 className="text-2xl font-bold text-foreground dark:text-white">Watch Later</h1>
                 </div>
 
                 <div className="flex items-center gap-3">
                     {/* Search */}
                     <div className="relative flex-1 md:w-64">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/70" />
                         <input
                             type="text"
                             placeholder="Search watch later"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-[#272727] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+                            className="w-full pl-10 pr-4 py-2 bg-background dark:bg-[#272727] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
                         />
                     </div>
 

@@ -59,7 +59,7 @@ export default function WatchPage() {
                         <div className="flex flex-col min-w-0">
                             <Link href={`/channel/${video.channelId}`} className="flex items-center gap-1 font-semibold text-foreground/70 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 truncate">
                                 {video.channelName}
-                                <CheckCircle2 className="w-3.5 h-3.5 fill-gray-500 text-white flex-shrink-0" />
+                                <CheckCircle2 className="w-3.5 h-3.5 fill-foreground/50 text-background flex-shrink-0" />
                             </Link>
                             <span className="text-xs text-foreground/60 dark:text-gray-400 truncate">1.2M subscribers</span>
                         </div>

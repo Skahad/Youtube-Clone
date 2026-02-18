@@ -120,7 +120,7 @@ export default function VideoCard({ video }: VideoCardProps) {
                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
                         className="p-1 hover:bg-surface-hover rounded-full transition-colors md:opacity-0 md:group-hover:opacity-100"
                     >
-                        <MoreVertical className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                        <MoreVertical className="w-5 h-5 text-foreground" />
                     </button>
 
                     {showMenu && (

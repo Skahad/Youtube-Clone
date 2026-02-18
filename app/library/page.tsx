@@ -38,21 +38,21 @@ export default function LibraryPage() {
 
     return (
         <div className="flex flex-col gap-10 w-full max-w-[1800px] mx-auto pb-10">
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white px-4">Library</h1>
+            <h1 className="text-2xl font-bold text-foreground px-4">Library</h1>
 
             <div className="flex flex-col gap-12">
                 {sections.map((section) => (
                     <div key={section.title} className="flex flex-col gap-4">
                         <div className="flex items-center justify-between px-4">
                             <Link href={section.href} className="flex items-center gap-3 group">
-                                <section.icon className="w-6 h-6 text-gray-900 dark:text-white" />
-                                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{section.title}</h2>
-                                <span className="text-sm text-gray-600 dark:text-gray-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                                <section.icon className="w-6 h-6 text-foreground" />
+                                <h2 className="text-xl font-bold text-foreground">{section.title}</h2>
+                                <span className="text-sm text-foreground/70 font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
                                     See all <ChevronRight className="w-4 h-4" />
                                 </span>
                             </Link>
                             {section.items.length > 0 && (
-                                <span className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                                <span className="text-sm text-foreground/60 font-medium">
                                     {section.items.length} videos
                                 </span>
                             )}
@@ -66,8 +66,8 @@ export default function LibraryPage() {
                             </div>
                         ) : (
                             <div className="px-4 py-8 bg-gray-50 dark:bg-[#1a1a1a] rounded-xl mx-4 border border-dashed border-foreground/10 flex flex-col items-center justify-center text-center">
-                                <section.icon className="w-10 h-10 text-gray-300 dark:text-gray-600 mb-2" />
-                                <p className="text-gray-600 dark:text-gray-400 text-sm">{section.emptyMsg}</p>
+                                <section.icon className="w-10 h-10 text-foreground/30 mb-2" />
+                                <p className="text-foreground/60 text-sm">{section.emptyMsg}</p>
                             </div>
                         )}
                     </div>

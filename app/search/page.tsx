@@ -121,7 +121,7 @@ function SearchContent() {
                                     </Link>
                                     <Link href={`/channel/${video.channelId}`} className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
                                         {video.channelName}
-                                        <CheckCircle2 className="w-3 h-3 fill-gray-500 text-white" />
+                                        <CheckCircle2 className="w-3 h-3 fill-foreground/50 text-background" />
                                     </Link>
                                 </div>
 

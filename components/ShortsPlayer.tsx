@@ -238,7 +238,7 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
                     <div className="flex items-center justify-between p-4 border-b border-foreground/10">
                         <h3 className="font-bold text-black dark:text-white">Comments ({short.comments})</h3>
                         <button onClick={() => setShowComments(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full">
-                            <X className="w-5 h-5 text-black dark:text-white" />
+                            <X className="w-5 h-5 text-foreground" />
                         </button>
                     </div>
 
@@ -248,14 +248,14 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
                                 <div className="w-8 h-8 rounded-full bg-purple-500 flex-shrink-0" />
                                 <div className="flex flex-col gap-1">
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-xs font-semibold text-gray-900 dark:text-gray-100">@user{i}</span>
-                                        <span className="text-[10px] text-gray-500">2h ago</span>
+                                        <span className="text-xs font-semibold text-foreground">@user{i}</span>
+                                        <span className="text-[10px] text-foreground/60">2h ago</span>
                                     </div>
-                                    <p className="text-sm text-gray-800 dark:text-gray-200">This is a mock comment for the shorts viewer! Awesome content.</p>
+                                    <p className="text-sm text-foreground/80">This is a mock comment for the shorts viewer! Awesome content.</p>
                                     <div className="flex items-center gap-3 mt-1">
-                                        <button className="flex items-center gap-1 text-xs text-gray-500"><ThumbsUp className="w-3 h-3" /> 12</button>
-                                        <button className="flex items-center gap-1 text-xs text-gray-500"><ThumbsDown className="w-3 h-3" /></button>
-                                        <button className="text-xs font-semibold text-gray-500">Reply</button>
+                                        <button className="flex items-center gap-1 text-xs text-foreground/60"><ThumbsUp className="w-3 h-3" /> 12</button>
+                                        <button className="flex items-center gap-1 text-xs text-foreground/60"><ThumbsDown className="w-3 h-3" /></button>
+                                        <button className="text-xs font-semibold text-foreground/60">Reply</button>
                                     </div>
                                 </div>
                             </div>
@@ -264,7 +264,7 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
 
                     <div className="p-4 border-t border-foreground/10 flex gap-3 items-center">
                         <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs font-bold">U</div>
-                        <input type="text" placeholder="Add a comment..." className="flex-1 bg-gray-100 dark:bg-[#272727] rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 text-black dark:text-white" />
+                        <input type="text" placeholder="Add a comment..." className="flex-1 bg-gray-100 dark:bg-[#272727] rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 text-foreground" />
                     </div>
                 </div>
             )}

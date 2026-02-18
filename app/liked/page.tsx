@@ -26,8 +26,8 @@ export default function LikedVideosPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                    <ThumbsUp className="w-8 h-8 text-gray-900 dark:text-white" />
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Liked Videos</h1>
+                    <ThumbsUp className="w-8 h-8 text-foreground" />
+                    <h1 className="text-2xl font-bold text-foreground">Liked Videos</h1>
                 </div>
 
                 <div className="flex items-center gap-3">

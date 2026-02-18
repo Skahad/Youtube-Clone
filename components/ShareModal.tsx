@@ -38,12 +38,12 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
     };
 
     const shareOptions = [
-        { name: "Embed", icon: <X className="rotate-45" />, color: "bg-gray-100 dark:bg-[#272727]" },
-        { name: "WhatsApp", icon: <MessageCircle />, color: "bg-green-500 text-white" },
-        { name: "Facebook", icon: <Facebook />, color: "bg-blue-600 text-white" },
-        { name: "Twitter", icon: <Twitter />, color: "bg-sky-500 text-white" },
-        { name: "Email", icon: <Mail />, color: "bg-gray-500 text-white" },
-        { name: "Telegram", icon: <Send />, color: "bg-blue-400 text-white" },
+        { name: "Embed", icon: <X className="rotate-45" />, color: "bg-foreground/10 hover:bg-foreground/20 dark:bg-[#272727]" },
+        { name: "WhatsApp", icon: <MessageCircle />, color: "bg-green-500 hover:bg-green-600 dark:bg-[#272727]" },
+        { name: "Facebook", icon: <Facebook />, color: "bg-blue-600 hover:bg-blue-700 dark:bg-[#272727]" },
+        { name: "Twitter", icon: <Twitter />, color: "bg-sky-500 hover:bg-sky-600 dark:bg-[#272727]" },
+        { name: "Email", icon: <Mail />, color: "bg-gray-500 hover:bg-gray-600 dark:bg-[#272727]" },
+        { name: "Telegram", icon: <Send />, color: "bg-blue-400 hover:bg-blue-500 dark:bg-[#272727]" },
     ];
 
     return (
@@ -55,14 +55,14 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
             />
 
             {/* Modal */}
-            <div className="relative w-full max-w-md bg-white dark:bg-[#212121] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300">
+            <div className="relative w-full max-w-md bg-background dark:bg-[#212121] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300">
                 <div className="flex items-center justify-between p-4 border-b border-foreground/10">
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Share</h3>
+                    <h3 className="text-lg font-bold text-fore dark:text-white">Share</h3>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] rounded-full transition-colors"
+                        className="p-2 hover:bg-foreground/10 dark:hover:bg-[#3f3f3f] rounded-full transition-colors"
                     >
-                        <X className="w-5 h-5 text-gray-900 dark:text-white" />
+                        <X className="w-5 h-5 text-foreground" />
                     </button>
                 </div>
 
@@ -77,15 +77,15 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
                                 )}>
                                     {option.icon}
                                 </div>
-                                <span className="text-[10px] sm:text-xs text-gray-600 dark:text-gray-400 font-medium">{option.name}</span>
+                                <span className="text-[10px] sm:text-xs text-foreground/70 font-medium">{option.name}</span>
                             </div>
                         ))}
                     </div>
 
                     {/* Link Copy Box */}
                     <div className="relative">
-                        <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-[#121212] border border-foreground/10 rounded-xl group transition-all focus-within:ring-2 focus-within:ring-blue-500/20">
-                            <span className="flex-1 text-sm text-gray-600 dark:text-gray-400 truncate pr-2 select-all">
+                        <div className="flex items-center gap-2 p-3 bg-background dark:bg-[#121212] border border-foreground/10 rounded-xl group transition-all focus-within:ring-2 focus-within:ring-blue-500/20">
+                            <span className="flex-1 text-sm text-foreground/70 truncate pr-2 select-all">
                                 {videoUrl}
                             </span>
                             <button
@@ -104,9 +104,9 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
                     </div>
                 </div>
 
-                <div className="px-6 py-4 bg-gray-50 dark:bg-[#181818] border-t border-foreground/10 flex items-center gap-3">
+                <div className="px-6 py-4 bg-background dark:bg-[#181818] border-t border-foreground/10 flex items-center gap-3">
                     <input type="checkbox" id="start-at" className="w-4 h-4 accent-blue-600 cursor-pointer" />
-                    <label htmlFor="start-at" className="text-sm text-gray-900 dark:text-white cursor-pointer font-medium">
+                    <label htmlFor="start-at" className="text-sm text-foreground cursor-pointer font-medium">
                         Start at 0:01
                     </label>
                 </div>
