@@ -5,6 +5,8 @@ import { CheckCircle2, MoreVertical, Clock, Share2, Check } from "lucide-react";
 import { Video } from "@/data/videos";
 import { useState, useRef, useEffect } from "react";
 import { useWatchLater } from "./WatchLaterProvider";
+import { useAuth } from "./AuthContext";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 import ShareModal from "./ShareModal";
@@ -15,6 +17,8 @@ interface VideoCardProps {
 
 export default function VideoCard({ video }: VideoCardProps) {
     const { isInWatchLater, toggleWatchLater } = useWatchLater();
+    const { user } = useAuth();
+    const router = useRouter();
     const [showMenu, setShowMenu] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
@@ -25,6 +29,12 @@ export default function VideoCard({ video }: VideoCardProps) {
     const handleToggleWatchLater = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
+
+        if (!user) {
+            router.push("/login");
+            return;
+        }
+
         toggleWatchLater(video);
         setShowMenu(false);
         setShowToast(true);
@@ -77,7 +87,7 @@ export default function VideoCard({ video }: VideoCardProps) {
                         "absolute top-2 right-2 p-1.5 bg-black/70 hover:bg-black/90 text-white rounded-lg transition-all opacity-0 group-hover:opacity-100 z-10",
                         isAddedToWatchLater && "opacity-100 bg-accent"
                     )}
-                    title={isAddedToWatchLater ? "Remove from Watch later" : "Save to Watch later"}
+                    title={(!user || !isAddedToWatchLater) ? "Save to Watch later" : "Remove from Watch later"}
                 >
                     <Clock className="w-5 h-5" />
                 </button>

@@ -28,6 +28,8 @@ import { SidebarProvider } from "@/components/SidebarProvider";
 import { WatchHistoryProvider } from "@/components/WatchHistoryProvider";
 import { LikedVideosProvider } from "@/components/LikedVideosProvider";
 import { WatchLaterProvider } from "@/components/WatchLaterProvider";
+import { PlaylistsProvider } from "@/components/PlaylistsProvider";
+import { SubscriptionsProvider } from "@/components/SubscriptionsProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/AuthContext";
 import Navbar from "@/components/Navbar";
@@ -47,22 +49,26 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <AuthProvider>
-            <WatchHistoryProvider>
-              <LikedVideosProvider>
-                <WatchLaterProvider>
-                  <SidebarProvider>
-                    <Navbar />
-                    <div className="flex pt-10">
-                      <Sidebar />
-                      <main className="flex-1 p-4 md:p-6 ml-0 md:ml-0 transition-all duration-200 min-h-[calc(100vh-3.5rem)] pb-20 md:pb-6 max-w-full overflow-x-hidden">
-                        {children}
-                      </main>
-                    </div>
-                    <BottomNav />
-                  </SidebarProvider>
-                </WatchLaterProvider>
-              </LikedVideosProvider>
-            </WatchHistoryProvider>
+            <SubscriptionsProvider>
+              <PlaylistsProvider>
+                <WatchHistoryProvider>
+                  <LikedVideosProvider>
+                    <WatchLaterProvider>
+                      <SidebarProvider>
+                        <Navbar />
+                        <div className="flex pt-10">
+                          <Sidebar />
+                          <main className="flex-1 p-4 md:p-6 ml-0 md:ml-0 transition-all duration-200 min-h-[calc(100vh-3.5rem)] pb-20 md:pb-6 max-w-full overflow-x-hidden">
+                            {children}
+                          </main>
+                        </div>
+                        <BottomNav />
+                      </SidebarProvider>
+                    </WatchLaterProvider>
+                  </LikedVideosProvider>
+                </WatchHistoryProvider>
+              </PlaylistsProvider>
+            </SubscriptionsProvider>
           </AuthProvider>
         </ThemeProvider>
       </body>

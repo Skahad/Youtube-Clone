@@ -4,6 +4,9 @@ import { MessageSquare, MoreHorizontal, Share2, ThumbsDown, ThumbsUp, Volume2, V
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { ShortVideo } from "@/data/shorts";
+import { useSubscriptions } from "./SubscriptionsProvider";
+import { useAuth } from "./AuthContext";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import clsx from "clsx";
 import ShareModal from "./ShareModal";
@@ -13,12 +16,14 @@ interface ShortsPlayerProps {
 }
 
 export default function ShortsPlayer({ short }: ShortsPlayerProps) {
+    const { isSubscribed: isChannelSubscribed, toggleSubscription } = useSubscriptions();
+    const { user } = useAuth();
+    const router = useRouter();
     const [isPlaying, setIsPlaying] = useState(true);
     const [isMuted, setIsMuted] = useState(true);
     const [likes, setLikes] = useState(short.likes);
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
-    const [isSubscribed, setIsSubscribed] = useState(false);
     const [showComments, setShowComments] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
     const [showMore, setShowMore] = useState(false);
@@ -103,9 +108,15 @@ export default function ShortsPlayer({ short }: ShortsPlayerProps) {
         }
     };
 
+    const isSubscribed = !!user && isChannelSubscribed(short.channelId);
+
     const handleSubscribe = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setIsSubscribed(!isSubscribed);
+        if (!user) {
+            router.push("/login");
+            return;
+        }
+        toggleSubscription(short.channelId);
     };
 
     const handleShare = () => {

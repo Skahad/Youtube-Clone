@@ -7,9 +7,12 @@ import ActionButtons from "@/components/ActionButtons";
 import CommentBox from "@/components/CommentBox";
 import VideoCard from "@/components/VideoCard";
 import { useWatchHistory } from "@/components/WatchHistoryProvider";
+import { useSubscriptions } from "@/components/SubscriptionsProvider";
+import { useAuth } from "@/components/AuthContext";
 import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 export default function WatchPage() {
@@ -19,9 +22,21 @@ export default function WatchPage() {
     const recommendations = videos.filter((v) => v.id !== video.id);
     const [isClient, setIsClient] = useState(false);
     const { addToHistory } = useWatchHistory();
+    const { isSubscribed, toggleSubscription } = useSubscriptions();
+    const { user } = useAuth();
+    const router = useRouter();
 
-    const [isSubscribed, setIsSubscribed] = useState(false);
     const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+    const subscribed = !!user && isSubscribed(video.channelId);
+
+    const handleSubscribe = () => {
+        if (!user) {
+            router.push("/login");
+            return;
+        }
+        toggleSubscription(video.channelId);
+    };
 
     useEffect(() => {
         setIsClient(true);
@@ -65,15 +80,15 @@ export default function WatchPage() {
                         </div>
 
                         <button
-                            onClick={() => setIsSubscribed(!isSubscribed)}
+                            onClick={handleSubscribe}
                             className={clsx(
                                 "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
-                                isSubscribed
+                                subscribed
                                     ? "bg-accent/95 dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-accent/80 dark:hover:bg-[#3f3f3f]"
                                     : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
                             )}
                         >
-                            {isSubscribed ? "Subscribed" : "Subscribe"}
+                            {subscribed ? "Subscribed" : "Subscribe"}
                         </button>
                     </div>
 

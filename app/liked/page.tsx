@@ -1,14 +1,26 @@
 "use client";
 
 import { useLikedVideos } from "@/components/LikedVideosProvider";
+import { useAuth } from "@/components/AuthContext";
 import VideoCard from "@/components/VideoCard";
 import { ThumbsUp, Trash2, Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LikedVideosPage() {
     const { likedVideos, clearLikedVideos, toggleLike } = useLikedVideos();
+    const { user } = useAuth();
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
     const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/login");
+        }
+    }, [user, router]);
+
+    if (!user) return null;
 
     // Filter liked videos based on search query
     const filteredVideos = likedVideos.filter((video) =>

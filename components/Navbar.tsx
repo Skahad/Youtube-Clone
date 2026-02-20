@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Search, Mic, Video, Bell, User, Sun, Moon, ArrowLeft, Plus, Upload, PlaySquare, Film, Settings, LogIn, UserPlus, MoreHorizontal } from "lucide-react";
+import { Menu, Search, Mic, Video, Bell, User, Sun, Moon, ArrowLeft, Plus, Upload, Download, Play, PlaySquare, Film, Settings, LogIn, UserPlus, MoreHorizontal, Users, Wallet, ListVideo, History, ThumbsUp as LikeIcon, FileText, MonitorPlay, PenBox, Megaphone, LogOut, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useSidebar } from "./SidebarProvider";
 import { useTheme } from "./ThemeProvider";
@@ -173,11 +173,7 @@ export default function Navbar() {
                             <button
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    if (isAuthenticated) {
-                                        setShowCreateMenu(!showCreateMenu);
-                                    } else {
-                                        router.push("/login");
-                                    }
+                                    setShowCreateMenu(!showCreateMenu);
                                 }}
                                 className="p-2 hover:bg-surface-hover rounded-full transition-colors flex items-center justify-center gap-1 sm:gap-2"
                                 aria-label="Create"
@@ -189,7 +185,7 @@ export default function Navbar() {
                                 <span className="hidden lg:block text-sm font-medium text-foreground">Create</span>
                             </button>
 
-                            {showCreateMenu && isAuthenticated && (
+                            {showCreateMenu && (
                                 <div className="absolute top-full right-0 mt-2 w-56 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right overflow-hidden">
                                     <button
                                         className="flex items-center gap-4 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left group"
@@ -198,11 +194,11 @@ export default function Navbar() {
                                             router.push("/upload");
                                         }}
                                     >
-                                        <div className="p-2 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                                            <Upload className="w-5 h-5 text-accent" />
+                                        <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
+                                            <Upload className="w-5 h-5 text-blue-500" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-foreground">Upload video</span>
+                                            <span className="text-sm font-semibold text-foreground">Upload</span>
                                             <span className="text-[10px] text-foreground/50">Post a new video</span>
                                         </div>
                                     </button>
@@ -210,15 +206,15 @@ export default function Navbar() {
                                         className="flex items-center gap-4 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left group"
                                         onClick={() => {
                                             setShowCreateMenu(false);
-                                            router.push("/shorts");
+                                            router.push("/import");
                                         }}
                                     >
-                                        <div className="p-2 bg-blue-500/10 rounded-lg group-hover:bg-blue-500/20 transition-colors">
-                                            <Film className="w-5 h-5 text-blue-500" />
+                                        <div className="p-2 bg-green-500/10 rounded-lg group-hover:bg-green-500/20 transition-colors">
+                                            <Download className="w-5 h-5 text-green-500" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-foreground">Create Short</span>
-                                            <span className="text-[10px] text-foreground/50">Shoot and share</span>
+                                            <span className="text-sm font-semibold text-foreground">Import</span>
+                                            <span className="text-[10px] text-foreground/50">Link from YouTube</span>
                                         </div>
                                     </button>
                                     <div className="my-1 border-t border-foreground/5" />
@@ -226,56 +222,146 @@ export default function Navbar() {
                                         className="flex items-center gap-4 w-full px-4 py-3 hover:bg-surface-hover transition-colors text-left group"
                                         onClick={() => {
                                             setShowCreateMenu(false);
-                                            router.push("/import");
+                                            router.push("/shorts/upload");
                                         }}
                                     >
                                         <div className="p-2 bg-purple-500/10 rounded-lg group-hover:bg-purple-500/20 transition-colors">
-                                            <PlaySquare className="w-5 h-5 text-purple-500" />
+                                            <Play className="w-5 h-5 text-purple-500" />
                                         </div>
                                         <div className="flex flex-col">
-                                            <span className="text-sm font-semibold text-foreground">Import</span>
-                                            <span className="text-[10px] text-foreground/50">Link from YouTube</span>
+                                            <span className="text-sm font-semibold text-foreground">Shorts</span>
+                                            <span className="text-[10px] text-foreground/50">Shoot and share</span>
                                         </div>
                                     </button>
                                 </div>
                             )}
                         </div>
-                        <button className="p-2 hover:bg-surface-hover rounded-full transition-colors relative hidden sm:block">
-                            <Bell className="w-6 h-6 text-foreground" />
-                            <span className="absolute top-1 right-1 bg-red-600 text-white text-[10px] w-5 h-4 flex items-center justify-center rounded-full border-1 border-white dark:border-[#0f0f0f]">
-                                9+
-                            </span>
-                        </button>
-
                         {isAuthenticated ? (
-                            <div className="relative">
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setShowUserMenu(!showUserMenu);
-                                    }}
-                                    className="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold uppercase ml-1 sm:ml-2 ring-offset-2 ring-offset-background hover:ring-2 hover:ring-foreground/10 transition-all"
-                                >
-                                    {user?.username?.[0] || "U"}
+                            <div className="flex items-center gap-1 sm:gap-2">
+                                <button className="p-2 hover:bg-surface-hover rounded-full transition-colors hidden sm:block">
+                                    <MessageSquare className="w-6 h-6 text-foreground" />
                                 </button>
-                                {showUserMenu && (
-                                    <div className="absolute top-full right-0 mt-2 w-48 bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right overflow-hidden">
-                                        <div className="px-4 py-3 border-b border-foreground/5 mb-2">
-                                            <p className="text-sm font-bold text-foreground truncate">{user?.username}</p>
-                                            <p className="text-[10px] text-foreground/50 truncate">Account management</p>
+                                <button className="p-2 hover:bg-surface-hover rounded-full transition-colors relative hidden sm:block">
+                                    <Bell className="w-6 h-6 text-foreground" />
+                                </button>
+                                <div className="relative">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setShowUserMenu(!showUserMenu);
+                                        }}
+                                        className="flex items-center gap-2 px-2 py-1 hover:bg-surface-hover rounded-full transition-all"
+                                    >
+                                        <span className="hidden md:block text-sm font-semibold text-[#065fd4]">My Account</span>
+                                        <div className="w-8 h-8 rounded-full overflow-hidden border border-foreground/10">
+                                            {user?.avatar && user.avatar !== "U" ? (
+                                                <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <div className="w-full h-full bg-purple-600 text-white flex items-center justify-center text-sm font-bold uppercase">
+                                                    {user?.username?.[0] || "U"}
+                                                </div>
+                                            )}
                                         </div>
-                                        <button
-                                            onClick={() => {
-                                                setShowUserMenu(false);
-                                                logout();
-                                            }}
-                                            className="flex items-center gap-3 w-full px-4 py-2 hover:bg-surface-hover transition-colors text-left text-sm text-red-500 font-medium"
-                                        >
-                                            <User className="w-4 h-4" />
-                                            Sign out
-                                        </button>
-                                    </div>
-                                )}
+                                        <MoreHorizontal className="w-4 h-4 text-foreground/60 hidden sm:block rotate-90" />
+                                    </button>
+
+                                    {showUserMenu && (
+                                        <div className="absolute top-full right-0 mt-2 w-[300px] bg-background border border-foreground/10 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 origin-top-right overflow-hidden transition-colors duration-300">
+                                            {/* User Profile Header */}
+                                            <div className="px-5 py-4 flex items-center gap-4 border-b border-foreground/5 mb-1">
+                                                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-accent/20">
+                                                    {user?.avatar && user.avatar !== "U" ? (
+                                                        <img src={user.avatar} alt={user.username} className="w-full h-full object-cover" />
+                                                    ) : (
+                                                        <div className="w-full h-full bg-purple-600 text-white flex items-center justify-center text-xl font-bold uppercase">
+                                                            {user?.username?.[0] || "U"}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-col min-w-0">
+                                                    <p className="text-lg font-bold text-foreground/90 truncate">{user?.username || "User Name"}</p>
+                                                    <p className="text-sm text-foreground/50 truncate font-medium">{user?.handle || "@userhandle"}</p>
+                                                    <button className="text-sm font-bold text-accent mt-1 text-left hover:underline">
+                                                        {user?.points || 0} Points
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/* Menu Items */}
+                                            <div className="py-1">
+                                                {[
+                                                    { icon: Users, label: "Switch Account" },
+                                                    { icon: User, label: "Subscriptions" },
+                                                    { icon: Wallet, label: "Wallet" },
+                                                    { icon: ListVideo, label: "PlayLists" },
+                                                    { icon: History, label: "History" },
+                                                ].map((item, idx) => (
+                                                    <button
+                                                        key={idx}
+                                                        onClick={() => {
+                                                            setShowUserMenu(false);
+                                                            if (item.label === "Switch Account") {
+                                                                router.push("/switch-account");
+                                                            } else if (item.label === "PlayLists") {
+                                                                router.push("/playlists");
+                                                            } else if (item.label === "Subscriptions") {
+                                                                router.push("/subscriptions");
+                                                            } else if (item.label === "History") {
+                                                                router.push("/activities");
+                                                            }
+                                                        }}
+                                                        className="flex items-center gap-4 w-full px-5 py-2.5 hover:bg-surface-hover transition-colors text-left group"
+                                                    >
+                                                        <item.icon className="w-5 h-5 text-foreground/70 group-hover:text-foreground" />
+                                                        <span className="text-[15px] font-medium text-foreground/80">{item.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <div className="my-1 border-t border-foreground/5" />
+
+                                            <div className="py-1">
+                                                {[
+                                                    { icon: LikeIcon, label: "Liked videos" },
+                                                    { icon: FileText, label: "My articles" },
+                                                    { icon: MonitorPlay, label: "Video Studio" },
+                                                    { icon: PenBox, label: "Edit" },
+                                                    { icon: Settings, label: "Settings" },
+                                                    { icon: Megaphone, label: "Advertising" },
+                                                ].map((item, idx) => (
+                                                    <button
+                                                        key={idx}
+                                                        onClick={() => {
+                                                            setShowUserMenu(false);
+                                                            if (item.label === "Liked videos") {
+                                                                router.push("/liked");
+                                                            } else if (item.label === "Edit") {
+                                                                router.push("/about");
+                                                            }
+                                                        }}
+                                                        className="flex items-center gap-4 w-full px-5 py-2.5 hover:bg-surface-hover transition-colors text-left group"
+                                                    >
+                                                        <item.icon className="w-5 h-5 text-foreground/70 group-hover:text-foreground" />
+                                                        <span className="text-[15px] font-medium text-foreground/80">{item.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <div className="my-1 border-t border-foreground/5" />
+
+                                            <button
+                                                onClick={() => {
+                                                    setShowUserMenu(false);
+                                                    logout();
+                                                }}
+                                                className="flex items-center gap-4 w-full px-5 py-3 hover:bg-surface-hover transition-colors text-left group"
+                                            >
+                                                <LogOut className="w-5 h-5 text-foreground/70 group-hover:text-red-500" />
+                                                <span className="text-[15px] font-medium text-foreground/80 group-hover:text-red-500">Log out</span>
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         ) : (
                             <div className="relative">

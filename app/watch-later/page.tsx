@@ -1,14 +1,26 @@
 "use client";
 
 import { useWatchLater } from "@/components/WatchLaterProvider";
+import { useAuth } from "@/components/AuthContext";
 import VideoCard from "@/components/VideoCard";
 import { Clock, Trash2, Search, PlayCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function WatchLaterPage() {
     const { watchLaterVideos, clearWatchLater, toggleWatchLater } = useWatchLater();
+    const { user } = useAuth();
     const [searchQuery, setSearchQuery] = useState("");
     const [showClearConfirm, setShowClearConfirm] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/login");
+        }
+    }, [user, router]);
+
+    if (!user) return null;
 
     // Filter watch later videos based on search query
     const filteredVideos = watchLaterVideos.filter((video) =>
@@ -88,7 +100,14 @@ export default function WatchLaterPage() {
                     <p className="text-sm text-foreground dark:text-gray-400">
                         <span className="font-semibold text-foreground dark:text-white">{watchLaterVideos.length}</span> video{watchLaterVideos.length !== 1 ? 's' : ''} saved
                     </p>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition-colors">
+                    <button
+                        onClick={() => {
+                            if (watchLaterVideos.length > 0) {
+                                router.push(`/watch/${watchLaterVideos[0].id}`);
+                            }
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition-colors"
+                    >
                         <PlayCircle className="w-4 h-4" />
                         Play all
                     </button>

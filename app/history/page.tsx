@@ -1,15 +1,27 @@
 "use client";
 
 import { useWatchHistory } from "@/components/WatchHistoryProvider";
+import { useAuth } from "@/components/AuthContext";
 import VideoCard from "@/components/VideoCard";
 import { Clock, Trash2, Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
 export default function HistoryPage() {
     const { history, clearHistory, removeFromHistory } = useWatchHistory();
+    const { user } = useAuth();
+    const router = useRouter();
     const [searchQuery, setSearchQuery] = useState("");
     const [showClearConfirm, setShowClearConfirm] = useState(false);
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/login");
+        }
+    }, [user, router]);
+
+    if (!user) return null;
 
     // Filter history based on search query
     const filteredHistory = history.filter((item) =>

@@ -5,13 +5,16 @@ import { useRouter } from "next/navigation";
 
 interface User {
     username: string;
+    handle: string;
     avatar: string;
+    points: number;
     email?: string;
 }
 
 interface AuthContextType {
     user: User | null;
     login: (username: string) => void;
+    loginWithGoogle: () => void;
     logout: () => void;
     isAuthenticated: boolean;
 }
@@ -33,8 +36,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const login = (username: string) => {
         const newUser = {
             username,
-            avatar: "U", // Simplified avatar
+            handle: `@${username.toLowerCase()}`,
+            avatar: "U",
+            points: 0,
             email: `${username.toLowerCase()}@example.com`
+        };
+        setUser(newUser);
+        localStorage.setItem("user", JSON.stringify(newUser));
+        router.push("/");
+    };
+
+    const loginWithGoogle = () => {
+        const newUser = {
+            username: "Shaikh Ahad",
+            handle: "@66debcd09",
+            avatar: "/avatar.png", // We'll use a placeholder or the one from the prompt if possible
+            points: 0,
+            email: "shaikh.ahad@example.com"
         };
         setUser(newUser);
         localStorage.setItem("user", JSON.stringify(newUser));
@@ -48,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+        <AuthContext.Provider value={{ user, login, loginWithGoogle, logout, isAuthenticated: !!user }}>
             {children}
         </AuthContext.Provider>
     );

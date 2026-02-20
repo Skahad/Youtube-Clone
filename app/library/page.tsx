@@ -3,14 +3,27 @@
 import { useWatchHistory } from "@/components/WatchHistoryProvider";
 import { useWatchLater } from "@/components/WatchLaterProvider";
 import { useLikedVideos } from "@/components/LikedVideosProvider";
+import { useAuth } from "@/components/AuthContext";
 import VideoCard from "@/components/VideoCard";
 import Link from "next/link";
 import { History, Clock, ThumbsUp, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LibraryPage() {
     const { history } = useWatchHistory();
     const { watchLaterVideos } = useWatchLater();
     const { likedVideos } = useLikedVideos();
+    const { user } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!user) {
+            router.push("/login");
+        }
+    }, [user, router]);
+
+    if (!user) return null;
 
     const sections = [
         {

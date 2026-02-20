@@ -3,7 +3,10 @@
 import { Home, Compass, PlaySquare, Clock, ThumbsUp, User, History, Film, Library, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useSidebar } from "./SidebarProvider";
-import { usePathname } from "next/navigation";
+import { useAuth } from "./AuthContext";
+import { useSubscriptions } from "./SubscriptionsProvider";
+import { channels } from "@/data/channels";
+import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 
 const sidebarItems = [
@@ -18,7 +21,12 @@ const sidebarItems = [
 
 export default function Sidebar() {
     const { isOpen, closeSidebar } = useSidebar();
+    const { user } = useAuth();
+    const { subscribedChannelIds } = useSubscriptions();
     const pathname = usePathname();
+    const router = useRouter();
+
+    const subscribedChannels = channels.filter(c => subscribedChannelIds.includes(c.id));
 
     // Mobile overlay logic
     // If distinct mobile logic is needed, we can add it. 
@@ -43,39 +51,54 @@ export default function Sidebar() {
                 )}
             >
                 <div className="flex flex-col py-2">
-                    {sidebarItems.map((item) => {
-                        const isActive = pathname === item.href;
-                        const Icon = item.icon;
-                        return (
-                            <Link
-                                key={item.label}
-                                href={item.href}
-                                className={clsx(
-                                    "flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-200 border",
-                                    isActive
-                                        ? "bg-accent/10 border-accent font-semibold text-accent"
-                                        : "border-transparent text-foreground/80 hover:bg-surface-hover hover:text-accent-hover",
-                                    isOpen ? "flex-row gap-5" : "flex-col gap-1 justify-center px-2 py-4 mx-0 rounded-xl text-[10px]"
-                                )}
-                            >
-                                <Icon className="w-6 h-6" />
-                                <span className={clsx(isOpen ? "text-sm" : "text-[10px]")}>{item.label}</span>
-                            </Link>
-                        );
-                    })}
+                    {sidebarItems
+                        .filter(item => {
+                            const isProtected = ["Subscriptions", "Watch Later", "Liked Videos", "History", "Library"].includes(item.label);
+                            return !isProtected || !!user;
+                        })
+                        .map((item) => {
+                            const isActive = pathname === item.href;
+                            const Icon = item.icon;
 
-                    {isOpen && (
+                            return (
+                                <button
+                                    key={item.label}
+                                    onClick={() => router.push(item.href)}
+                                    className={clsx(
+                                        "flex items-center px-4 py-3 rounded-lg mx-2 transition-all duration-200 border",
+                                        isActive
+                                            ? "bg-accent/10 border-accent font-semibold text-accent"
+                                            : "border-transparent text-foreground/80 hover:bg-surface-hover hover:text-accent-hover",
+                                        isOpen ? "flex-row gap-5" : "flex-col gap-1 justify-center px-2 py-4 mx-0 rounded-xl text-[10px]"
+                                    )}
+                                >
+                                    <Icon className="w-6 h-6" />
+                                    <span className={clsx(isOpen ? "text-sm" : "text-[10px]")}>{item.label}</span>
+                                </button>
+                            );
+                        })}
+
+                    {isOpen && user && (
                         <>
                             <div className="my-2 border-t border-foreground/10 mx-4" />
                             <div className="px-6 py-2">
                                 <h3 className="text-base font-semibold text-foreground mb-2">Subscriptions</h3>
-                                {/* Mock Subscriptions */}
-                                {["Code Master", "Dev Tips", "Lofi Girl", "Fireship"].map((channel, i) => (
-                                    <div key={i} className="flex items-center gap-3 py-2 cursor-pointer hover:bg-surface-hover rounded-lg px-2 -mx-2">
-                                        <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex-shrink-0" />
-                                        <span className="text-sm truncate text-foreground/80">{channel}</span>
-                                    </div>
-                                ))}
+                                {subscribedChannels.length > 0 ? (
+                                    subscribedChannels.map((channel) => (
+                                        <Link
+                                            key={channel.id}
+                                            href={`/channel/${channel.id}`}
+                                            className="flex items-center gap-3 py-2 cursor-pointer hover:bg-surface-hover rounded-lg px-2 -mx-2 group"
+                                        >
+                                            <div className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 group-hover:scale-105 transition-transform duration-200">
+                                                <img src={channel.avatar} alt={channel.name} className="w-full h-full object-cover" />
+                                            </div>
+                                            <span className="text-sm truncate text-foreground/80 group-hover:text-foreground group-hover:font-medium transition-colors">{channel.name}</span>
+                                        </Link>
+                                    ))
+                                ) : (
+                                    <p className="text-xs text-foreground/50 py-2">No subscriptions yet</p>
+                                )}
                             </div>
                         </>
                     )}

@@ -7,7 +7,7 @@ import { Eye, EyeOff, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-    const { login } = useAuth();
+    const { login, loginWithGoogle } = useAuth();
     const router = useRouter();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -103,7 +103,7 @@ export default function LoginPage() {
                             </div>
                             <button
                                 type="button"
-                                onClick={() => login("GoogleUser")}
+                                onClick={() => loginWithGoogle()}
                                 className="flex items-center justify-center gap-3 w-full py-2.5 border border-foreground/10 rounded-xl bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 transition-all font-bold text-sm shadow-sm"
                             >
                                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />

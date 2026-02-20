@@ -4,6 +4,8 @@ import { ThumbsUp, ThumbsDown, Share2, Download, Scissors, MoreHorizontal, Check
 import { useState, useEffect, useRef } from "react";
 import { useLikedVideos } from "@/components/LikedVideosProvider";
 import { useWatchLater } from "@/components/WatchLaterProvider";
+import { useAuth } from "@/components/AuthContext";
+import { useRouter } from "next/navigation";
 import { Video } from "@/data/videos";
 import clsx from "clsx";
 import ShareModal from "./ShareModal";
@@ -15,6 +17,8 @@ interface ActionButtonsProps {
 export default function ActionButtons({ video }: ActionButtonsProps) {
     const { isLiked: isVideoLiked, toggleLike } = useLikedVideos();
     const { isInWatchLater, toggleWatchLater } = useWatchLater();
+    const { user } = useAuth();
+    const router = useRouter();
     const [likes, setLikes] = useState(12000);
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
@@ -96,6 +100,10 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
     };
 
     const handleWatchLater = () => {
+        if (!user) {
+            router.push("/login");
+            return;
+        }
         toggleWatchLater(video);
         setShowWatchLaterToast(true);
         setShowMoreMenu(false);
@@ -188,8 +196,8 @@ export default function ActionButtons({ video }: ActionButtonsProps) {
                         >
                             <Clock className={clsx("w-5 h-5", inWatchLater ? "text-accent" : "text-foreground")} />
                             <div className="flex flex-col">
-                                <span className={clsx("text-sm", inWatchLater ? "text-accent font-medium" : "text-foreground")}>
-                                    {inWatchLater ? "Remove from Watch later" : "Save to Watch later"}
+                                <span className={clsx("text-sm", (user && inWatchLater) ? "text-accent font-medium" : "text-foreground")}>
+                                    {(!user || !inWatchLater) ? "Save to Watch later" : "Remove from Watch later"}
                                 </span>
                             </div>
                         </button>
