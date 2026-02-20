@@ -78,7 +78,7 @@ export default function ChannelPage() {
                                 className={clsx(
                                     "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
                                     isSubscribed
-                                        ? "bg-accent dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-accent-hover dark:hover:bg-[#3f3f3f]"
+                                        ? "bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-[#121212]"
                                         : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
                                 )}
                             >
@@ -89,7 +89,7 @@ export default function ChannelPage() {
                 </div>
 
                 {/* Tabs */}
-                <div className="mt-8 border-b border-foreground/10 flex items-center gap-6 overflow-x-auto no-scrollbar">
+                <div className="mt-8 border-b border-gray-200 dark:border-white/10 flex items-center gap-6 overflow-x-auto no-scrollbar">
                     {["Home", "Videos", "Shorts", "Live", "Playlists", "Community", "Channels", "About"].map((tab) => (
                         <button
                             key={tab}
@@ -97,16 +97,16 @@ export default function ChannelPage() {
                             className={clsx(
                                 "px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                                 activeTab === tab
-                                    ? "border-black dark:border-white text-accent dark:text-foreground"
-                                    : "border-transparent text-foreground/80 dark:text-gray-400 hover:foreground/70 dark:hover:text-white"
+                                    ? "border-black dark:border-white text-gray-900 dark:text-foreground"
+                                    : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                             )}
                         >
                             {tab}
                         </button>
                     ))}
                     <div className="flex-1" />
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full">
-                        <Search className="w-5 h-5 text-foreground" />
+                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors">
+                        <Search className="w-5 h-5 text-gray-600 dark:text-foreground" />
                     </button>
                 </div>
 
@@ -198,14 +198,14 @@ export default function ChannelPage() {
 
                     {activeTab === "About" && (
                         <div className="max-w-3xl">
-                            <div className="bg-background dark:bg-[#272727] rounded-xl p-6 space-y-4">
+                            <div className="bg-white dark:bg-black border border-gray-200 dark:border-white/10 rounded-xl p-6 space-y-4 shadow-sm">
                                 <div>
-                                    <h3 className="font-semibold text-foreground dark:text-white mb-2">Description</h3>
-                                    <p className="text-foreground/80 dark:text-gray-400 text-sm">{channel.description}</p>
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h3>
+                                    <p className="text-gray-700 dark:text-gray-400 text-sm whitespace-pre-wrap">{channel.description}</p>
                                 </div>
-                                <div className="border-t border-foreground/10 pt-4">
-                                    <h3 className="font-semibold text-foreground dark:text-white mb-2">Stats</h3>
-                                    <div className="space-y-1 text-sm text-foreground/80 dark:text-gray-400">
+                                <div className="border-t border-gray-200 dark:border-white/10 pt-4">
+                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Stats</h3>
+                                    <div className="space-y-1 text-sm text-gray-700 dark:text-gray-400">
                                         <p>{channel.subscribers} subscribers</p>
                                         <p>{channelVideos.length} videos</p>
                                     </div>

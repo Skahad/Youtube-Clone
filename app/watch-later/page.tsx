@@ -51,7 +51,7 @@ export default function WatchLaterPage() {
                             placeholder="Search watch later"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2 bg-background dark:bg-[#272727] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
+                            className="w-full pl-10 pr-4 py-2 bg-gray-100 dark:bg-[#272727] rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white"
                         />
                     </div>
 
@@ -59,7 +59,7 @@ export default function WatchLaterPage() {
                     {watchLaterVideos.length > 0 && (
                         <button
                             onClick={() => setShowClearConfirm(true)}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:bg-foreground/10 dark:hover:bg-red-900/20 rounded-full transition-colors whitespace-nowrap"
+                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors whitespace-nowrap"
                         >
                             <Trash2 className="w-4 h-4" />
                             <span className="hidden sm:inline">Clear all</span>
@@ -71,15 +71,15 @@ export default function WatchLaterPage() {
             {/* Clear Confirmation Modal */}
             {showClearConfirm && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                    <div className="bg-background dark:bg-[#272727] rounded-xl p-6 max-w-md w-full shadow-2xl">
-                        <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">Clear watch later?</h3>
+                    <div className="bg-white dark:bg-[#272727] rounded-xl p-6 max-w-md w-full shadow-2xl">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Clear watch later?</h3>
                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
                             This will remove all videos from your watch later list. This action cannot be undone.
                         </p>
                         <div className="flex gap-3 justify-end">
                             <button
                                 onClick={() => setShowClearConfirm(false)}
-                                className="px-4 py-2 text-sm font-medium text-foreground dark:text-gray-300 hover:bg-foreground/10 dark:hover:bg-[#3f3f3f] rounded-full transition-colors"
+                                className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] rounded-full transition-colors"
                             >
                                 Cancel
                             </button>
@@ -96,9 +96,9 @@ export default function WatchLaterPage() {
 
             {/* Stats */}
             {watchLaterVideos.length > 0 && (
-                <div className="bg-background dark:bg-[#272727] rounded-xl  p-4 flex items-center justify-between">
-                    <p className="text-sm text-foreground dark:text-gray-400">
-                        <span className="font-semibold text-foreground dark:text-white">{watchLaterVideos.length}</span> video{watchLaterVideos.length !== 1 ? 's' : ''} saved
+                <div className="bg-gray-100 dark:bg-[#272727] rounded-xl p-4 flex items-center justify-between">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                        <span className="font-semibold text-gray-900 dark:text-white">{watchLaterVideos.length}</span> video{watchLaterVideos.length !== 1 ? 's' : ''} saved
                     </p>
                     <button
                         onClick={() => {
@@ -106,7 +106,7 @@ export default function WatchLaterPage() {
                                 router.push(`/watch/${watchLaterVideos[0].id}`);
                             }
                         }}
-                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-sm font-medium transition-colors shadow-sm"
                     >
                         <PlayCircle className="w-4 h-4" />
                         Play all

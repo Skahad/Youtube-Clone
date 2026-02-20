@@ -55,14 +55,14 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
             />
 
             {/* Modal */}
-            <div className="relative w-full max-w-md bg-background dark:bg-[#212121] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300">
-                <div className="flex items-center justify-between p-4 border-b border-foreground/10">
-                    <h3 className="text-lg font-bold text-fore dark:text-white">Share</h3>
+            <div className="relative w-full max-w-md bg-white dark:bg-[#212121] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300">
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-white/10">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Share</h3>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-foreground/10 dark:hover:bg-[#3f3f3f] rounded-full transition-colors"
+                        className="p-2 hover:bg-gray-100 dark:hover:bg-[#3f3f3f] rounded-full transition-colors"
                     >
-                        <X className="w-5 h-5 text-foreground" />
+                        <X className="w-5 h-5 text-gray-600 dark:text-foreground" />
                     </button>
                 </div>
 
@@ -70,31 +70,33 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
                     {/* Share Options Grid */}
                     <div className="grid grid-cols-4 sm:grid-cols-6 gap-4 mb-8">
                         {shareOptions.map((option) => (
-                            <div key={option.name} className="flex flex-col items-center gap-2 group cursor-pointer">
+                            <div key={option.name} className="flex flex-col items-center gap-2 group cursor-pointer text-center">
                                 <div className={clsx(
-                                    "w-12 h-12 flex items-center justify-center rounded-full transition-transform group-hover:scale-110",
+                                    "w-12 h-12 flex items-center justify-center rounded-full transition-transform group-hover:scale-110 shadow-sm",
                                     option.color
                                 )}>
-                                    {option.icon}
+                                    <div className="text-white">
+                                        {option.icon}
+                                    </div>
                                 </div>
-                                <span className="text-[10px] sm:text-xs text-foreground/70 font-medium">{option.name}</span>
+                                <span className="text-[10px] sm:text-xs text-gray-600 dark:text-gray-400 font-medium">{option.name}</span>
                             </div>
                         ))}
                     </div>
 
                     {/* Link Copy Box */}
                     <div className="relative">
-                        <div className="flex items-center gap-2 p-3 bg-background dark:bg-[#121212] border border-foreground/10 rounded-xl group transition-all focus-within:ring-2 focus-within:ring-blue-500/20">
-                            <span className="flex-1 text-sm text-foreground/70 truncate pr-2 select-all">
+                        <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-[#121212] border border-gray-200 dark:border-white/10 rounded-xl group transition-all focus-within:ring-2 focus-within:ring-blue-500/20">
+                            <span className="flex-1 text-sm text-gray-700 dark:text-gray-300 truncate pr-2 select-all font-medium">
                                 {videoUrl}
                             </span>
                             <button
                                 onClick={handleCopy}
                                 className={clsx(
-                                    "px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-2",
+                                    "px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-2 shrink-0 shadow-sm",
                                     copied
                                         ? "bg-green-600 text-white"
-                                        : "bg-accent hover:bg-accent-hover text-white"
+                                        : "bg-blue-600 hover:bg-blue-700 text-white"
                                 )}
                             >
                                 {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -104,9 +106,9 @@ export default function ShareModal({ isOpen, onClose, videoUrl, videoTitle }: Sh
                     </div>
                 </div>
 
-                <div className="px-6 py-4 bg-background dark:bg-[#181818] border-t border-foreground/10 flex items-center gap-3">
-                    <input type="checkbox" id="start-at" className="w-4 h-4 accent-blue-600 cursor-pointer" />
-                    <label htmlFor="start-at" className="text-sm text-foreground cursor-pointer font-medium">
+                <div className="px-6 py-4 bg-gray-50/50 dark:bg-[#181818] border-t border-gray-100 dark:border-white/10 flex items-center gap-3">
+                    <input type="checkbox" id="start-at" className="w-4 h-4 accent-blue-600 cursor-pointer rounded" />
+                    <label htmlFor="start-at" className="text-sm text-gray-700 dark:text-gray-300 cursor-pointer font-medium">
                         Start at 0:01
                     </label>
                 </div>

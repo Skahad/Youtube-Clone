@@ -82,10 +82,10 @@ export default function WatchPage() {
                         <button
                             onClick={handleSubscribe}
                             className={clsx(
-                                "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
+                                "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0 border",
                                 subscribed
-                                    ? "bg-accent/95 dark:bg-[#272727] text-gray-900 dark:text-white hover:bg-accent/80 dark:hover:bg-[#3f3f3f]"
-                                    : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
+                                    ? "bg-white dark:bg-black border-gray-200 dark:border-white/10 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-[#121212]"
+                                    : "bg-black text-white dark:bg-white dark:text-black border-transparent hover:opacity-80"
                             )}
                         >
                             {subscribed ? "Subscribed" : "Subscribe"}
@@ -99,7 +99,7 @@ export default function WatchPage() {
 
                 <div
                     onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                    className="mt-4 bg-background dark:bg-[#272727] p-3 rounded-xl cursor-pointer hover:bg-surface-hover dark:hover:bg-surface-hover transition-colors group"
+                    className="mt-4 bg-white dark:bg-black border border-gray-200 dark:border-white/10 p-4 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-[#121212] transition-colors group shadow-sm"
                 >
                     <div className="flex gap-2 text-sm font-semibold text-foreground dark:text-white mb-1">
                         <span>{video.views} views</span>

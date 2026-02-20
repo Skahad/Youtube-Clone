@@ -168,26 +168,26 @@ export default function PlaylistsPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
                                 {playlists.map((playlist) => (
                                     <div key={playlist.id} className="flex flex-col group">
-                                        <div className="relative aspect-video rounded-xl overflow-hidden bg-surface group-hover:scale-[1.02] transition-transform duration-300">
+                                        <div className="relative aspect-video rounded-xl overflow-hidden bg-surface dark:bg-[#1a1a1a] group-hover:scale-[1.02] transition-transform duration-300 shadow-md dark:shadow-black/20">
                                             <img
                                                 src={playlist.thumbnail}
                                                 alt={playlist.name}
                                                 className="w-full h-full object-cover"
                                             />
                                             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                                            <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/80 flex items-center gap-2">
+                                            <div className="absolute bottom-0 left-0 right-0 p-3 bg-black/90 dark:bg-black/95 flex items-center gap-2">
                                                 <ListVideo className="w-4 h-4 text-white" />
-                                                <span className="text-xs font-bold text-white uppercase tracking-tighter">Playlist Items {playlist.itemsCount}</span>
+                                                <span className="text-[10px] font-black text-white uppercase tracking-[0.1em]">Playlist Items {playlist.itemsCount}</span>
                                             </div>
                                         </div>
 
-                                        <div className="mt-3 flex justify-between items-start relative px-1">
+                                        <div className="mt-4 flex justify-between items-start relative px-1">
                                             <div className="flex-1 min-w-0">
-                                                <h3 className="text-lg font-black text-foreground truncate uppercase italic tracking-tighter leading-tight">
+                                                <h3 className="text-lg font-black text-foreground dark:text-gray-100 truncate uppercase italic tracking-tighter leading-none mb-1">
                                                     {playlist.name}
                                                 </h3>
-                                                <div className="flex items-center gap-2 mt-1">
-                                                    <span className="text-xs font-bold text-foreground/50 uppercase tracking-tighter">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] font-black text-foreground/40 dark:text-white/30 uppercase tracking-[0.2em]">
                                                         {playlist.visibility}
                                                     </span>
                                                 </div>
@@ -196,29 +196,29 @@ export default function PlaylistsPage() {
                                             <div className="relative">
                                                 <button
                                                     onClick={() => setActiveMenu(activeMenu === playlist.id ? null : playlist.id)}
-                                                    className="p-1.5 hover:bg-surface-hover rounded-full transition-colors"
+                                                    className="p-2 hover:bg-surface-hover dark:hover:bg-white/5 rounded-full transition-colors"
                                                 >
-                                                    <MoreVertical className="w-5 h-5 text-foreground/60" />
+                                                    <MoreVertical className="w-5 h-5 text-foreground/40 dark:text-white/40" />
                                                 </button>
 
                                                 {activeMenu === playlist.id && (
                                                     <div
                                                         ref={menuRef}
-                                                        className="absolute right-0 top-full mt-1 w-32 bg-white dark:bg-[#1a1a1a] border border-gray-100 dark:border-white/10 rounded-lg shadow-xl z-50 py-1 overflow-hidden animate-in fade-in zoom-in-95 duration-100"
+                                                        className="absolute right-0 top-full mt-2 w-40 bg-white dark:bg-[#222] border border-gray-100 dark:border-white/10 rounded-xl shadow-2xl z-50 py-2 overflow-hidden animate-in fade-in zoom-in-95 duration-100 ring-1 ring-black/5 dark:ring-white/5"
                                                     >
                                                         <button
                                                             onClick={() => openEditModal(playlist)}
-                                                            className="flex items-center gap-3 w-full px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-white/5 text-left transition-colors"
+                                                            className="flex items-center gap-3 w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-white/5 text-left transition-colors"
                                                         >
-                                                            <Edit2 className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                                                            <span className="text-sm font-bold text-foreground/80 tracking-tighter">Edit</span>
+                                                            <Edit2 className="w-4 h-4 text-gray-400" />
+                                                            <span className="text-sm font-bold text-foreground/80 dark:text-white/80 tracking-tighter uppercase italic">Edit</span>
                                                         </button>
                                                         <button
                                                             onClick={() => handleDelete(playlist.id)}
-                                                            className="flex items-center gap-3 w-full px-4 py-2.5 hover:bg-red-50 dark:hover:bg-red-500/10 text-left transition-colors group"
+                                                            className="flex items-center gap-3 w-full px-4 py-3 hover:bg-red-50 dark:hover:bg-red-500/10 text-left transition-colors group"
                                                         >
-                                                            <Trash2 className="w-4 h-4 text-red-500 opacity-60 group-hover:opacity-100" />
-                                                            <span className="text-sm font-bold text-red-500/80 group-hover:text-red-500 tracking-tighter">Delete</span>
+                                                            <Trash2 className="w-4 h-4 text-red-500/60 group-hover:text-red-500" />
+                                                            <span className="text-sm font-bold text-red-500/80 group-hover:text-red-500 tracking-tighter uppercase italic">Delete</span>
                                                         </button>
                                                     </div>
                                                 )}
@@ -235,59 +235,64 @@ export default function PlaylistsPage() {
             {/* Modal - Match Screenshot 1 */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closeModal} />
-                    <div className="bg-white dark:bg-[#1a1a1a] w-full max-w-md rounded-xl shadow-2xl z-10 animate-in fade-in zoom-in-95 duration-200 overflow-hidden font-sans">
-                        <div className="p-6">
-                            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]" onClick={closeModal} />
+                    <div className="bg-white dark:bg-[#1a1a1a] w-full max-w-md rounded-2xl shadow-2xl z-10 animate-in fade-in zoom-in-95 duration-200 overflow-hidden font-mono border border-white/5">
+                        <div className="p-8 border-b border-foreground/5 bg-gradient-to-r from-transparent to-foreground/5">
+                            <h3 className="text-2xl font-black text-foreground italic uppercase tracking-tighter">
                                 {editingPlaylist ? "Edit playlist" : "Create new playlist"}
                             </h3>
+                        </div>
 
-                            <div className="space-y-5">
-                                <div className="space-y-1">
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            value={playlistName}
-                                            onChange={(e) => setPlaylistName(e.target.value.slice(0, 30))}
-                                            placeholder={`Playlist name ${playlistName.length} / 30`}
-                                            className="w-full px-4 py-3 bg-[#f9f9f9] dark:bg-[#222] border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03a9f4]/50 focus:border-[#03a9f4] transition-all text-foreground"
-                                        />
-                                    </div>
-                                </div>
+                        <div className="p-8 space-y-6">
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] ml-1">Playlist Name</label>
+                                <input
+                                    type="text"
+                                    value={playlistName}
+                                    onChange={(e) => setPlaylistName(e.target.value.slice(0, 30))}
+                                    placeholder={`e.g. My Favorites ${playlistName.length} / 30`}
+                                    className="w-full px-5 py-4 bg-[#f8f9fa] dark:bg-[#272727] border-2 border-transparent focus:border-[#03a9f4] rounded-xl focus:outline-none transition-all text-foreground font-bold shadow-inner"
+                                />
+                            </div>
 
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] ml-1">Privacy Status</label>
                                 <select
                                     value={visibility}
                                     onChange={(e) => setVisibility(e.target.value as "Public" | "Private")}
-                                    className="w-full px-4 py-3 bg-[#f9f9f9] dark:bg-[#222] border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03a9f4]/50 transition-all text-foreground appearance-none cursor-pointer"
-                                    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'currentColor\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\' /%3E%3C/svg%3E")', backgroundPosition: 'right 1rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.25rem' }}
+                                    className="w-full px-5 py-4 bg-[#f8f9fa] dark:bg-[#272727] border-2 border-transparent focus:border-[#03a9f4] rounded-xl focus:outline-none transition-all text-foreground font-bold appearance-none cursor-pointer shadow-inner"
+                                    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'currentColor\'%3E%3Cpath stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'2\' d=\'M19 9l-7 7-7-7\' /%3E%3C/svg%3E")', backgroundPosition: 'right 1.25rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.25rem', opacity: 0.5 }}
                                 >
-                                    <option value="Private">Private</option>
-                                    <option value="Public">Public</option>
+                                    <option value="Private">🔒 Private</option>
+                                    <option value="Public">🌐 Public</option>
                                 </select>
+                            </div>
 
+                            <div className="space-y-2">
+                                <label className="text-[10px] font-black text-foreground/40 uppercase tracking-[0.2em] ml-1">Description (Optional)</label>
                                 <textarea
                                     value={playlistDesc}
                                     onChange={(e) => setPlaylistDesc(e.target.value)}
-                                    placeholder="Description.."
+                                    placeholder="Tell us what this playlist is about..."
                                     rows={4}
-                                    className="w-full px-4 py-3 bg-[#f9f9f9] dark:bg-[#222] border border-gray-200 dark:border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#03a9f4]/50 transition-all text-foreground resize-none"
+                                    className="w-full px-5 py-4 bg-[#f8f9fa] dark:bg-[#272727] border-2 border-transparent focus:border-[#03a9f4] rounded-xl focus:outline-none transition-all text-foreground font-bold resize-none shadow-inner leading-relaxed"
                                 />
                             </div>
                         </div>
 
-                        <div className="p-6 bg-gray-50/50 dark:bg-white/5 flex justify-end gap-3">
+                        <div className="p-8 bg-gray-50/50 dark:bg-white/5 flex gap-4">
                             <button
                                 onClick={closeModal}
-                                className="px-6 py-2.5 bg-[#a6a6a6] hover:bg-[#8a8a8a] text-white rounded-md font-bold transition-all active:scale-95"
+                                className="flex-1 py-4 bg-[#a6a6a6] hover:bg-[#8a8a8a] text-white rounded-xl font-black text-sm uppercase italic tracking-tighter transition-all active:scale-95"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={handleCreateOrUpdate}
                                 disabled={!playlistName.trim()}
-                                className="px-6 py-2.5 bg-[#03a9f4] hover:bg-[#039be5] text-white rounded-md font-bold transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100 shadow-lg shadow-blue-500/20"
+                                className="flex-2 px-12 py-4 bg-[#03a9f4] hover:bg-[#039be5] text-white rounded-xl font-black text-sm uppercase italic tracking-tighter transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100 shadow-xl shadow-blue-500/20"
                             >
-                                {editingPlaylist ? "Update" : "Create"}
+                                {editingPlaylist ? "Update" : "Confirm"}
                             </button>
                         </div>
                     </div>

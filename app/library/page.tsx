@@ -78,9 +78,9 @@ export default function LibraryPage() {
                                 ))}
                             </div>
                         ) : (
-                            <div className="px-4 py-8 bg-background rounded-xl mx-4 border border-dashed border-foreground/10 flex flex-col items-center justify-center text-center">
-                                <section.icon className="w-10 h-10 text-foreground/30 mb-2" />
-                                <p className="text-foreground/60 text-sm">{section.emptyMsg}</p>
+                            <div className="px-4 py-8 bg-gray-50 dark:bg-[#1a1a1a] rounded-xl mx-4 border border-dashed border-gray-200 dark:border-white/10 flex flex-col items-center justify-center text-center">
+                                <section.icon className="w-10 h-10 text-gray-300 dark:text-gray-700 mb-2" />
+                                <p className="text-gray-500 dark:text-gray-400 text-sm">{section.emptyMsg}</p>
                             </div>
                         )}
                     </div>
