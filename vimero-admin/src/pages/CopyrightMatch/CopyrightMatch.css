@@ -1,0 +1,89 @@
+.copyright-match-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.match-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.match-stat-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.match-stat-card .label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+}
+
+.match-stat-card .value {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.match-video-cell {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.match-thumb {
+    width: 64px;
+    height: 36px;
+    background-color: var(--bg-secondary);
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.video-title {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.video-creator {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.match-content-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.match-duration {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.match-type {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.confidence-pill {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-block;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+}

@@ -1,0 +1,410 @@
+.manage-currencies-page {
+    padding: 24px;
+    background-color: #f4f6fb;
+    min-height: calc(100vh - var(--topbar-height));
+    font-family: 'Inter', sans-serif;
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .breadcrumb .active {
+        color: #3b82f6;
+        font-weight: 500;
+    }
+
+    .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 24px;
+    }
+
+    /* Warning Banner */
+    .warning-banner {
+        background-color: #fff9db;
+        border: 1px solid #ffec99;
+        border-radius: 8px;
+        padding: 16px 20px;
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        color: #856404;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .warning-icon {
+        flex-shrink: 0;
+        color: #f59e0b;
+    }
+
+    /* Cards */
+    .currency-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        margin-bottom: 24px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .card-header h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+    }
+
+    .card-content {
+        padding: 24px;
+    }
+
+    /* Form Styles */
+    .currency-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        max-width: 600px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+    }
+
+    .form-input {
+        padding: 10px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+        border-color: #3b82f6;
+    }
+
+    .btn-add {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.2s;
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-add:hover:not(:disabled) {
+        background-color: #2563eb;
+    }
+
+    .btn-add:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Table Styles */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .currency-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .currency-table th {
+        background-color: #f8fafc;
+        padding: 14px 20px;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        color: #64748b;
+        text-transform: uppercase;
+        border-bottom: 1px solid #edf2f7;
+    }
+
+    .currency-table td {
+        padding: 14px 20px;
+        font-size: 14px;
+        color: var(--text-primary);
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+    }
+
+    .currency-table tr:nth-child(even) {
+        background-color: #fcfdfe;
+    }
+
+    .currency-table tr:hover {
+        background-color: #f7fafc;
+    }
+
+    .status-default {
+        color: #10b981;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-row {
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        height: 32px;
+        width: 6.5rem;
+        transition: all 0.2s;
+    }
+
+    .btn-row.default {
+        background-color: #10b981;
+        color: white;
+    }
+
+    .btn-row.edit {
+        background-color: #3b82f6;
+        color: white;
+    }
+
+    .btn-row.delete {
+        background-color: #ef4444;
+        color: white;
+    }
+
+    .btn-row:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Bulk Actions */
+    .bulk-footer {
+        padding: 20px 24px;
+        border-top: 1px solid #edf2f7;
+    }
+
+    .btn-bulk-delete {
+        padding: 8px 16px;
+        background-color: #ef4444;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .btn-bulk-delete:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .confirm-modal {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        width: 90%;
+        max-width: 400px;
+        text-align: center;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #fee2e2;
+        color: #ef4444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+    }
+
+    .modal-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+    }
+
+    .modal-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        line-height: 1.5;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+    }
+
+    .btn-modal {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-modal.cancel {
+        background-color: #f1f5f9;
+        color: #475569;
+    }
+
+    .btn-modal.confirm {
+        background-color: #ef4444;
+        color: white;
+    }
+
+    /* Edit Modal specifically */
+    .edit-modal {
+        background: white;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .edit-modal-header {
+        padding: 18px 24px;
+        border-bottom: 1px solid #edf2f7;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-close {
+        background: none;
+        border: none;
+        color: #cbd5e1;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .edit-modal-content {
+        padding: 24px;
+    }
+
+    .edit-modal-footer {
+        padding: 18px 24px;
+        border-top: 1px solid #edf2f7;
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+    }
+
+    .btn-save {
+        padding: 10px 24px;
+        border-radius: 6px;
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .toast {
+        padding: 12px 20px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        animation: slideIn 0.3s ease;
+    }
+
+    .toast.success {
+        background-color: #10b981;
+    }
+
+    .toast.error {
+        background-color: #ef4444;
+    }
+
+    .toast.warning {
+        background-color: #f59e0b;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+}

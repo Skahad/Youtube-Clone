@@ -1,0 +1,27 @@
+.comments-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.comment-text-cell {
+    font-size: 14px;
+    color: var(--text-primary);
+    line-height: 1.4;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-avatar.small {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}

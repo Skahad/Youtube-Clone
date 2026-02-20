@@ -1,0 +1,47 @@
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    /* Prevents overflow issues */
+}
+
+.page-container {
+    padding: 32px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+    .page-container {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        padding: 16px;
+    }
+
+    .admin-layout {
+        position: relative;
+    }
+}
+
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 900;
+}

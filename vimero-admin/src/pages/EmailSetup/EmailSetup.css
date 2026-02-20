@@ -1,0 +1,289 @@
+.email-setup-page {
+    margin: 0 auto;
+    background-color: #f4f6fb;
+    min-height: calc(100vh - var(--topbar-height));
+    padding: 24px;
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-tertiary);
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .breadcrumb .active {
+        color: var(--text-secondary);
+        font-weight: 500;
+    }
+
+    .page-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 24px;
+    }
+
+    .config-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: stretch;
+    }
+
+    @media (max-width: 1100px) {
+        .config-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .config-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .full-height {
+        min-height: 100%;
+    }
+
+    .card-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-header h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-secondary);
+    }
+
+    .card-body {
+        padding: 24px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .debug-card-body {
+        padding-bottom: 24px;
+    }
+
+    /* Alerts */
+    .alert-box {
+        display: flex;
+        gap: 12px;
+        padding: 16px;
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+    }
+
+    .alert-yellow {
+        background-color: #fff9db;
+        border: 1px solid #fcc419;
+        color: #816100;
+    }
+
+    .alert-blue {
+        background-color: #e7f5ff;
+        border: 1px solid #74c0fc;
+        color: #1864ab;
+    }
+
+    /* Form Styles */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group.border-top {
+        border-top: 1px solid var(--border-color);
+        padding-top: 20px;
+        margin-top: 24px;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        font-size: 14px;
+        color: var(--text-primary);
+        background: var(--bg-primary);
+        outline: none;
+        transition: border-color 0.2s;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(4, 147, 209, 0.1);
+    }
+
+    .form-help {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        margin-top: 6px;
+        line-height: 1.4;
+    }
+
+    .password-wrapper {
+        position: relative;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--text-tertiary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Actions */
+    .btn-test {
+        width: 100%;
+        background-color: #3ec1c9;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn-test:hover:not(:disabled) {
+        background-color: #35aab0;
+    }
+
+    .btn-debug {
+        width: 100%;
+        background-color: #1aa37a;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .btn-debug:hover:not(:disabled) {
+        background-color: #168d69;
+    }
+
+    .btn-test:disabled,
+    .btn-debug:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    /* Debug Log Area */
+    .debug-log-wrapper {
+        flex: 1;
+        background-color: #f8fafc;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        margin-bottom: 24px;
+        min-height: 300px;
+        display: flex;
+    }
+
+    .debug-log-area {
+        width: 100%;
+        padding: 16px;
+        font-family: 'Inter', 'Roboto Mono', monospace;
+        font-size: 13px;
+        overflow-y: auto;
+        color: #334155;
+    }
+
+    .debug-placeholder {
+        color: var(--text-tertiary);
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .log-line {
+        margin-bottom: 8px;
+        padding-left: 12px;
+        border-left: 2px solid #cbd5e1;
+        animation: slideIn 0.3s ease-out;
+    }
+
+    .mt-24 {
+        margin-top: 24px;
+    }
+
+    .mt-auto {
+        margin-top: auto;
+    }
+
+    .spin {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

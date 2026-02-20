@@ -1,0 +1,55 @@
+.policy-strikes-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.alert-card {
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.alert-card.warning {
+    background-color: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+}
+
+.alert-card.warning p {
+    color: var(--text-secondary);
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.strike-pill {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.strike-pill.strike-1 {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.strike-pill.strike-2 {
+    background-color: rgba(225, 29, 72, 0.1);
+    color: var(--danger);
+}
+
+.strike-pill.strike-3 {
+    background-color: #000;
+    color: #fff;
+}
+
+.expiry-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-tertiary);
+}

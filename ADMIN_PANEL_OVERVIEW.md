@@ -18,7 +18,7 @@ This document provides a comprehensive overview of the current frontend UI archi
 ## 3. UI Component Library
 The following components are designed to be reusable for the Admin Panel:
 
-### Navigation Systems
+### Navigation Syst   ems
 - `Navbar.tsx`: Features a responsive search bar, mobile-first search overlay, and profile management.
 - `Sidebar.tsx`: Adapts from a permanent desktop sidebar to a mobile overlay. Includes active state highlighting with `bg-accent/10` and `text-accent`.
 - `BottomNav.tsx`: Tab-based navigation optimized for mobile touch interactions.

@@ -1,0 +1,138 @@
+.revenue-payouts-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.revenue-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.hero-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.hero-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    margin-bottom: 8px;
+}
+
+.hero-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.hero-trend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.hero-trend.up {
+    color: var(--success);
+}
+
+.hero-trend.down {
+    color: var(--danger);
+}
+
+.revenue-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+}
+
+.payout-panel,
+.split-panel {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+}
+
+.payout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.payout-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-md);
+}
+
+.payout-creator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.payout-creator span {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.payout-amount {
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.payout-status {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+}
+
+.split-chart-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.split-legend {
+    display: flex;
+    gap: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.platform {
+    background-color: var(--accent-color);
+}
+
+.dot.creator {
+    background-color: #8b5cf6;
+}

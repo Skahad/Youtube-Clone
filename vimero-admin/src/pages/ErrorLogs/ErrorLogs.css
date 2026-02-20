@@ -1,0 +1,197 @@
+.error-logs-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.logs-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.logs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.log-entry {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.log-main {
+    padding: 16px 20px;
+    display: flex;
+    gap: 20px;
+    cursor: pointer;
+    align-items: center;
+}
+
+.log-main:hover {
+    background-color: var(--bg-secondary);
+}
+
+.log-status {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.log-entry.critical .log-status {
+    background-color: rgba(225, 29, 72, 0.1);
+    color: var(--danger);
+}
+
+.log-entry.error .log-status {
+    background-color: rgba(225, 29, 72, 0.05);
+    color: #e11d48;
+}
+
+.log-entry.warning .log-status {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.log-info {
+    flex: 1;
+}
+
+.log-header-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+}
+
+.log-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    background-color: var(--bg-secondary);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.log-service {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.log-count {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.log-message {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.log-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.log-level-badge {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.critical .log-level-badge {
+    color: var(--danger);
+}
+
+.error .log-level-badge {
+    color: #e11d48;
+}
+
+.warning .log-level-badge {
+    color: var(--warning);
+}
+
+.log-time {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.log-chevron {
+    color: var(--text-tertiary);
+}
+
+.log-details {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.timestamp {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.stack-trace {
+    background-color: #1e1e1e;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.terminal-header {
+    background-color: #2d2d2d;
+    color: #a0a0a0;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid #3d3d3d;
+}
+
+.stack-trace pre {
+    padding: 16px;
+    color: #d4d4d4;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin: 0;
+}

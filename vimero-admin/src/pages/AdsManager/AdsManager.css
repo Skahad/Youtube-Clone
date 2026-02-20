@@ -1,0 +1,231 @@
+.ads-manager-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.ads-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.stats-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.stats-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-icon.revenue {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.stats-icon.cpm {
+    background-color: rgba(4, 147, 209, 0.1);
+    color: var(--accent-color);
+}
+
+.stats-icon.ctr {
+    background-color: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+}
+
+.stats-icon.impressions {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.stats-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+}
+
+.stats-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-top: 2px;
+}
+
+.stats-trend {
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 4px;
+}
+
+.stats-trend.up {
+    color: var(--success);
+}
+
+.stats-trend.down {
+    color: var(--danger);
+}
+
+.ads-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+    align-items: start;
+}
+
+.campaigns-panel {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.campaign-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.campaign-name {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.campaign-type {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.spend-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 120px;
+}
+
+.spend-cell span {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.spend-bar {
+    height: 6px;
+    background-color: var(--bg-secondary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.spend-fill {
+    height: 100%;
+    background-color: var(--accent-color);
+    border-radius: 3px;
+}
+
+.action-row {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* Placements Panel */
+.placements-panel {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.placement-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.placement-row {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+.placement-row:last-child {
+    border-bottom: none;
+}
+
+.toggle {
+    width: 36px;
+    height: 20px;
+    border-radius: 10px;
+    padding: 2px;
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.toggle::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    transition: var(--transition);
+}
+
+.toggle.on {
+    background-color: var(--success);
+}
+
+.toggle.on::after {
+    transform: translateX(16px);
+}
+
+.toggle.off {
+    background-color: var(--border-color);
+}
+
+.toggle.off::after {
+    transform: translateX(0);
+}
+
+.placement-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-color);
+}

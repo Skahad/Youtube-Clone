@@ -1,0 +1,248 @@
+.config-container {
+    /* Padding removed to avoid double padding with MainLayout */
+    margin: 0 auto;
+}
+
+/* Breadcrumb Styling */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-tertiary);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.breadcrumb .active {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+}
+
+/* System Alert Banner */
+.system-alert-banner {
+    background-color: #fee2e2;
+    /* Light Red */
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    color: #b91c1c;
+    /* Dark Red text */
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.alert-content strong {
+    font-weight: 600;
+}
+
+/* Grid Layout */
+.config-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .config-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card Styling */
+.config-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+}
+
+.card-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.card-body {
+    padding: 0 20px;
+}
+
+/* Setting Row Styling */
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.setting-row.stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-info {
+    flex: 1;
+    padding-right: 48px;
+}
+
+.setting-row.stacked .setting-info {
+    padding-right: 0;
+}
+
+.setting-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+.info-icon {
+    color: var(--text-tertiary);
+    cursor: help;
+}
+
+.setting-description {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.setting-control {
+    flex-shrink: 0;
+    min-width: 120px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.setting-row.stacked .setting-control {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+/* Toggle Styling */
+.setting-toggle {
+    width: 64px;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    position: relative;
+    padding: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.setting-toggle.on {
+    background-color: #10b981;
+    /* Green */
+}
+
+.setting-toggle.on .toggle-handle {
+    transform: translateX(34px);
+}
+
+.setting-toggle.on .toggle-label {
+    left: 10px;
+}
+
+.setting-toggle.off {
+    background-color: #ef4444;
+    /* Red */
+}
+
+.setting-toggle.off .toggle-handle {
+    transform: translateX(0);
+}
+
+.setting-toggle.off .toggle-label {
+    right: 10px;
+}
+
+.toggle-handle {
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+
+.toggle-label {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Inputs & Selects */
+.setting-input,
+.setting-select {
+    width: 100%;
+    max-width: none;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.setting-input:focus,
+.setting-select:focus {
+    border-color: var(--accent-color);
+}
+
+.setting-input:disabled,
+.setting-select:disabled {
+    background-color: var(--bg-tertiary);
+    cursor: not-allowed;
+    color: var(--text-tertiary);
+}
+
+.maintenance-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.helper-text {
+    font-size: 11px;
+    color: var(--text-tertiary);
+}
+
+.helper-text span {
+    color: var(--accent-color);
+    font-weight: 600;
+}

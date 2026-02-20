@@ -1,0 +1,192 @@
+.playlists-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.playlist-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pl-stack-icon {
+    width: 32px;
+    height: 32px;
+    background-color: var(--bg-secondary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+}
+
+.pl-title {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ... existing styles ... */
+.visibility-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    padding: 4px 10px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+.col-actions {
+    width: 100px;
+    text-align: right;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.text-danger:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* ... existing styles ... */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* Modal Styles */
+.playlist-modal {
+    width: 100%;
+    max-width: 540px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.required {
+    color: var(--danger);
+    margin-left: 2px;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: var(--bg-primary);
+    box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.visibility-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.visibility-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.visibility-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.visibility-option.selected {
+    border-color: var(--accent-color);
+    background-color: var(--accent-light);
+    color: var(--accent-color);
+}
+
+.visibility-option:hover:not(.selected) {
+    background-color: var(--border-color);
+}
+
+.visibility-option span {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.icon-placeholder {
+    width: 16px;
+    height: 16px;
+    background-color: currentColor;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+.unlisted-icon {
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'%3E%3C/path%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
+    mask-size: contain;
+    background-color: currentColor;
+}
+
+.pl-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pl-desc-preview {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
