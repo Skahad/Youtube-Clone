@@ -172,11 +172,11 @@ export default function CommentBox() {
     return (
         <div className="flex flex-col gap-6 mt-6">
             <div className="flex gap-2 items-center mb-4">
-                <h3 className="text-xl font-bold text-foreground dark:text-white">
+                <h3 className="text-xl font-bold text-foreground">
                     {comments.length} Comments
                 </h3>
                 <div className="flex items-center gap-1 cursor-pointer">
-                    <span className="text-sm font-medium text-foreground/60 dark:text-gray-400">Sort by</span>
+                    <span className="text-sm font-medium text-foreground/60">Sort by</span>
                 </div>
             </div>
 
@@ -192,7 +192,7 @@ export default function CommentBox() {
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         onFocus={() => setIsFocused(true)}
-                        className="w-full bg-transparent border-b border-foreground/10 pb-1 focus:border-black dark:focus:border-white focus:outline-none transition-colors dark:text-gray-100"
+                        className="w-full bg-transparent border-b border-foreground/10 pb-1 focus:border-foreground focus:outline-none transition-colors text-foreground placeholder:text-foreground/30"
                     />
                     {isFocused && (
                         <div className="flex justify-end gap-2 mt-2">
@@ -201,7 +201,7 @@ export default function CommentBox() {
                                     setIsFocused(false);
                                     setNewComment("");
                                 }}
-                                className="px-4 py-2 hover:bg-foreground/10 dark:hover:bg-[#272727] rounded-full text-sm font-medium transition-colors dark:text-gray-300"
+                                className="px-4 py-2 hover:bg-surface-hover rounded-full text-sm font-medium transition-colors text-foreground/70"
                             >
                                 Cancel
                             </button>
@@ -231,7 +231,7 @@ export default function CommentBox() {
 
                         <div className="flex flex-col flex-1 gap-1">
                             <div className="flex items-baseline gap-2">
-                                <span className={clsx("text-sm font-semibold text-foreground/70 dark:text-white", comment.username === "User" && "bg-foreground/70 dark:bg-gray-700 px-2 py-0.5 rounded-full")}>
+                                <span className={clsx("text-sm font-bold text-foreground", comment.username === "User" && "bg-foreground/10 px-2 py-0.5 rounded-full")}>
                                     @{comment.username.replace(/\s+/g, '').toLowerCase()}
                                 </span>
                                 <span className="text-xs text-foreground/60 dark:text-gray-400">
@@ -239,7 +239,7 @@ export default function CommentBox() {
                                 </span>
                             </div>
 
-                            <p className="text-sm text-foreground/70 dark:text-gray-200 mt-1 leading-relaxed">
+                            <p className="text-sm text-foreground mt-1.5 leading-relaxed font-medium">
                                 {comment.content}
                             </p>
 
@@ -247,8 +247,8 @@ export default function CommentBox() {
                                 <button
                                     onClick={() => toggleLike(comment.id)}
                                     className={clsx(
-                                        "flex items-center gap-1.5 p-1.5 -ml-1.5 hover:bg-foreground/10 dark:hover:bg-[#272727] rounded-full transition-colors",
-                                        comment.isLiked ? "text-blue-600 dark:text-blue-400" : "text-foreground/60 dark:text-gray-400"
+                                        "flex items-center gap-1.5 p-1.5 -ml-1.5 hover:bg-surface-hover rounded-full transition-colors",
+                                        comment.isLiked ? "text-blue-600 dark:text-blue-400" : "text-foreground/60"
                                     )}
                                     aria-label="Like comment"
                                     aria-pressed={comment.isLiked}
@@ -272,8 +272,8 @@ export default function CommentBox() {
                                 <button
                                     onClick={() => toggleReplyInput(comment.id)}
                                     className={clsx(
-                                        "px-3 py-1.5 hover:bg-foreground/10 dark:hover:bg-[#272727] rounded-full text-xs font-medium transition-colors",
-                                        comment.showReplyInput ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20" : "text-foreground/60 dark:text-gray-400"
+                                        "px-3 py-1.5 hover:bg-surface-hover rounded-full text-xs font-medium transition-colors",
+                                        comment.showReplyInput ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20" : "text-foreground/60"
                                     )}
                                 >
                                     Reply
@@ -292,7 +292,7 @@ export default function CommentBox() {
                                             placeholder="Add a reply..."
                                             value={replyInputs[comment.id] || ""}
                                             onChange={(e) => setReplyInputs(prev => ({ ...prev, [comment.id]: e.target.value }))}
-                                            className="w-full bg-transparent border-b border-foreground/10 text-sm pb-1 focus:border-black dark:focus:border-white focus:outline-none dark:text-white"
+                                            className="w-full bg-transparent border-b border-foreground/10 text-sm pb-1 focus:border-foreground focus:outline-none text-foreground placeholder:text-foreground/30"
                                             autoFocus
                                             onKeyDown={(e) => {
                                                 if (e.key === 'Enter') handleAddReply(comment.id);
@@ -339,12 +339,12 @@ export default function CommentBox() {
                                                     </div>
                                                     <div className="flex flex-col gap-1">
                                                         <div className="flex items-baseline gap-2">
-                                                            <span className="text-xs font-bold text-foreground/70 dark:text-white">
+                                                            <span className="text-xs font-bold text-foreground">
                                                                 @{reply.username.toLowerCase()}
                                                             </span>
-                                                            <span className="text-[10px] text-foreground/60 dark:text-gray-400">{reply.timeAgo}</span>
+                                                            <span className="text-[10px] text-foreground/50">{reply.timeAgo}</span>
                                                         </div>
-                                                        <p className="text-sm text-foreground/70 dark:text-gray-200">{reply.content}</p>
+                                                        <p className="text-sm text-foreground font-medium">{reply.content}</p>
                                                         <div className="flex items-center gap-3 mt-1">
                                                             <button
                                                                 onClick={() => toggleLikeReply(comment.id, reply.id)}
@@ -386,8 +386,8 @@ export default function CommentBox() {
                                                 <div className="flex gap-3">
                                                     <div className="w-6 h-6 rounded-full bg-gray-300 dark:bg-gray-600 flex-shrink-0" />
                                                     <div className="flex flex-col">
-                                                        <span className="text-xs font-bold text-foreground/70 dark:text-white">@randomuser</span>
-                                                        <p className="text-sm text-foreground/60 dark:text-gray-200">This is a mock reply to show interactions.</p>
+                                                        <span className="text-xs font-bold text-foreground">@randomuser</span>
+                                                        <p className="text-sm text-foreground font-medium">This is a mock reply to show interactions.</p>
                                                     </div>
                                                 </div>
                                             )}

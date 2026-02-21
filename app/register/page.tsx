@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthContext";
 import { Eye, EyeOff, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 export default function RegisterPage() {
     const { login } = useAuth();
@@ -18,10 +19,70 @@ export default function RegisterPage() {
         agreed: false
     });
     const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const validate = () => {
+        const newErrors: Record<string, string> = {};
+
+        // Username validation
+        if (!formData.username.trim()) {
+            newErrors.username = "Please enter a valid username";
+        } else if (formData.username.length < 8 || formData.username.length > 16) {
+            newErrors.username = "Username must be between 8 and 16 characters";
+        }
+
+        // Email validation
+        if (!formData.email.trim()) {
+            newErrors.email = "Please enter a valid email address";
+        } else if (!formData.email.includes("@")) {
+            newErrors.email = "Please enter a valid email address with @";
+        }
+
+        // Password validation
+        if (!formData.password.trim()) {
+            newErrors.password = "Please enter a valid password";
+        } else {
+            const hasUpper = /[A-Z]/.test(formData.password);
+            const hasLower = /[a-z]/.test(formData.password);
+            const hasNumber = /[0-9]/.test(formData.password);
+            const hasSpecial = /[@#%&!]/.test(formData.password);
+
+            if (!hasUpper || !hasLower || !hasNumber || !hasSpecial) {
+                newErrors.password = "Must include uppercase, lowercase, number, and @#%&!";
+            }
+        }
+
+        if (!formData.confirmPassword.trim()) {
+            newErrors.confirmPassword = "Please enter a valid password";
+        } else if (formData.password !== formData.confirmPassword) {
+            newErrors.confirmPassword = "Passwords do not match";
+        }
+
+        if (!formData.agreed) {
+            newErrors.agreed = "You must agree to the terms";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (formData.username.trim() && formData.agreed) {
+        if (validate()) {
+            // Get existing users or initialize empty array
+            const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+            // Add new user
+            const newUser = {
+                username: formData.username,
+                password: formData.password,
+                email: formData.email,
+                gender: formData.gender
+            };
+
+            existingUsers.push(newUser);
+            localStorage.setItem("users", JSON.stringify(existingUsers));
+
             login(formData.username);
         }
     };
@@ -34,7 +95,7 @@ export default function RegisterPage() {
                 onClick={() => router.push("/")}
             />
 
-            <div className="w-full max-w-[480px] bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-2xl p-6 sm:p-8 border border-foreground/10 z-10 animate-in zoom-in-95 duration-200 relative transition-colors duration-300">
+            <div className="w-full max-w-[480px] bg-surface rounded-2xl shadow-2xl p-6 sm:p-8 border border-foreground/10 z-10 animate-in zoom-in-95 duration-200 relative transition-colors duration-300">
                 {/* Close Button */}
                 <button
                     onClick={() => router.push("/")}
@@ -45,8 +106,8 @@ export default function RegisterPage() {
 
                 <div className="w-full">
                     <div className="mb-6 text-center">
-                        <h1 className="text-2xl font-black text-[#212121] dark:text-white tracking-tight">Create Account</h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 font-medium">Join the premium community today</p>
+                        <h1 className="text-2xl font-black text-foreground tracking-tight">Create Account</h1>
+                        <p className="text-foreground/50 text-sm mt-1 font-medium">Join the premium community today</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -58,8 +119,12 @@ export default function RegisterPage() {
                                     placeholder="Username"
                                     value={formData.username}
                                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                                    className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-bold text-[#212121] dark:text-white placeholder:text-gray-400 transition-all"
+                                    className={clsx(
+                                        "w-full px-4 py-3 bg-background rounded-xl border outline-none text-sm font-bold text-foreground placeholder:text-foreground/30 transition-all",
+                                        errors.username ? "border-red-500" : "border-transparent focus:border-blue-500"
+                                    )}
                                 />
+                                {errors.username && <p className="text-[10px] text-red-500 mt-1 ml-1 font-bold">{errors.username}</p>}
                             </div>
                             <div className="flex-1">
                                 <input
@@ -67,48 +132,64 @@ export default function RegisterPage() {
                                     placeholder="Email Address"
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-bold text-[#212121] dark:text-white placeholder:text-gray-400 transition-all"
+                                    className={clsx(
+                                        "w-full px-4 py-3 bg-background rounded-xl border outline-none text-sm font-bold text-foreground placeholder:text-foreground/30 transition-all",
+                                        errors.email ? "border-red-500" : "border-transparent focus:border-blue-500"
+                                    )}
                                 />
+                                {errors.email && <p className="text-[10px] text-red-500 mt-1 ml-1 font-bold">{errors.email}</p>}
                             </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div className="relative">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder="Password"
-                                    value={formData.password}
-                                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-bold text-[#212121] dark:text-white placeholder:text-gray-400 pr-10 transition-all"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-blue-500"
-                                >
-                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                </button>
+                            <div className="flex flex-col gap-1">
+                                <div className="relative">
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Password"
+                                        value={formData.password}
+                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                        className={clsx(
+                                            "w-full px-4 py-3 bg-background rounded-xl border outline-none text-sm font-bold text-foreground placeholder:text-foreground/30 pr-10 transition-all",
+                                            errors.password ? "border-red-500" : "border-transparent focus:border-blue-500"
+                                        )}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-foreground/40 hover:text-blue-500"
+                                    >
+                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
+                                {errors.password && <p className="text-[10px] text-red-500 ml-1 font-bold">{errors.password}</p>}
                             </div>
-                            <input
-                                type="password"
-                                placeholder="Confirm Pass"
-                                value={formData.confirmPassword}
-                                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                                className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-bold text-[#212121] dark:text-white placeholder:text-gray-400 transition-all"
-                            />
+                            <div>
+                                <input
+                                    type="password"
+                                    placeholder="Confirm Pass"
+                                    value={formData.confirmPassword}
+                                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                                    className={clsx(
+                                        "w-full px-4 py-3 bg-background rounded-xl border outline-none text-sm font-bold text-foreground placeholder:text-foreground/30 transition-all",
+                                        errors.confirmPassword ? "border-red-500" : "border-transparent focus:border-blue-500"
+                                    )}
+                                />
+                                {errors.confirmPassword && <p className="text-[10px] text-red-500 mt-1 ml-1 font-bold">{errors.confirmPassword}</p>}
+                            </div>
                         </div>
 
                         <div className="relative">
                             <select
                                 value={formData.gender}
                                 onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                                className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-black text-[#212121] dark:text-white appearance-none cursor-pointer transition-all"
+                                className="w-full px-4 py-3 bg-background rounded-xl border border-transparent focus:border-blue-500 outline-none text-sm font-black text-foreground appearance-none cursor-pointer transition-all"
                             >
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Other">Other</option>
                             </select>
-                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-foreground/40">
                                 <svg width="10" height="6" viewBox="0 0 12 8" fill="none">
                                     <path d="M1 1L6 6L11 1" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
@@ -122,22 +203,25 @@ export default function RegisterPage() {
                             Sign Up
                         </button>
 
-                        <div className="flex gap-3 items-start bg-[#f8f9fa] dark:bg-[#141414] p-3.5 rounded-xl border border-foreground/5 mt-1">
+                        <div className="flex gap-3 items-start bg-background p-3.5 rounded-xl border border-foreground/5 mt-1">
                             <input
                                 type="checkbox"
                                 id="terms"
                                 checked={formData.agreed}
                                 onChange={(e) => setFormData({ ...formData, agreed: e.target.checked })}
-                                className="mt-1 w-4 h-4 rounded border-gray-300 dark:border-gray-700 text-blue-500 bg-white dark:bg-[#1a1a1a]"
+                                className="mt-1 w-4 h-4 rounded border-foreground/20 text-blue-500 bg-background"
                             />
-                            <label htmlFor="terms" className="text-[11px] font-bold text-gray-500 dark:text-gray-400 leading-tight cursor-pointer">
+                            <label htmlFor="terms" className={clsx(
+                                "text-[11px] font-bold leading-tight cursor-pointer",
+                                errors.agreed ? "text-red-500" : "text-foreground/50"
+                            )}>
                                 I agree to the <Link href="#" className="text-blue-500 underline">Terms of use</Link> & <Link href="#" className="text-blue-500 underline">Privacy Policy</Link>
                             </label>
                         </div>
 
                         <div className="mt-4 text-center border-t border-foreground/5 pt-5 flex flex-col gap-1">
                             <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Already a member?</span>
-                            <Link href="/login" className="text-sm font-black text-[#212121] dark:text-white hover:text-blue-500 transition-colors">
+                            <Link href="/login" className="text-sm font-black text-blue-500 hover:underline transition-colors">
                                 Log In Now
                             </Link>
                         </div>

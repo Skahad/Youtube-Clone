@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Compass, PlaySquare, Clock, ThumbsUp, User, History, Film, Library, ChevronDown } from "lucide-react";
+import { Home, Compass, PlaySquare, Clock, ThumbsUp, User, History, Film, Library, ChevronDown, FileText } from "lucide-react";
 import Link from "next/link";
 import { useSidebar } from "./SidebarProvider";
 import { useAuth } from "./AuthContext";
@@ -13,6 +13,7 @@ const sidebarItems = [
     { icon: Home, label: "Home", href: "/" },
     { icon: Film, label: "Shorts", href: "/shorts" },
     { icon: Compass, label: "Subscriptions", href: "/subscriptions" },
+    { icon: FileText, label: "Articles", href: "/articles" },
     { icon: Library, label: "Library", href: "/library" }, // Divider?
     { icon: History, label: "History", href: "/history" },
     { icon: Clock, label: "Watch Later", href: "/watch-later" },

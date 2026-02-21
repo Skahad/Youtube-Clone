@@ -50,8 +50,8 @@ function SearchContent() {
                     className={clsx(
                         "flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors border whitespace-nowrap",
                         showFilters
-                            ? "bg-black text-white dark:bg-white dark:text-black border-transparent"
-                            : "bg-gray-100 hover:bg-gray-200 dark:bg-[#272727] dark:hover:bg-[#3f3f3f] text-gray-800 dark:text-gray-200 border-foreground/10"
+                            ? "bg-foreground text-background border-transparent"
+                            : "bg-surface hover:bg-surface-hover text-foreground/80 border-foreground/10"
                     )}
                 >
                     <Filter className="w-4 h-4" /> Filters
@@ -70,7 +70,7 @@ function SearchContent() {
                                 {category.options.map((option) => (
                                     <button
                                         key={option}
-                                        className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white text-left transition-colors"
+                                        className="text-xs text-foreground/80 hover:text-foreground text-left transition-colors"
                                     >
                                         {option}
                                     </button>
@@ -90,7 +90,7 @@ function SearchContent() {
                     results.map((video) => (
                         <div key={video.id} className="flex flex-col sm:flex-row gap-4 group cursor-pointer relative">
                             {/* Thumbnail */}
-                            <Link href={`/watch/${video.id}`} className="relative aspect-video w-full sm:w-[360px] h-[202px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                            <Link href={`/watch/${video.id}`} className="relative aspect-video w-full sm:w-[360px] h-[202px] flex-shrink-0 rounded-xl overflow-hidden bg-surface">
                                 <img
                                     src={video.thumbnail}
                                     alt={video.title}
@@ -109,9 +109,9 @@ function SearchContent() {
                                     </h3>
                                 </Link>
 
-                                <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center flex-wrap">
+                                <div className="text-xs text-foreground/60 dark:text-gray-400 flex items-center flex-wrap">
                                     <span>{video.views} views</span>
-                                    <span className="mx-1.5 min-w-[2px] h-[2px] rounded-full bg-gray-500 dark:bg-gray-400" aria-hidden="true" />
+                                    <span className="mx-1.5 min-w-[2px] h-[2px] rounded-full bg-foreground/40 dark:bg-gray-400" aria-hidden="true" />
                                     <span>{video.uploadedAt}</span>
                                 </div>
 
@@ -119,13 +119,13 @@ function SearchContent() {
                                     <Link href={`/channel/${video.channelId}`} className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 hover:opacity-80 transition-opacity">
                                         <img src={video.channelAvatar} className="w-full h-full object-cover" alt="" />
                                     </Link>
-                                    <Link href={`/channel/${video.channelId}`} className="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                                    <Link href={`/channel/${video.channelId}`} className="text-xs text-foreground/70 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors flex items-center gap-1">
                                         {video.channelName}
                                         <CheckCircle2 className="w-3 h-3 fill-foreground/50 text-background" />
                                     </Link>
                                 </div>
 
-                                <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed max-w-[800px]">
+                                <p className="text-xs text-foreground/70 dark:text-gray-400 line-clamp-2 leading-relaxed max-w-[800px]">
                                     {video.description}
                                 </p>
 

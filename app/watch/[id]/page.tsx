@@ -72,11 +72,11 @@ export default function WatchPage() {
                             />
                         </Link>
                         <div className="flex flex-col min-w-0">
-                            <Link href={`/channel/${video.channelId}`} className="flex items-center gap-1 font-semibold text-foreground/70 dark:text-white hover:text-gray-700 dark:hover:text-gray-300 truncate">
+                            <Link href={`/channel/${video.channelId}`} className="flex items-center gap-1 font-semibold text-foreground hover:opacity-80 truncate">
                                 {video.channelName}
                                 <CheckCircle2 className="w-3.5 h-3.5 fill-foreground/50 text-background flex-shrink-0" />
                             </Link>
-                            <span className="text-xs text-foreground/60 dark:text-gray-400 truncate">1.2M subscribers</span>
+                            <span className="text-xs text-foreground/60 truncate">1.2M subscribers</span>
                         </div>
 
                         <button
@@ -84,8 +84,8 @@ export default function WatchPage() {
                             className={clsx(
                                 "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0 border",
                                 subscribed
-                                    ? "bg-white dark:bg-black border-gray-200 dark:border-white/10 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-[#121212]"
-                                    : "bg-black text-white dark:bg-white dark:text-black border-transparent hover:opacity-80"
+                                    ? "bg-surface border-foreground/10 text-foreground hover:bg-surface-hover"
+                                    : "bg-foreground text-background border-transparent hover:opacity-90"
                             )}
                         >
                             {subscribed ? "Subscribed" : "Subscribe"}
@@ -99,19 +99,19 @@ export default function WatchPage() {
 
                 <div
                     onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
-                    className="mt-4 bg-white dark:bg-black border border-gray-200 dark:border-white/10 p-4 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-[#121212] transition-colors group shadow-sm"
+                    className="mt-4 bg-surface border border-foreground/10 p-4 rounded-xl cursor-pointer hover:bg-surface-hover transition-colors group shadow-sm"
                 >
-                    <div className="flex gap-2 text-sm font-semibold text-foreground dark:text-white mb-1">
+                    <div className="flex gap-2 text-sm font-semibold text-foreground mb-1">
                         <span>{video.views} views</span>
                         <span>{video.uploadedAt}</span>
                     </div>
                     <p className={clsx(
-                        "text-sm text-foreground dark:text-gray-200 whitespace-pre-line leading-relaxed",
+                        "text-sm text-foreground whitespace-pre-line leading-relaxed",
                         !isDescriptionExpanded && "line-clamp-2"
                     )}>
                         {video.description}
                     </p>
-                    <span className="block mt-2 font-medium text-foreground dark:text-white text-sm">
+                    <span className="block mt-2 font-medium text-foreground text-sm">
                         {isDescriptionExpanded ? "Show less" : "Show more"}
                     </span>
                 </div>

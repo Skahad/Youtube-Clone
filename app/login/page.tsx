@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/components/AuthContext";
 import { Eye, EyeOff, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 export default function LoginPage() {
     const { login, loginWithGoogle } = useAuth();
@@ -13,10 +14,52 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(true);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const validate = () => {
+        const newErrors: Record<string, string> = {};
+
+        // Username validation
+        if (!username.trim()) {
+            newErrors.username = "Please enter a valid username";
+        } else if (username.length < 8 || username.length > 16) {
+            newErrors.username = "Username must be between 8 and 16 characters";
+        }
+
+        // Password validation
+        if (!password.trim()) {
+            newErrors.password = "Please enter a valid password";
+        } else {
+            const hasUpper = /[A-Z]/.test(password);
+            const hasLower = /[a-z]/.test(password);
+            const hasNumber = /[0-9]/.test(password);
+            const hasSpecial = /[@#%&!]/.test(password);
+
+            if (!hasUpper || !hasLower || !hasNumber || !hasSpecial) {
+                newErrors.password = "Must include uppercase, lowercase, number, and @#%&!";
+            }
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (username.trim()) {
+        if (validate()) {
+            const users = JSON.parse(localStorage.getItem("users") || "[]");
+            const foundUser = users.find((u: any) => u.username === username);
+
+            if (!foundUser) {
+                setErrors({ username: "Please enter a valid username" });
+                return;
+            }
+
+            if (foundUser.password !== password) {
+                setErrors({ password: "Please enter a valid password" });
+                return;
+            }
+
             login(username);
         }
     };
@@ -29,7 +72,7 @@ export default function LoginPage() {
                 onClick={() => router.push("/")}
             />
 
-            <div className="w-full max-w-[400px] bg-white dark:bg-[#0f0f0f] rounded-2xl shadow-2xl p-6 sm:p-8 border border-foreground/10 z-10 animate-in zoom-in-95 duration-200 relative transition-colors duration-300">
+            <div className="w-full max-w-[400px] bg-surface rounded-2xl shadow-2xl p-6 sm:p-8 border border-foreground/10 z-10 animate-in zoom-in-95 duration-200 relative transition-colors duration-300">
                 {/* Close Button */}
                 <button
                     onClick={() => router.push("/")}
@@ -40,8 +83,8 @@ export default function LoginPage() {
 
                 <div className="w-full">
                     <div className="mb-6 text-center">
-                        <h1 className="text-2xl font-black text-[#212121] dark:text-white tracking-tight">Welcome Back</h1>
-                        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 font-medium">Log in to your account</p>
+                        <h1 className="text-2xl font-black text-foreground tracking-tight">Welcome Back</h1>
+                        <p className="text-foreground/50 text-sm mt-1 font-medium">Log in to your account</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -51,25 +94,35 @@ export default function LoginPage() {
                                 placeholder="Username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-bold text-[#212121] dark:text-white placeholder:text-gray-400 transition-all"
+                                className={clsx(
+                                    "w-full px-4 py-3 bg-background rounded-xl border outline-none text-sm font-bold text-foreground placeholder:text-foreground/30 transition-all",
+                                    errors.username ? "border-red-500" : "border-transparent focus:border-blue-500"
+                                )}
                             />
+                            {errors.username && <p className="text-[10px] text-red-500 mt-1 ml-1 font-bold">{errors.username}</p>}
                         </div>
 
-                        <div className="relative">
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                placeholder="Password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="w-full px-4 py-3 bg-[#f8f9fa] dark:bg-[#1a1a1a] rounded-xl border border-transparent focus:border-blue-500 dark:focus:border-blue-500 outline-none text-sm font-bold text-[#212121] dark:text-white placeholder:text-gray-400 pr-10 transition-all"
-                            />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-blue-500 transition-colors"
-                            >
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                            </button>
+                        <div className="flex flex-col gap-1">
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className={clsx(
+                                        "w-full px-4 py-3 bg-background rounded-xl border outline-none text-sm font-bold text-foreground placeholder:text-foreground/30 pr-10 transition-all",
+                                        errors.password ? "border-red-500" : "border-transparent focus:border-blue-500"
+                                    )}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-blue-500 transition-colors"
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
+                            </div>
+                            {errors.password && <p className="text-[10px] text-red-500 mt-1 ml-1 font-bold">{errors.password}</p>}
                         </div>
 
                         <div className="flex justify-end">
@@ -90,24 +143,24 @@ export default function LoginPage() {
                                 type="checkbox"
                                 checked={rememberMe}
                                 onChange={(e) => setRememberMe(e.target.checked)}
-                                className="w-4 h-4 rounded border-gray-300 dark:border-gray-700 text-blue-500 focus:ring-blue-500 bg-white dark:bg-[#1a1a1a]"
+                                className="w-4 h-4 rounded border-foreground/20 text-blue-500 focus:ring-blue-500 bg-background"
                             />
-                            <span className="text-xs font-bold text-gray-500 dark:text-gray-400 group-hover:text-blue-500 transition-colors">Remember this device</span>
+                            <span className="text-xs font-bold text-foreground/50 group-hover:text-blue-500 transition-colors">Remember this device</span>
                         </label>
 
                         <div className="mt-2 flex flex-col gap-3">
                             <div className="flex items-center gap-3">
                                 <div className="h-px bg-foreground/10 flex-1" />
-                                <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">OR</span>
+                                <span className="text-[10px] font-black uppercase text-foreground/30 tracking-widest">OR</span>
                                 <div className="h-px bg-foreground/10 flex-1" />
                             </div>
                             <button
                                 type="button"
                                 onClick={() => loginWithGoogle()}
-                                className="flex items-center justify-center gap-3 w-full py-2.5 border border-foreground/10 rounded-xl bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 transition-all font-bold text-sm shadow-sm"
+                                className="flex items-center justify-center gap-3 w-full py-2.5 border border-foreground/10 rounded-xl bg-surface hover:bg-surface-hover transition-all font-bold text-sm shadow-sm"
                             >
                                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
-                                <span className="text-gray-700 dark:text-white">Sign in with Google</span>
+                                <span className="text-foreground">Sign in with Google</span>
                             </button>
                         </div>
 

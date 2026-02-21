@@ -15,7 +15,7 @@ export default function SwitchAccountPage() {
             ></div>
 
             {/* Modal Card */}
-            <div className="w-full max-w-[500px] bg-white dark:bg-[#1f1f1f] rounded-xl shadow-2xl relative z-10 animate-in zoom-in-95 duration-200 overflow-hidden">
+            <div className="w-full max-w-[500px] bg-background rounded-xl shadow-2xl relative z-10 animate-in zoom-in-95 duration-200 overflow-hidden border border-foreground/10">
                 {/* Header */}
                 <div className="flex items-center justify-between p-6 pb-0">
                     <h1 className="text-xl font-bold text-foreground">Switch Account</h1>

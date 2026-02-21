@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Search, Mic, Video, Bell, User, Sun, Moon, ArrowLeft, Plus, Upload, Download, Play, PlaySquare, Film, Settings, LogIn, UserPlus, MoreHorizontal, Users, Wallet, ListVideo, History, ThumbsUp as LikeIcon, FileText, MonitorPlay, PenBox, Megaphone, LogOut, MessageSquare } from "lucide-react";
+import { Menu, Search, Mic, Video, Bell, User, Sun, Moon, ArrowLeft, Plus, Upload, Download, Play, PlaySquare, Film, Settings, LogIn, UserPlus, MoreHorizontal, Users, ListVideo, History, ThumbsUp as LikeIcon, FileText, PenBox, LogOut, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { useSidebar } from "./SidebarProvider";
 import { useTheme } from "./ThemeProvider";
@@ -292,7 +292,6 @@ export default function Navbar() {
                                                 {[
                                                     { icon: Users, label: "Switch Account" },
                                                     { icon: User, label: "Subscriptions" },
-                                                    { icon: Wallet, label: "Wallet" },
                                                     { icon: ListVideo, label: "PlayLists" },
                                                     { icon: History, label: "History" },
                                                 ].map((item, idx) => (
@@ -307,7 +306,7 @@ export default function Navbar() {
                                                             } else if (item.label === "Subscriptions") {
                                                                 router.push("/subscriptions");
                                                             } else if (item.label === "History") {
-                                                                router.push("/activities");
+                                                                router.push("/history");
                                                             }
                                                         }}
                                                         className="flex items-center gap-4 w-full px-5 py-2.5 hover:bg-surface-hover transition-colors text-left group"
@@ -324,10 +323,8 @@ export default function Navbar() {
                                                 {[
                                                     { icon: LikeIcon, label: "Liked videos" },
                                                     { icon: FileText, label: "My articles" },
-                                                    { icon: MonitorPlay, label: "Video Studio" },
                                                     { icon: PenBox, label: "Edit" },
                                                     { icon: Settings, label: "Settings" },
-                                                    { icon: Megaphone, label: "Advertising" },
                                                 ].map((item, idx) => (
                                                     <button
                                                         key={idx}
@@ -335,6 +332,8 @@ export default function Navbar() {
                                                             setShowUserMenu(false);
                                                             if (item.label === "Liked videos") {
                                                                 router.push("/liked");
+                                                            } else if (item.label === "My articles") {
+                                                                router.push("/articles/mine");
                                                             } else if (item.label === "Edit") {
                                                                 router.push("/about");
                                                             }

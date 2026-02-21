@@ -69,9 +69,9 @@ export default function CreatePostPage() {
     if (!user) return null;
 
     return (
-        <div className="min-h-screen bg-[#f1f1f1] dark:bg-[#0f0f0f] pb-20 transition-colors duration-300">
+        <div className="min-h-screen bg-background pb-20 transition-colors duration-300">
             {/* Header */}
-            <div className="bg-white dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-white/10 sticky top-0 z-40">
+            <div className="bg-background border-b border-foreground/10 sticky top-0 z-40">
                 <div className="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <button
@@ -99,7 +99,7 @@ export default function CreatePostPage() {
             </div>
 
             <div className="max-w-3xl mx-auto p-4 mt-6">
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-[2rem] shadow-xl overflow-hidden border border-foreground/5">
+                <div className="bg-surface rounded-[2rem] shadow-xl overflow-hidden border border-foreground/5">
                     {/* User Info & Visibility */}
                     <div className="p-6 flex items-center justify-between border-b border-foreground/5 bg-gradient-to-r from-transparent to-foreground/5">
                         <div className="flex items-center gap-4">
@@ -167,14 +167,14 @@ export default function CreatePostPage() {
                     )}
 
                     {/* Toolbar */}
-                    <div className="p-6 bg-gray-50/50 dark:bg-white/5 border-t border-foreground/5 flex items-center gap-4">
-                        <label className="flex items-center gap-3 px-6 py-3 bg-white dark:bg-[#222] hover:bg-gray-100 dark:hover:bg-white/10 text-foreground rounded-2xl cursor-pointer transition-all border border-foreground/10 shadow-sm active:scale-95 group">
+                    <div className="p-6 bg-surface border-t border-foreground/5 flex items-center gap-4">
+                        <label className="flex items-center gap-3 px-6 py-3 bg-background hover:bg-surface-hover text-foreground rounded-2xl cursor-pointer transition-all border border-foreground/10 shadow-sm active:scale-95 group">
                             <ImageIcon className="w-6 h-6 text-[#03a9f4] group-hover:scale-110 transition-transform" strokeWidth={2.5} />
                             <span className="text-sm font-black uppercase italic tracking-tighter">Add Photo</span>
                             <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                         </label>
 
-                        <button className="p-3 bg-white dark:bg-[#222] hover:bg-gray-100 dark:hover:bg-white/10 text-foreground/30 rounded-2xl transition-all border border-foreground/10 shadow-sm">
+                        <button className="p-3 bg-background hover:bg-surface-hover text-foreground/30 rounded-2xl transition-all border border-foreground/10 shadow-sm">
                             <MessageSquare className="w-6 h-6" />
                         </button>
                     </div>

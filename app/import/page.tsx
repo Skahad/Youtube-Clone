@@ -29,7 +29,7 @@ export default function ImportPage() {
     ];
 
     return (
-        <div className="flex flex-col items-center w-full min-h-screen bg-[#f1f1f1] dark:bg-[#0f0f0f] py-8 px-4 transition-colors duration-300">
+        <div className="flex flex-col items-center w-full min-h-screen bg-background py-8 px-4 transition-colors duration-300">
             <div className="w-full max-w-5xl">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
@@ -37,22 +37,22 @@ export default function ImportPage() {
                         <div className="bg-[#00aaff] p-2 rounded-lg">
                             <ImportIcon className="w-6 h-6 text-white" />
                         </div>
-                        <h1 className="text-xl font-semibold text-gray-800 dark:text-gray-200">Import new video</h1>
+                        <h1 className="text-xl font-semibold text-foreground">Import new video</h1>
                     </div>
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">One Steps Video Upload</span>
+                    <span className="text-sm font-medium text-foreground/60">One Steps Video Upload</span>
                 </div>
 
-                <div className="bg-white dark:bg-[#1a1a1a] rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 overflow-hidden min-h-[500px] flex flex-col items-center justify-center p-10 lg:p-20">
+                <div className="bg-surface rounded-xl shadow-sm border border-foreground/10 overflow-hidden min-h-[500px] flex flex-col items-center justify-center p-10 lg:p-20">
                     {/* Center Icon */}
                     <div className="mb-8">
                         <ImportIcon className="w-32 h-32 text-gray-400" strokeWidth={1} />
                     </div>
 
                     {/* Title & Subtitle */}
-                    <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-3 text-center">
+                    <h2 className="text-4xl font-bold text-foreground mb-3 text-center">
                         Use Video URL and Import Video
                     </h2>
-                    <p className="text-xl text-gray-500 dark:text-gray-400 mb-10 font-medium text-center">
+                    <p className="text-xl text-foreground/50 mb-10 font-medium text-center">
                         Your videos will be private until you publish them.
                     </p>
 
@@ -66,16 +66,16 @@ export default function ImportPage() {
                     </div>
 
                     {/* Input Bar */}
-                    <div className="w-full max-w-3xl flex items-stretch h-14 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm">
-                        <div className="flex items-center justify-center px-4 bg-gray-50 dark:bg-[#222] border-r border-gray-200 dark:border-gray-800">
-                            <LinkIcon className="w-5 h-5 text-gray-400" />
+                    <div className="w-full max-w-3xl flex items-stretch h-14 rounded-lg border border-foreground/10 overflow-hidden shadow-sm">
+                        <div className="flex items-center justify-center px-4 bg-background border-r border-foreground/10">
+                            <LinkIcon className="w-5 h-5 text-foreground/40" />
                         </div>
                         <input
                             type="text"
                             value={videoUrl}
                             onChange={(e) => setVideoUrl(e.target.value)}
                             placeholder="Video URL"
-                            className="flex-1 px-4 bg-white dark:bg-[#1a1a1a] text-gray-800 dark:text-white outline-none text-lg"
+                            className="flex-1 px-4 bg-surface text-foreground outline-none text-lg"
                         />
                         <button className="bg-[#00aaff] hover:bg-[#0099ee] text-white px-8 font-bold text-lg transition-all active:scale-95">
                             Fetch Video

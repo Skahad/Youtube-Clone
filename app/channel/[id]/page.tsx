@@ -55,10 +55,10 @@ export default function ChannelPage() {
                         <img src={channel.avatar} alt={channel.name} className="w-full h-full object-cover" />
                     </div>
 
-                    <div className="flex flex-col gap-2 flex-1">
-                        <h1 className="text-3xl font-bold text-foreground dark:text-white flex items-center justify-center md:justify-start gap-2">
+                    <div className="flex flex-col gap-2 flex-1 z-10">
+                        <h1 className="text-3xl font-bold text-black dark:text-white flex items-center justify-center md:justify-start gap-2">
                             {channel.name}
-                            <CheckCircle2 className="w-5 h-5 fill-foreground/50 text-background" />
+                            <CheckCircle2 className="w-5 h-5 fill-black/50 text-white dark:text-black" />
                         </h1>
                         <div className="text-foreground/70 dark:text-gray-400 text-sm flex flex-col md:flex-row gap-1 md:gap-2">
                             <span className="font-semibold">@{channel.name.replace(/\s+/g, '').toLowerCase()}</span>
@@ -76,10 +76,10 @@ export default function ChannelPage() {
                             <button
                                 onClick={() => setIsSubscribed(!isSubscribed)}
                                 className={clsx(
-                                    "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0",
+                                    "px-4 py-2 rounded-full font-medium text-sm transition-all ml-4 whitespace-nowrap flex-shrink-0 border",
                                     isSubscribed
-                                        ? "bg-white dark:bg-black border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-[#121212]"
-                                        : "bg-black text-white dark:bg-white dark:text-black hover:opacity-80"
+                                        ? "bg-surface border-foreground/10 text-foreground hover:bg-surface-hover"
+                                        : "bg-foreground text-background border-transparent hover:opacity-90"
                                 )}
                             >
                                 {isSubscribed ? "Subscribed" : "Subscribe"}
@@ -97,16 +97,16 @@ export default function ChannelPage() {
                             className={clsx(
                                 "px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap",
                                 activeTab === tab
-                                    ? "border-black dark:border-white text-gray-900 dark:text-foreground"
-                                    : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                                    ? "border-foreground text-foreground"
+                                    : "border-transparent text-foreground/50 hover:text-foreground"
                             )}
                         >
                             {tab}
                         </button>
                     ))}
                     <div className="flex-1" />
-                    <button className="p-2 hover:bg-gray-100 dark:hover:bg-[#272727] rounded-full transition-colors">
-                        <Search className="w-5 h-5 text-gray-600 dark:text-foreground" />
+                    <button className="p-2 hover:bg-white dark:hover:bg-[#272727] rounded-full transition-colors">
+                        <Search className="w-5 h-5 text-black dark:text-foreground" />
                     </button>
                 </div>
 
@@ -117,7 +117,7 @@ export default function ChannelPage() {
                             {/* Latest Videos Section */}
                             {channelVideos.length > 0 && (
                                 <div>
-                                    <h2 className="text-lg font-bold mb-4 text-foreground dark:text-white">Latest Videos</h2>
+                                    <h2 className="text-lg font-bold mb-4 text-black dark:text-white">Latest Videos</h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-8 gap-x-4">
                                         {channelVideos.slice(0, 4).map((video) => (
                                             <VideoCard key={video.id} video={video} />
@@ -129,7 +129,7 @@ export default function ChannelPage() {
                             {/* Shorts Section */}
                             {channelShorts.length > 0 && (
                                 <div>
-                                    <h2 className="text-lg font-bold mb-4 text-gray-900 dark:text-white">Shorts</h2>
+                                    <h2 className="text-lg font-bold mb-4 text-black dark:text-white">Shorts</h2>
                                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                         {channelShorts.slice(0, 6).map((short) => (
                                             <Link key={short.id} href="/shorts" className="aspect-[9/16] rounded-xl overflow-hidden relative group cursor-pointer">
@@ -198,14 +198,14 @@ export default function ChannelPage() {
 
                     {activeTab === "About" && (
                         <div className="max-w-3xl">
-                            <div className="bg-white dark:bg-black border border-gray-200 dark:border-white/10 rounded-xl p-6 space-y-4 shadow-sm">
+                            <div className="bg-surface border border-foreground/10 rounded-xl p-6 space-y-4 shadow-sm">
                                 <div>
-                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Description</h3>
-                                    <p className="text-gray-700 dark:text-gray-400 text-sm whitespace-pre-wrap">{channel.description}</p>
+                                    <h3 className="font-semibold text-foreground mb-2">Description</h3>
+                                    <p className="text-foreground/80 text-sm whitespace-pre-wrap">{channel.description}</p>
                                 </div>
-                                <div className="border-t border-gray-200 dark:border-white/10 pt-4">
-                                    <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Stats</h3>
-                                    <div className="space-y-1 text-sm text-gray-700 dark:text-gray-400">
+                                <div className="border-t border-foreground/10 pt-4">
+                                    <h3 className="font-semibold text-foreground mb-2">Stats</h3>
+                                    <div className="space-y-1 text-sm text-foreground/70">
                                         <p>{channel.subscribers} subscribers</p>
                                         <p>{channelVideos.length} videos</p>
                                     </div>
