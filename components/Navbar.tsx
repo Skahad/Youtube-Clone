@@ -336,6 +336,8 @@ export default function Navbar() {
                                                                 router.push("/articles/mine");
                                                             } else if (item.label === "Edit") {
                                                                 router.push("/about");
+                                                            } else if (item.label === "Settings") {
+                                                                router.push("/settings");
                                                             }
                                                         }}
                                                         className="flex items-center gap-4 w-full px-5 py-2.5 hover:bg-surface-hover transition-colors text-left group"

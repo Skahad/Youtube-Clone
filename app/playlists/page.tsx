@@ -3,7 +3,7 @@
 import { useAuth } from "@/components/AuthContext";
 import { ListVideo, Plus, VideoOff, MoreVertical, Edit2, Trash2, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { usePlaylists, Playlist } from "@/components/PlaylistsProvider";
 import { useSubscriptions } from "@/components/SubscriptionsProvider";
@@ -12,6 +12,7 @@ import clsx from "clsx";
 export default function PlaylistsPage() {
     const { user } = useAuth();
     const pathname = usePathname();
+    const router = useRouter();
     const { playlists, addPlaylist, updatePlaylist, deletePlaylist } = usePlaylists();
     const { subscribedChannelIds } = useSubscriptions();
 
@@ -23,6 +24,7 @@ export default function PlaylistsPage() {
 
     const [activeMenu, setActiveMenu] = useState<string | null>(null);
     const [toast, setToast] = useState<{ message: string; type: "success" | "info" } | null>(null);
+    const [privacySettings, setPrivacySettings] = useState<any>({});
 
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -39,8 +41,17 @@ export default function PlaylistsPage() {
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
+
+        // Fetch privacy settings
+        if (user?.handle) {
+            const saved = localStorage.getItem(`privacy_settings_${user.handle}`);
+            if (saved) {
+                setPrivacySettings(JSON.parse(saved));
+            }
+        }
+
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    }, [user]);
 
     const showToast = (message: string, type: "success" | "info" = "success") => {
         setToast({ message, type });
@@ -121,17 +132,28 @@ export default function PlaylistsPage() {
                                 </h1>
                                 <div className="text-foreground/70 text-sm flex flex-col md:flex-row gap-1 md:gap-2 font-medium mt-1">
                                     <span className="font-semibold">@{user?.username?.replace(/\s+/g, '').toLowerCase() || "user"}</span>
-                                    <span className="hidden md:inline">•</span>
-                                    <span>{subscribedChannelIds.length} subscribers</span>
-                                    <span className="hidden md:inline">•</span>
-                                    <span>{playlists.length} playlists</span>
+                                    {privacySettings.showSubscriptions !== "No" && (
+                                        <>
+                                            <span className="hidden md:inline">•</span>
+                                            <span>{subscribedChannelIds.length} subscribers</span>
+                                        </>
+                                    )}
+                                    {privacySettings.watchWho !== "Only Me" && (
+                                        <>
+                                            <span className="hidden md:inline">•</span>
+                                            <span>{playlists.length} playlists</span>
+                                        </>
+                                    )}
                                 </div>
                                 <p className="text-foreground/70 text-sm max-w-2xl mt-2 line-clamp-2">
                                     Daily tips and tricks to improve productivity and code quality.
                                 </p>
                             </div>
                             <div className="flex justify-center md:justify-start">
-                                <button className="bg-foreground text-background px-6 py-2 rounded-full font-bold text-sm uppercase transition-all hover:opacity-90 active:scale-95">
+                                <button
+                                    onClick={() => router.push(`/settings/profile/${user?.handle || '@me'}`)}
+                                    className="bg-foreground text-background px-6 py-2 rounded-full font-bold text-sm uppercase transition-all hover:opacity-90 active:scale-95"
+                                >
                                     Manage
                                 </button>
                             </div>

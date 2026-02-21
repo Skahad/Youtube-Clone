@@ -34,12 +34,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }, []);
 
     const login = (username: string) => {
-        const newUser = {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const registeredUser = users.find((u: any) => u.username === username);
+
+        const newUser: User = {
             username,
             handle: `@${username.toLowerCase()}`,
-            avatar: "U",
+            avatar: registeredUser?.gender === "Female" ? "F" : "U",
             points: 0,
-            email: `${username.toLowerCase()}@example.com`
+            email: registeredUser?.email || `${username.toLowerCase()}@example.com`
         };
         setUser(newUser);
         localStorage.setItem("user", JSON.stringify(newUser));

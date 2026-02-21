@@ -1,16 +1,28 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/components/AuthContext";
 import { History, Plus } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSubscriptions } from "@/components/SubscriptionsProvider";
 import clsx from "clsx";
 
 export default function AboutPage() {
     const { user } = useAuth();
     const pathname = usePathname();
+    const router = useRouter();
     const { subscribedChannelIds } = useSubscriptions();
+    const [privacySettings, setPrivacySettings] = useState<any>({});
+
+    useEffect(() => {
+        if (user?.handle) {
+            const saved = localStorage.getItem(`privacy_settings_${user.handle}`);
+            if (saved) {
+                setPrivacySettings(JSON.parse(saved));
+            }
+        }
+    }, [user]);
 
     const tabs = [
         { label: "PlayLists", href: "/playlists" },
@@ -48,15 +60,22 @@ export default function AboutPage() {
                             </h1>
                             <div className="text-foreground/70 text-sm flex flex-col md:flex-row gap-1 md:gap-2 font-medium mt-1">
                                 <span className="font-semibold">@{user?.username?.replace(/\s+/g, '').toLowerCase() || "user"}</span>
-                                <span className="hidden md:inline">•</span>
-                                <span>{subscribedChannelIds.length} Subscribers</span>
+                                {privacySettings.showSubscriptions !== "No" && (
+                                    <>
+                                        <span className="hidden md:inline">•</span>
+                                        <span>{subscribedChannelIds.length} Subscribers</span>
+                                    </>
+                                )}
                             </div>
                             <p className="text-foreground/70 text-sm max-w-2xl mt-2 line-clamp-2">
                                 Daily tips and tricks to improve productivity and code quality.
                             </p>
                         </div>
                         <div className="flex justify-center md:justify-start">
-                            <button className="bg-foreground text-background px-6 py-2 rounded-full font-bold text-sm uppercase transition-all hover:opacity-90 active:scale-95">
+                            <button
+                                onClick={() => router.push(`/settings/profile/${user?.handle || '@me'}`)}
+                                className="bg-foreground text-background px-6 py-2 rounded-full font-bold text-sm uppercase transition-all hover:opacity-90 active:scale-95"
+                            >
                                 Manage
                             </button>
                         </div>
